@@ -1,13 +1,39 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>HR360 | Enterprise Management</title>
+    <link rel="icon" type="image/png" href="/HR360_Logo.png">
+    <!-- Google Fonts — non-blocking, graceful fallback to system fonts if offline -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Barlow+Condensed:ital,wght@1,700;1,800;1,900&display=swap">
+    <noscript>
+      <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Barlow+Condensed:ital,wght@1,700;1,800;1,900&display=swap">
+    </noscript>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3",
+        "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+        "recharts": "https://esm.sh/recharts@^3.6.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+        "react-router": "https://esm.sh/react-router@^7.12.0",
+        "@tanstack/react-query": "https://esm.sh/@tanstack/react-query@5.66.0",
+        "react-markdown": "https://esm.sh/react-markdown@^10.1.0"
+      }
+    }
+    </script>
+    <link rel="stylesheet" href="/index.css">
   </head>
-  <body>
+  <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-[#f8fafc] transition-colors duration-300">
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
-

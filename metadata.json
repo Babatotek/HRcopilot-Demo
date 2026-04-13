@@ -1,5 +1,9 @@
 {
-  "name": "HR360 Dashboard",
-  "description": "A comprehensive HR management dashboard demo featuring executive insights, employee demographics, and payroll summaries.",
-  "requestFramePermissions": []
+  "name": "HR360enterprise",
+  "description": "The global HR operating system for teams that demand data integrity. Predictive analysis, automated compliance, and strategic alignment.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ]
 }
