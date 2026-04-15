@@ -20,6 +20,7 @@ export interface DemoStep {
   narrationKey: string;       // key into ALL_SCRIPTS
   durationMs:   number;       // auto-advance after this ms (0 = manual)
   joyrideTarget?: string;     // CSS selector for spotlight
+  uiAction?:    string;       // optional action to fire on step start e.g. 'open:ai-advisor'
 }
 
 interface OrchestratorState {

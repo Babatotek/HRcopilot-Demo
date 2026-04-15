@@ -73,6 +73,14 @@ export function GuidedFlowRunner() {
     const target = currentStep.module ? `/app/${currentStep.module}` : '/app';
     navigate(target);
 
+    // Fire any UI action for this step (e.g. open a modal)
+    if (currentStep.uiAction) {
+      // Small delay so the page has rendered before the action fires
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('demo:uiAction', { detail: currentStep.uiAction }));
+      }, 300);
+    }
+
     // Helper to advance — guarded so it can only fire once per step
     const advance = () => {
       if (advancedRef.current) return;

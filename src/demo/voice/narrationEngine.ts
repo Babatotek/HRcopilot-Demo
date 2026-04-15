@@ -81,9 +81,8 @@ function resolveGroqVoice(stored: string): OrpheusVoice {
 
 // ── Layer 1: ElevenLabs ────────────────────────────────────────────────────────
 
-async function speakElevenLabs(text: string, token: number): Promise<void> {
+async function speakElevenLabs(text: string, token: number, scriptId: string | null = _currentScriptId): Promise<void> {
   const { volume, muted, elevenLabsVoiceId } = useNarratorStore.getState();
-  const scriptId = _currentScriptId;
 
   // ── Cache hit ──────────────────────────────────────────────────────────────
   if (scriptId) {
@@ -138,10 +137,9 @@ async function speakElevenLabs(text: string, token: number): Promise<void> {
 
 // ── Layer 2: Groq TTS ──────────────────────────────────────────────────────────
 
-async function speakGroq(text: string, token: number): Promise<void> {
+async function speakGroq(text: string, token: number, scriptId: string | null = _currentScriptId): Promise<void> {
   const { groqVoice, volume, muted } = useNarratorStore.getState();
-  const voice    = resolveGroqVoice(groqVoice);
-  const scriptId = _currentScriptId;
+  const voice = resolveGroqVoice(groqVoice);
 
   // ── Cache hit ──────────────────────────────────────────────────────────────
   if (scriptId) {
@@ -189,7 +187,7 @@ async function speakGroq(text: string, token: number): Promise<void> {
 
 async function playAudioBlob(blob: Blob, volume: number, muted: boolean, token: number): Promise<void> {
   // Bail out if a newer speak() call has already superseded us
-  if (token !== _speakToken) { URL.createObjectURL(blob); return; }
+  if (token !== _speakToken) return;
 
   const url   = URL.createObjectURL(blob);
   const audio = new Audio(url);
@@ -252,7 +250,8 @@ export async function speak(text: string, opts: SpeakWithIdOptions = {}): Promis
   // Increment token — any in-flight speak() call will see its token is stale
   // and bail out before playing audio, preventing overlapping voices.
   const token = ++_speakToken;
-  _currentScriptId = opts.scriptId ?? null;
+  const capturedScriptId = opts.scriptId ?? null;
+  _currentScriptId = capturedScriptId;
 
   stopActiveAudio();
   subtitleEngine.stop();
@@ -270,9 +269,9 @@ export async function speak(text: string, opts: SpeakWithIdOptions = {}): Promis
 
   try {
     if (provider === 'elevenlabs') {
-      await speakElevenLabs(clean, token);
+      await speakElevenLabs(clean, token, capturedScriptId);
     } else {
-      await speakGroq(clean, token);
+      await speakGroq(clean, token, capturedScriptId);
     }
 
     // Only update state if we're still the active speak() call
@@ -290,12 +289,12 @@ export async function speak(text: string, opts: SpeakWithIdOptions = {}): Promis
 
     let recovered = false;
 
-    // Try the other provider
+    // Try the other provider — pass same scriptId so fallback also caches
     try {
       if (provider === 'elevenlabs') {
-        await speakGroq(clean, token);
+        await speakGroq(clean, token, capturedScriptId);
       } else {
-        await speakElevenLabs(clean, token);
+        await speakElevenLabs(clean, token, capturedScriptId);
       }
       if (token === _speakToken) {
         recovered = true;
@@ -342,10 +341,12 @@ export function isSpeaking(): boolean { return _isSpeaking; }
 // ── Provider test ─────────────────────────────────────────────────────────────
 
 export async function testProvider(provider: NarratorProvider): Promise<NarratorTestResult> {
-  const t0 = Date.now();
+  const t0    = Date.now();
+  const token = ++_speakToken; // claim the token so playback works normally
+  _currentScriptId = null;     // no caching for test calls
   try {
-    if (provider === 'elevenlabs') await speakElevenLabs('HR360 voice system ready.');
-    else                           await speakGroq('HR360 voice system ready.');
+    if (provider === 'elevenlabs') await speakElevenLabs('HR360 voice system ready.', token, null);
+    else                           await speakGroq('HR360 voice system ready.', token, null);
     return { provider, success: true,  latencyMs: Date.now() - t0 };
   } catch (err) {
     return { provider, success: false, latencyMs: Date.now() - t0,

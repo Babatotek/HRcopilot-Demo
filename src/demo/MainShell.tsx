@@ -16,7 +16,7 @@ import { ProgressIndicator } from './components/ProgressIndicator';
 import { ModuleWrapper } from './components/ModuleWrapper';
 import { GuidedFlowRunner } from './components/GuidedFlowRunner';
 import { SandboxBanner } from './components/SandboxBanner';
-import { useDemoOrchestrator as _unused } from './orchestrator/demoOrchestrator';
+import { useDemoOrchestrator } from './orchestrator/demoOrchestrator';
 import { useModuleWalkthrough } from './walkthroughs/useModuleWalkthrough';
 import { UserRole } from '../../types';
 
@@ -157,8 +157,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, collapsed }) => {
 function JoyrideController() {
   const activeModule = useActiveModule();
   const { steps, run, stepIndex, handleCallback } = useModuleWalkthrough(activeModule);
+  const { mode } = useDemoOrchestrator();
 
-  if (!steps.length || !run) return null;
+  // Joyride only runs in sandbox mode — guided mode uses GuidedFlowRunner
+  if (mode === 'guided' || !steps.length || !run) return null;
 
   return (
     <Joyride
@@ -230,6 +232,16 @@ export default function MainShell() {
 
   // Close mobile menu on route change
   useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+
+  // Handle guided demo UI actions (e.g. auto-open modals)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const action = (e as CustomEvent<string>).detail;
+      if (action === 'open:ai-advisor') setIsAIOpen(true);
+    };
+    window.addEventListener('demo:uiAction', handler);
+    return () => window.removeEventListener('demo:uiAction', handler);
+  }, []);
 
   const companyName = orgProfile?.companyName || 'HR360';
   const roleLabel = role === UserRole.CEO ? 'CEO' : role === UserRole.HR_MANAGER ? 'HR Manager' : role === UserRole.ACCOUNTANT ? 'Accountant' : 'Guest';

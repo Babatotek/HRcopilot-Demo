@@ -26,8 +26,9 @@ export function useModuleWalkthrough(moduleKey: string) {
   const [joyrideIndex, setJoyrideIndex] = useState(0);
 
   // Auto-start walkthrough when guided demo reaches this module
+  // Only in sandbox mode — guided mode uses GuidedFlowRunner instead
   useEffect(() => {
-    if (mode !== 'guided' || status !== 'running') return;
+    if (mode !== 'sandbox' || status !== 'running') return;
     const currentFlowStep = GUIDED_FLOW[stepIndex];
     if (currentFlowStep?.module === moduleKey && steps.length > 0) {
       setJoyrideIndex(0);

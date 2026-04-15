@@ -56,6 +56,7 @@ export const GUIDED_FLOW: DemoStep[] = [
     narrationKey: 'dashboard.advisor',
     durationMs:   10_000,
     joyrideTarget: '#ai-advisor-btn',
+    uiAction:     'open:ai-advisor',
   },
   {
     id:           'leakage',
