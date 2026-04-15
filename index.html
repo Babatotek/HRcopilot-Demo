@@ -25,6 +25,15 @@
     <link rel="stylesheet" href="/index.css">
   </head>
   <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-[#f8fafc] transition-colors duration-300">
+    <!-- Netlify Forms detection — hidden, never shown to users -->
+    <form name="hr360-proposal-request" data-netlify="true" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="phone" />
+      <input type="text" name="headcount" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>

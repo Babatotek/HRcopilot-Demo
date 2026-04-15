@@ -81,6 +81,13 @@ export function GuidedFlowRunner() {
       }, 300);
     }
 
+    // Close any modal that was opened by the previous step
+    const prevStep = GUIDED_FLOW[stepIndex - 1];
+    if (prevStep?.uiAction?.startsWith('open:')) {
+      const closeAction = prevStep.uiAction.replace('open:', 'close:');
+      window.dispatchEvent(new CustomEvent('demo:uiAction', { detail: closeAction }));
+    }
+
     // Helper to advance — guarded so it can only fire once per step
     const advance = () => {
       if (advancedRef.current) return;

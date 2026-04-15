@@ -14,6 +14,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HR360Provider } from '../context/HR360Context';
 import { CinematicSubtitles } from './voice';
+import { DemoCompletionModal } from './components/DemoCompletionModal';
 import { primeAudioContext, loadKokoro } from './voice/narrationEngine';
 import { useOnboardingStore } from './onboarding/onboardingStore';
 
@@ -194,6 +195,7 @@ export function DemoApp() {
           <AppRoutes />
           {/* Always-visible overlays */}
           <CinematicSubtitles />
+          <DemoCompletionModal />
         </HashRouter>
       </QueryClientProvider>
     </ErrorBoundary>

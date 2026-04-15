@@ -238,6 +238,10 @@ export default function MainShell() {
     const handler = (e: Event) => {
       const action = (e as CustomEvent<string>).detail;
       if (action === 'open:ai-advisor') setIsAIOpen(true);
+      if (action === 'open:leakage')    setIsLeakageOpen(true);
+      // close:* actions fired when guided flow advances past a modal step
+      if (action === 'close:ai-advisor') setIsAIOpen(false);
+      if (action === 'close:leakage')    setIsLeakageOpen(false);
     };
     window.addEventListener('demo:uiAction', handler);
     return () => window.removeEventListener('demo:uiAction', handler);

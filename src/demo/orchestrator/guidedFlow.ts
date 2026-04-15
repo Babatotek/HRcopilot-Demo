@@ -42,6 +42,22 @@ export const GUIDED_FLOW: DemoStep[] = [
     joyrideTarget: '#payroll-run-btn',
   },
   {
+    id:           'payroll-slip',
+    label:        'Payslip',
+    module:       'payroll',
+    narrationKey: 'payroll.ledgerPost',
+    durationMs:   12_000,
+    joyrideTarget: '#payroll-run-btn',
+  },
+  {
+    id:           'procurement',
+    label:        'Procurement',
+    module:       'procurement',
+    narrationKey: 'procurement.hook',
+    durationMs:   12_000,
+    joyrideTarget: '#procurement-table',
+  },
+  {
     id:           'performance',
     label:        'Performance',
     module:       'performance',
@@ -61,10 +77,11 @@ export const GUIDED_FLOW: DemoStep[] = [
   {
     id:           'leakage',
     label:        'Leakage Analysis',
-    module:       'intelligence',
+    module:       '',                       // stay on current page — modal overlays it
     narrationKey: 'accountingFinance.costSavings',
     durationMs:   10_000,
     joyrideTarget: '#leakage-widget',
+    uiAction:     'open:leakage',
   },
   {
     id:           'finance',
