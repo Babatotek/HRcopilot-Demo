@@ -1174,7 +1174,7 @@ const Finance: React.FC = () => {
                  </div>
               </div>
               <div className="h-[350px]">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                   <BarChart data={AGING_DATA}>
                     <defs>
                        <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
@@ -1202,7 +1202,7 @@ const Finance: React.FC = () => {
               <GlassCard className="p-6">
                  <h4 className="text-[10px] font-black uppercase tracking-widest mb-6 border-b border-white/5 pb-2">Risk Concentration</h4>
                  <div className="h-[200px]">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                        <PieChart>
                           <Pie
                              data={[
@@ -1936,7 +1936,7 @@ const Finance: React.FC = () => {
             </div>
           </div>
           <div className="h-[350px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <LineChart data={[
                 { name: 'Jan', budget: 400000, actual: 380000 },
                 { name: 'Feb', budget: 400000, actual: 410000 },

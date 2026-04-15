@@ -108,7 +108,7 @@ const ChatInterface: React.FC = () => {
         </div>
 
         {/* Message Feed */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-repeat opacity-90 dark:opacity-100">
+        <div className="flex-1 overflow-y-auto p-8 space-y-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 bg-repeat opacity-90 dark:opacity-100">
           
           <div className="flex flex-col gap-2 max-w-[80%]">
              <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 p-3 rounded-2xl rounded-tl-none space-y-3 shadow-sm">

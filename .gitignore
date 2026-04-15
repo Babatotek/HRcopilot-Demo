@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Kokoro TTS model files — large binary assets served as static files
+# Run: node scripts/download-model.js  to restore after clone
+public/models/onnx-community/

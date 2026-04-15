@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -9,12 +10,52 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       host: '0.0.0.0',
+      headers: {
+        // Required for SharedArrayBuffer (used by WASM ONNX runtime)
+        'Cross-Origin-Opener-Policy':   'same-origin',
+        'Cross-Origin-Embedder-Policy': 'credentialless',
+      },
+    },
+    // ── Worker config — prevents Vite HMR client from being injected ──────────
+    // Without this, Vite injects /@vite/client into the worker bundle in dev
+    // mode, which calls document.querySelectorAll and crashes with
+    // "ReferenceError: document is not defined" in the worker scope.
+    worker: {
+      format: 'es',
+      plugins: () => [],
     },
     plugins: [
+      // Strip COEP from sw-kokoro.js — browsers refuse to register a SW
+      // when the script response carries Cross-Origin-Embedder-Policy.
+      {
+        name: 'sw-headers',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/sw-kokoro.js') {
+              // Serve the SW file directly as raw static content so Vite
+              // does NOT transform/inject HMR code into it — transformed SW
+              // scripts fail evaluation because they contain browser-only APIs.
+              const swPath = path.resolve(__dirname, 'public/sw-kokoro.js');
+              try {
+                const content = fs.readFileSync(swPath, 'utf-8');
+                res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+                res.setHeader('Service-Worker-Allowed', '/');
+                res.removeHeader('Cross-Origin-Embedder-Policy');
+                res.removeHeader('Cross-Origin-Opener-Policy');
+                res.end(content);
+                return; // skip next() — we've handled the response
+              } catch (err) {
+                console.error('[sw-headers] Could not read sw-kokoro.js:', err);
+              }
+            }
+            next();
+          });
+        },
+      },
       react({
-        // Babel fast-refresh only in dev
+        // Babel fast-refresh only in dev — no extra plugins needed
         babel: {
-          plugins: mode === 'production' ? ['transform-remove-console'] : [],
+          plugins: [],
         },
       }),
       tailwindcss(),
@@ -22,34 +63,45 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      'process.env.VITE_GROQ_API_KEY': JSON.stringify(env.VITE_GROQ_API_KEY),
     },
     resolve: {
       alias: { '@': path.resolve(__dirname, '.') },
     },
     optimizeDeps: {
-      // Pre-bundle heavy deps so Vite doesn't re-process them on every cold start
       include: [
         'react', 'react-dom', 'react-router-dom',
         'recharts', 'framer-motion', 'lucide-react',
       ],
+      // kokoro-js uses dynamic WASM — exclude from pre-bundling
+      exclude: ['kokoro-js'],
     },
+    // Allow WASM and large model files
+    assetsInclude: ['**/*.wasm', '**/*.onnx'],
     build: {
       target: 'esnext',
       minify: 'esbuild',
-      chunkSizeWarningLimit: 700,
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
-          // Fine-grained manual chunks — each loads only when its route is visited
           manualChunks(id) {
-            if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) return 'react-core';
+            // React core — keep leaflet out to break circular dep
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
             if (id.includes('node_modules/react-router')) return 'router';
+            // Leaflet in its own chunk — breaks maps <-> react-core circular
+            if (id.includes('node_modules/leaflet') || id.includes('node_modules/react-leaflet')) return 'maps';
             if (id.includes('node_modules/recharts') || id.includes('node_modules/d3')) return 'charts';
             if (id.includes('node_modules/framer-motion') || id.includes('node_modules/motion')) return 'motion';
             if (id.includes('node_modules/lucide-react')) return 'icons';
-            if (id.includes('node_modules/leaflet') || id.includes('node_modules/react-leaflet')) return 'maps';
             if (id.includes('node_modules/@tanstack')) return 'query';
             if (id.includes('node_modules/groq-sdk') || id.includes('node_modules/@google')) return 'ai-sdk';
+            if (id.includes('node_modules/kokoro-js') || id.includes('node_modules/@huggingface')) return 'kokoro';
+            if (id.includes('node_modules/zustand')) return 'zustand';
+            if (id.includes('node_modules/dexie')) return 'dexie';
+            if (id.includes('node_modules/react-joyride') || id.includes('node_modules/react-floater')) return 'joyride';
+            // App code — split pages from components
             if (id.includes('/pages/')) return 'pages';
+            if (id.includes('/src/components/leakage/')) return 'leakage';
             if (id.includes('/components/')) return 'components';
             if (id.includes('/services/')) return 'services';
           },

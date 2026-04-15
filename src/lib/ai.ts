@@ -6,83 +6,88 @@
  *   • Groq       — primary LLM (llama-3.3-70b-versatile, fast inference)
  *   • ElevenLabs — neural voice synthesis
  *
- * Gemini is disabled (quota exceeded). Clients are null-safe:
- * every service falls back to mock data when no key is present.
+ * Groq uses a multi-key pool (groqKeyPool.ts) — add up to 5 keys in .env.local:
+ *   VITE_GROQ_API_KEY=gsk_...
+ *   VITE_GROQ_API_KEY_2=gsk_...
+ *   VITE_GROQ_API_KEY_3=gsk_...
+ * On 429 rate-limit the pool rotates to the next key automatically.
  */
 
 import Groq from 'groq-sdk';
+import { withGroqKey, getNextKey } from './groqKeyPool';
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const GROQ_KEY        = import.meta.env.VITE_GROQ_API_KEY        as string | undefined;
 export const ELEVENLABS_KEY      = import.meta.env.VITE_ELEVENLABS_API_KEY  as string | undefined;
 export const ELEVENLABS_VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID as string | undefined;
 
 export const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
-function isValidKey(key: string | undefined): boolean {
-  return !!key && !key.startsWith('your_') && key.length > 10;
+// ─── Groq client factory (pool-aware) ────────────────────────────────────────
+// Returns a fresh Groq client for the given key.
+// We don't cache a singleton anymore — the pool picks the key per-call.
+
+function makeGroqClient(apiKey: string): Groq {
+  return new Groq({ apiKey, dangerouslyAllowBrowser: true });
 }
 
-// ─── Groq client (singleton) ──────────────────────────────────────────────────
-
-let _groqClient: Groq | null = null;
-
+/** Returns a client using the next healthy key, or null if pool is empty. */
 export function getGroqClient(): Groq | null {
-  if (!isValidKey(GROQ_KEY)) return null;
-  if (!_groqClient) {
-    _groqClient = new Groq({ apiKey: GROQ_KEY!, dangerouslyAllowBrowser: true });
-  }
-  return _groqClient;
+  const key = getNextKey();
+  return key ? makeGroqClient(key) : null;
 }
 
 // ─── Shared chat helper ───────────────────────────────────────────────────────
 
 /**
- * Single-turn Groq chat completion.
- * Returns '' (empty string) if no API key is configured — callers use their own fallback.
+ * Single-turn Groq chat completion with automatic key rotation on 429.
+ * Returns '' if no keys are configured.
  */
 export async function groqChat(
   systemPrompt: string,
   userMessage:  string,
   maxTokens = 512,
 ): Promise<string> {
-  const client = getGroqClient();
-  if (!client) return '';
+  const hasPool = !!getNextKey();
+  if (!hasPool) return '';
 
-  const res = await client.chat.completions.create({
-    model:       GROQ_MODEL,
-    temperature: 0.4,
-    max_tokens:  maxTokens,
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user',   content: userMessage  },
-    ],
-  });
+  const res = await withGroqKey((key) =>
+    makeGroqClient(key).chat.completions.create({
+      model:       GROQ_MODEL,
+      temperature: 0.4,
+      max_tokens:  maxTokens,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user',   content: userMessage  },
+      ],
+    }),
+  );
 
   return res.choices[0]?.message?.content?.trim() ?? '';
 }
 
 /**
- * Multi-turn Groq chat completion (for the AI Advisor chat).
+ * Multi-turn Groq chat completion with automatic key rotation on 429.
  */
 export async function groqChatMultiTurn(
   systemPrompt: string,
   history: { role: 'user' | 'assistant'; content: string }[],
   maxTokens = 700,
 ): Promise<string> {
-  const client = getGroqClient();
-  if (!client) return '';
+  const hasPool = !!getNextKey();
+  if (!hasPool) return '';
 
-  const res = await client.chat.completions.create({
-    model:       GROQ_MODEL,
-    temperature: 0.5,
-    max_tokens:  maxTokens,
-    messages: [
-      { role: 'system', content: systemPrompt },
-      ...history,
-    ],
-  });
+  const res = await withGroqKey((key) =>
+    makeGroqClient(key).chat.completions.create({
+      model:       GROQ_MODEL,
+      temperature: 0.5,
+      max_tokens:  maxTokens,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...history,
+      ],
+    }),
+  );
 
   return res.choices[0]?.message?.content?.trim() ?? '';
 }

@@ -732,7 +732,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
                 ))}
                 <StatRow label="Total" value="440" />
                 <div className="mt-4 h-36">
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <PieChart>
                       <Pie data={demographicsData} innerRadius={44} outerRadius={64} paddingAngle={4} dataKey="value" stroke="none" isAnimationActive={false}>
                         {demographicsData.map((e, i) => <Cell key={i} fill={e.color} />)}
@@ -745,7 +745,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
             }>
             <div className="flex flex-col items-center pt-2">
               <div className="h-36 w-36">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                   <PieChart>
                     <Pie data={demographicsData} innerRadius={44} outerRadius={64} paddingAngle={4} dataKey="value" stroke="none" isAnimationActive={false}>
                       {demographicsData.map((e, i) => <Cell key={i} fill={e.color} />)}

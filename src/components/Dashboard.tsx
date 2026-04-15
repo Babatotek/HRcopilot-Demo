@@ -68,7 +68,7 @@ export function Dashboard() {
             <button className="text-[10px] font-bold text-brand-blue hover:underline">View Details →</button>
           </div>
           <div className="h-52 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <LineChart data={headcountData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                 <XAxis 
@@ -102,7 +102,7 @@ export function Dashboard() {
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <h3 className="text-sm font-bold text-slate-800 mb-4">Attendance Health</h3>
           <div className="h-40 relative">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={attendanceData}
@@ -145,7 +145,7 @@ export function Dashboard() {
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <h3 className="text-sm font-bold text-slate-800 mb-4">Employee Demographics</h3>
           <div className="h-40 relative">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={demographicData}

@@ -215,9 +215,10 @@ export async function generateHRAssistantResponse(
   userMessage: string,
   history: { role: 'user' | 'assistant'; content: string }[] = [],
 ): Promise<string> {
-  const client = getGroqClient();
+  // groqChatMultiTurn uses withGroqKey internally — works with UI-only keys too
+  const hasKey = !!getGroqClient();
 
-  if (!client) {
+  if (!hasKey) {
     for (const [pattern, response] of OFFLINE_RESPONSES) {
       if (pattern.test(userMessage)) return response;
     }

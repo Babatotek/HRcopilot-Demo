@@ -217,7 +217,7 @@ const Leave: React.FC = () => {
 
                 <GlassCard title="Leave Analytics">
                    <div className="h-48 relative">
-                      <ResponsiveContainer width="100%" height="100%">
+                      <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                          <PieChart>
                             <Pie data={ANALYTICS_PIE} innerRadius={60} outerRadius={80} paddingAngle={4} dataKey="value" stroke="none">
                                {ANALYTICS_PIE.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}

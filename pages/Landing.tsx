@@ -62,9 +62,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
   ];
 
   const testimonials = [
-    { name: 'Sarah Johnson', role: 'CHIEF HR OFFICER AT TECHFLOW', quote: '"HR360 replaced 5 different disjointed systems. Our HR team is finally strategic rather than administrative. The ROI was apparent within months."', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200' },
-    { name: 'Michael Chen', role: 'CIO AT GLOBALLOGISTICS', quote: '"Enterprise-grade security meets consumer-grade user experience. The implementation was seamless, and the analytics dashboard gives our C-suite unprecedented visibility."', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200' },
-    { name: 'Elena Rodriguez', role: 'VP OF TALENT AT BLOOM CREATIVE', quote: '"The AI-powered recruitment and automated onboarding workflows have reduced our time-to-hire by 35%. HR360 is a fundamental game-changer."', img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200' },
+    { name: 'Sarah Johnson', role: 'CHIEF HR OFFICER AT TECHFLOW', quote: '"HR360 replaced 5 different disjointed systems. Our HR team is finally strategic rather than administrative. The ROI was apparent within months."', img: '/HR360_Logo1.png' },
+    { name: 'Michael Chen', role: 'CIO AT GLOBALLOGISTICS', quote: '"Enterprise-grade security meets consumer-grade user experience. The implementation was seamless, and the analytics dashboard gives our C-suite unprecedented visibility."', img: '/Analytictosin_Logo.png' },
+    { name: 'Elena Rodriguez', role: 'VP OF TALENT AT BLOOM CREATIVE', quote: '"The AI-powered recruitment and automated onboarding workflows have reduced our time-to-hire by 35%. HR360 is a fundamental game-changer."', img: '/HR360_bg.jpg' },
   ];
 
   const pricing = [
@@ -74,9 +74,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
   ];
 
   const news = [
-    { date: 'April 02, 2026', title: 'How AI is Reshaping Enterprise Talent Acquisition', img: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800', tag: 'PRODUCT' },
-    { date: 'March 28, 2026', title: 'Navigating Global Compliance in a Remote-First World', img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800', tag: 'COMPLIANCE' },
-    { date: 'March 15, 2026', title: 'HR360 Named Leader in HCM Magic Quadrant', img: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800', tag: 'COMPANY' },
+    { date: 'April 02, 2026', title: 'How AI is Reshaping Enterprise Talent Acquisition', img: '/HR360_bg.jpg', tag: 'PRODUCT' },
+    { date: 'March 28, 2026', title: 'Navigating Global Compliance in a Remote-First World', img: '/Analytictosin_Logo.png', tag: 'COMPLIANCE' },
+    { date: 'March 15, 2026', title: 'HR360 Named Leader in HCM Magic Quadrant', img: '/HR360_Logo1.png', tag: 'COMPANY' },
   ];
 
   const faqs = [
@@ -117,8 +117,14 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <button onClick={onLogin} className="text-slate-700 text-[11px] font-bold tracking-widest uppercase hover:text-blue-600 transition-colors">
               LOGIN
             </button>
-            <button onClick={onGetStarted} className="bg-[#0047cc] text-white px-6 py-3 rounded-full text-[11px] font-bold tracking-widest uppercase hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/20 transition-all">
-              GET STARTED
+            <button onClick={onGetStarted} className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full text-[11px] font-bold tracking-widest uppercase hover:shadow-lg hover:shadow-indigo-500/30 transition-all group">
+              <motion.span
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                initial={{ x: '-100%' }}
+                animate={{ x: '200%' }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1.5, ease: 'easeInOut' }}
+              />
+              <span className="relative z-10">✨ Explore Demo</span>
             </button>
           </div>
 
@@ -150,7 +156,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
         {/* Hero Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000"
+            src="/HR360_bg.jpg"
             alt="HR360 Background"
             className="w-full h-full object-cover opacity-20 dark:opacity-10"
           />
@@ -189,14 +195,42 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            <button
+            {/* ✨ Glittering Explore Demo button */}
+            <motion.button
               id="explore-btn"
               onClick={onGetStarted}
-              className="w-full sm:w-auto px-10 py-5 text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-blue-500/30"
-              style={{ backgroundColor: brand.primaryColor }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="relative w-full sm:w-auto px-10 py-5 rounded-2xl text-white text-xs font-black uppercase tracking-[0.2em] overflow-hidden shadow-2xl shadow-indigo-500/30 group"
+              style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)' }}
             >
-              Start Company Onboarding
-            </button>
+              {/* Shimmer sweep */}
+              <motion.span
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12"
+                initial={{ x: '-100%' }}
+                animate={{ x: '200%' }}
+                transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
+              />
+              {/* Sparkle dots */}
+              {[
+                { top: '20%', left: '12%', delay: 0 },
+                { top: '60%', left: '80%', delay: 0.4 },
+                { top: '30%', left: '70%', delay: 0.8 },
+                { top: '70%', left: '25%', delay: 1.2 },
+              ].map((s, i) => (
+                <motion.span
+                  key={i}
+                  className="absolute w-1 h-1 rounded-full bg-white"
+                  style={{ top: s.top, left: s.left }}
+                  animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
+                  transition={{ duration: 1.2, repeat: Infinity, delay: s.delay, ease: 'easeInOut' }}
+                />
+              ))}
+              <span className="relative z-10 flex items-center gap-2">
+                ✨ Explore Demo
+              </span>
+            </motion.button>
+
             <button
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto px-10 py-5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-600 dark:text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm"
@@ -236,7 +270,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           </div>
 
           <div className="relative w-full max-w-5xl mx-auto aspect-video bg-slate-200 rounded-[2rem] overflow-hidden mb-12 group cursor-pointer">
-            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80" alt="Dashboard Preview" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
+            <img src="/HR360_bg.jpg" alt="Dashboard Preview" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform">
@@ -252,7 +286,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <div className="flex items-center gap-6">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
-                  <img key={i} src={`https://i.pravatar.cc/100?img=${i+20}`} className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="Avatar" />
+                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                    {i}
+                  </div>
                 ))}
               </div>
               <button className="text-xs font-bold tracking-widest uppercase text-slate-900 flex items-center gap-2 hover:text-blue-600 transition-colors">
@@ -374,7 +410,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
                 </div>
                 <div className="flex items-center gap-8">
                   {i === 0 && (
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=300" alt="Analytics Preview" className="w-32 h-20 object-cover rounded hidden md:block" />
+                    <img src="/Analytictosin_Logo.png" alt="Analytics Preview" className="w-32 h-20 object-cover rounded hidden md:block" />
                   )}
                   <button className="text-[10px] font-bold tracking-widest uppercase text-slate-500 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
                     EXPLORE FEATURE <ArrowRight className="w-3 h-3" />
@@ -419,7 +455,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
       {/* Pricing */}
       <section id="pricing" className="py-20 md:py-32 px-6 relative bg-[#0a0a0a]">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80" alt="Office" className="w-full h-full object-cover" />
+          <img src="/HR360_bg.jpg" alt="Office" className="w-full h-full object-cover" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto">
@@ -541,7 +577,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
       <section id="contact" className="py-20 md:py-32 px-6 bg-white relative">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="w-full h-[400px] bg-slate-200 rounded-3xl mb-20 relative overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80" alt="Map" className="w-full h-full object-cover opacity-50 grayscale" />
+            <img src="/HR360_bg.jpg" alt="Map" className="w-full h-full object-cover opacity-50 grayscale" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
               <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl mb-4">
                 <MapPin className="w-6 h-6" />

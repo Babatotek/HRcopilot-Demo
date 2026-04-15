@@ -285,7 +285,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
               <div className="lg:col-span-8">
                  <GlassCard title="Organization Competency Levels">
                     <div className="h-72 mt-4">
-                       <ResponsiveContainer width="100%" height="100%">
+                       <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                           <BarChart data={teamPerformanceData}>
                              <CartesianGrid strokeDasharray="3 3" stroke="#00000010" vertical={false} />
                              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748b' }} />

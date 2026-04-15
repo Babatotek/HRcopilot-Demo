@@ -168,7 +168,7 @@ const MyPerformance: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <GlassCard title="Score Trend">
                 <div className="h-56 mt-4">
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <BarChart data={scoreHistory}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#00000010" vertical={false} />
                       <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#64748b' }} />
@@ -182,7 +182,7 @@ const MyPerformance: React.FC = () => {
 
               <GlassCard title="Competency Radar">
                 <div className="h-56 mt-4">
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <RadarChart data={radarData}>
                       <PolarGrid stroke="#e2e8f0" />
                       <PolarAngleAxis dataKey="subject" tick={{ fontSize: 9, fill: '#64748b' }} />

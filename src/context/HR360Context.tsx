@@ -136,9 +136,12 @@ export const HR360Provider: React.FC<{ children: ReactNode }> = ({ children }) =
       (snapshot as any)[key] = (state as any)[key];
     }
     persistState(snapshot);
-    // Invalidate cached derived computations whenever state changes
-    queryCache.invalidatePrefix('groq:');
-    queryCache.invalidatePrefix('derived:');
+    // Only invalidate the Groq context cache — derived caches (dept breakdowns,
+    // performance rankings, etc.) are keyed separately and have their own TTLs.
+    // Previously this invalidated ALL 'groq:' and 'derived:' keys on every state
+    // change, defeating the 2-minute TTL and causing expensive recomputation on
+    // every clock-in, leave approval, or any other demo interaction.
+    queryCache.invalidate('groq:context');
   }, [state]);
   const log = (module: string, action: string, detail: string) => ({
     timestamp: new Date().toISOString(),

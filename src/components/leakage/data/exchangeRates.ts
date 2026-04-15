@@ -112,7 +112,6 @@ export const FALLBACK_RATES = {
   DJF: 177.7,
   ERN: 15.0,
   MRU: 39.8,
-  NZD: 1.63,
   FJD: 2.24,
   PGK: 3.73,
   WST: 2.73,

@@ -43,6 +43,7 @@ import AIAdvisorModal from './components/AIAdvisorModal';
 import ClockInModal from './components/ClockInModal';
 import LeakageAnalysisModal from './components/LeakageAnalysisModal';
 import { HR360Provider } from './src/context/HR360Context';
+import { CinematicSubtitles } from './src/demo/voice';
 
 // ── Page loading fallback ─────────────────────────────────────────────────────
 const PageLoader = () => (
@@ -456,6 +457,9 @@ const MainApp: React.FC<{
         onClose={() => setIsLeakageModalOpen(false)}
         userName={userProfile.name}
       />
+
+      {/* ── Voice System — subtitles only in main app ────────────────────── */}
+      <CinematicSubtitles />
     </div>
   );
 };
