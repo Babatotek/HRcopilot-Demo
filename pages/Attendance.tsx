@@ -80,20 +80,20 @@ const Attendance: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700 pb-20">
+    <div className="space-y-6 animate-in fade-in duration-700 pb-20">
       {/* Header Section */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">
           ATTENDANCE <span className="text-[#0047cc] italic">WORKSPACE</span>
         </h1>
-        <div id="attendance-live-sync" data-demo-id="attendance-live-sync" className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
+        <div id="attendance-live-sync" data-demo-id="attendance-live-sync" className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-widest">LIVE SYNC ACTIVE</span>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex items-center gap-2 bg-white dark:bg-white/5 p-1.5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-x-auto shadow-sm">
+      <div className="flex items-center gap-1.5 bg-white dark:bg-white/5 p-1.5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-x-auto shadow-sm">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
@@ -103,7 +103,7 @@ const Attendance: React.FC = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-5 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                 activeTab === tab.id 
-                  ? 'bg-[#0047cc] text-white shadow-lg shadow-purple-500/20' 
+                  ? 'bg-[#0047cc] text-white shadow-lg shadow-[#e0f2fe]0/20' 
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'
               }`}
             >
@@ -123,7 +123,7 @@ const Attendance: React.FC = () => {
               <h2 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight italic">OVERVIEW & ANALYTICS</h2>
               
               {/* Stats Grid */}
-              <div id="attendance-stats" data-demo-id="attendance-stats" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div id="attendance-stats" data-demo-id="attendance-stats" className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                 {stats.map((stat, i) => (
                   <GlassCard key={i} accentColor={stat.accent} className="!p-4 cursor-pointer">
                     <div className="flex justify-between items-center mb-3">
@@ -140,7 +140,7 @@ const Attendance: React.FC = () => {
               {/* Charts Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Attendance Rate Card */}
-                <GlassCard className="p-8 flex flex-col justify-between h-[350px]">
+                <GlassCard className="p-4 sm:p-8 flex flex-col justify-between h-auto sm:h-[350px]">
                   <div className="flex justify-between items-start">
                     <h3 className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">Attendance Rate</h3>
                     <TrendingUp className="text-emerald-500" size={16} />
@@ -162,7 +162,7 @@ const Attendance: React.FC = () => {
                 </GlassCard>
 
                 {/* 7-Day Trend Chart */}
-                <GlassCard className="lg:col-span-2 p-8 h-[350px]">
+                <GlassCard className="lg:col-span-2 p-4 sm:p-8 h-auto sm:h-[350px]">
                   <div className="flex justify-between items-center mb-8">
                     <h3 className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">7-Day Attendance Trend</h3>
                     <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Last 7 days</span>
@@ -214,7 +214,7 @@ const Attendance: React.FC = () => {
               </div>
               
               <GlassCard className="!p-0 overflow-hidden">
-                <div className="overflow-x-auto">
+                <div className="table-wrap">
                   <table className="w-full text-left">
                     <thead>
                       <tr className="text-[10px] font-black text-slate-700 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/[0.01]">
@@ -280,7 +280,7 @@ const Attendance: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <div className="overflow-x-auto">
+              <div className="table-wrap">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-white/5">
@@ -362,7 +362,7 @@ const Attendance: React.FC = () => {
                   {[...new Set(todayRecords.map(r => r.department))].map(d => <option key={d}>{d}</option>)}
                 </select>
               </div>
-              <div className="overflow-x-auto">
+              <div className="table-wrap">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-white/5">
@@ -420,7 +420,7 @@ const Attendance: React.FC = () => {
                     <div key={i} className="p-4 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center">
                       <div>
                         <p className="text-xs font-bold text-slate-900 dark:text-white">{r.employeeName}</p>
-                        <p className="text-[9px] text-slate-600 dark:text-slate-500 uppercase">{r.otMins} mins OT â€¢ Apr 11</p>
+                        <p className="text-[9px] text-slate-600 dark:text-slate-500 uppercase">{r.otMins} mins OT • Apr 11</p>
                       </div>
                       <div className="flex gap-2">
                         <button className="px-3 py-1 bg-emerald-500 text-white text-[8px] font-black uppercase rounded-lg">Approve</button>
@@ -479,7 +479,7 @@ const Attendance: React.FC = () => {
               </div>
             </GlassCard>
             <GlassCard title="Bulk Import">
-              <div className="p-8 border-2 border-dashed border-white/10 rounded-2xl text-center space-y-4">
+              <div className="p-4 sm:p-8 border-2 border-dashed border-white/10 rounded-2xl text-center space-y-4">
                 <Smartphone className="mx-auto text-slate-500" size={32} />
                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Drag and drop attendance CSV/XLSX files</p>
                 <button className="px-6 py-2 bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg shadow-blue-500/20">
@@ -655,7 +655,7 @@ const Attendance: React.FC = () => {
                       <div className="space-y-6">
                         <div>
                           <div className="flex justify-between items-center mb-2">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Radius (100m) â€” Max 300m</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Radius (100m) — Max 300m</label>
                             <span className="text-[10px] font-black text-[#0047cc]">230m</span>
                           </div>
                           <input type="range" min="50" max="500" defaultValue="230" className="w-full h-2 bg-slate-100 dark:bg-white/5 rounded-lg appearance-none cursor-pointer accent-[#0047cc]" />
@@ -691,7 +691,7 @@ const Attendance: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div className="lg:col-span-7 space-y-8">
                   {/* Working Hours & Grace */}
-                  <GlassCard className="p-8">
+                  <GlassCard className="p-4 sm:p-8">
                     <div className="flex items-center gap-3 mb-8">
                       <Clock className="text-[#0047cc]" size={20} />
                       <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight italic">Working Hours & Grace</h3>
@@ -768,7 +768,7 @@ const Attendance: React.FC = () => {
                         ))}
                       </div>
                       <p className="text-[9px] text-slate-500 font-bold uppercase mt-4 italic">
-                        {workdaySettings.workingDays.length} working days per week â€” used for attendance calendar, leave accrual, and payroll calculations.
+                        {workdaySettings.workingDays.length} working days per week — used for attendance calendar, leave accrual, and payroll calculations.
                       </p>
                     </div>
 
@@ -784,7 +784,7 @@ const Attendance: React.FC = () => {
                   </GlassCard>
 
                   {/* Public Holidays */}
-                  <GlassCard className="p-8">
+                  <GlassCard className="p-4 sm:p-8">
                     <div className="flex justify-between items-center mb-8">
                       <div className="flex items-center gap-3">
                         <Calendar className="text-[#0047cc]" size={20} />
@@ -820,7 +820,7 @@ const Attendance: React.FC = () => {
 
                 <div className="lg:col-span-5 space-y-8">
                   {/* Governance Notice */}
-                  <GlassCard className="p-8 border-l-4 border-l-amber-500">
+                  <GlassCard className="p-4 sm:p-8 border-l-4 border-l-amber-500">
                     <div className="flex items-center gap-3 mb-6">
                       <ShieldCheck className="text-amber-500" size={20} />
                       <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight italic">Governance Notice</h3>
@@ -848,7 +848,7 @@ const Attendance: React.FC = () => {
                   </GlassCard>
 
                   {/* Policy Impact Summary */}
-                  <GlassCard className="p-8 bg-gradient-to-br from-[#0047cc] to-[#0047cc] text-white relative overflow-hidden">
+                  <GlassCard className="p-4 sm:p-8 bg-gradient-to-br from-[#0047cc] to-[#0047cc] text-white relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
                     <div className="relative z-10">
                       <h3 className="text-xl font-black uppercase italic tracking-tight mb-1">Policy Impact <span className="opacity-60">Summary</span></h3>
@@ -903,3 +903,6 @@ const Attendance: React.FC = () => {
 };
 
 export default Attendance;
+
+
+

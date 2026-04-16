@@ -26,7 +26,7 @@ export function SandboxBanner() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.5 }}
-      className="fixed top-20 right-4 z-[9980] pointer-events-auto"
+      className="fixed top-16 md:top-20 right-2 md:right-4 z-[9980] pointer-events-auto"
     >
       <div
         className="flex items-center gap-3 px-4 py-2.5 rounded-2xl shadow-lg"

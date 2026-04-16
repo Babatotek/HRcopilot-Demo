@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ClockInModalProps {
@@ -136,14 +136,14 @@ const ClockInModal: React.FC<ClockInModalProps> = ({ isOpen, onClose, userName =
                 </p>
                 <div className="flex items-center justify-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl flex items-center justify-center"
-                    style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)' }}>
+                    style={{ background: 'linear-gradient(135deg, #0369a1, #38bdf8)' }}>
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <h2 className="text-2xl font-black tracking-tight">
                     <span className="text-slate-800">ATTENDANCE </span>
-                    <span style={{ background: 'linear-gradient(90deg,#7c3aed,#ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    <span style={{ background: 'linear-gradient(90deg,#0369a1,#ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                       SYSTEM
                     </span>
                   </h2>
@@ -313,7 +313,7 @@ const ClockInModal: React.FC<ClockInModalProps> = ({ isOpen, onClose, userName =
                   clockedIn
                     ? { background: 'linear-gradient(135deg,#f43f5e,#e11d48)', color: '#fff', boxShadow: '0 8px 24px -4px rgba(244,63,94,0.35)' }
                     : canClockIn
-                    ? { background: 'linear-gradient(135deg,#7c3aed,#a855f7)', color: '#fff', boxShadow: '0 8px 24px -4px rgba(124,58,237,0.35)' }
+                    ? { background: 'linear-gradient(135deg,#0369a1,#38bdf8)', color: '#fff', boxShadow: '0 8px 24px -4px rgba(3,105,161,0.35)' }
                     : { background: '#f1f5f9', color: '#94a3b8', cursor: 'not-allowed' }
                 }
               >
@@ -336,3 +336,4 @@ const ClockInModal: React.FC<ClockInModalProps> = ({ isOpen, onClose, userName =
 };
 
 export default ClockInModal;
+

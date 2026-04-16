@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Plus, Shield, Edit3, Lock } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -74,7 +74,7 @@ function RoleCard({ name, description, scope, permissions, status }: any) {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div>
           <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mb-1">Default Scope</p>
-          <span className="px-2 py-0.5 bg-purple-50 text-purple-600 text-[9px] font-bold rounded uppercase tracking-wider border border-purple-100">
+          <span className="px-2 py-0.5 bg-[#e0f2fe] text-[#0369a1] text-[9px] font-bold rounded uppercase tracking-wider border border-[#bae6fd]">
             {scope}
           </span>
         </div>
@@ -100,3 +100,4 @@ function RoleCard({ name, description, scope, permissions, status }: any) {
     </div>
   );
 }
+

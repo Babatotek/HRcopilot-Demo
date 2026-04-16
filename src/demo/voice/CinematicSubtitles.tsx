@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/voice/CinematicSubtitles.tsx
 // PURPOSE: Cinematic glassmorphism subtitle overlay.
 //   - Floats as a compact pill in the TOP-CENTER (never blocks buttons)
@@ -61,20 +61,20 @@ export function CinematicSubtitles() {
             className="relative max-w-2xl w-full"
           >
             {/* Gradient border glow */}
-            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-violet-500/40 via-purple-400/30 to-indigo-500/40 blur-[2px]" />
+            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-[#e0f2fe]0/40 via-[#0ea5e9]/30 to-[#eff6ff]0/40 blur-[2px]" />
 
             {/* Frosted glass card — always dark so text is always visible */}
             <div className="relative rounded-2xl px-6 py-3.5 overflow-hidden"
               style={{
-                background: 'rgba(13, 8, 28, 0.88)',
+                background: 'rgba(2, 13, 26, 0.88)',
                 backdropFilter: 'blur(24px)',
                 WebkitBackdropFilter: 'blur(24px)',
-                border: '1px solid rgba(167,139,250,0.2)',
+                border: '1px solid rgba(56,189,248,0.2)',
                 boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
               }}>
 
               {/* Subtle inner shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-violet-500/5 rounded-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-[#e0f2fe]0/5 rounded-2xl" />
 
               {/* Waveform indicator + words */}
               <div className="relative flex items-center gap-3">
@@ -84,7 +84,7 @@ export function CinematicSubtitles() {
                   {[0, 1, 2, 3].map((i) => (
                     <motion.span
                       key={i}
-                      className="w-[3px] rounded-full bg-violet-400"
+                      className="w-[3px] rounded-full bg-[#0ea5e9]"
                       animate={
                         status === 'speaking'
                           ? { height: ['4px', '14px', '4px'] }
@@ -115,7 +115,7 @@ export function CinematicSubtitles() {
                           scale:      isActive ? 1.08 : 1,
                           color:      isActive ? '#c4b5fd' : isPast ? '#94a3b8' : '#f1f5f9',
                           textShadow: isActive
-                            ? '0 0 16px rgba(167,139,250,0.9), 0 0 32px rgba(139,92,246,0.4)'
+                            ? '0 0 16px rgba(56,189,248,0.9), 0 0 32px rgba(14,165,233,0.4)'
                             : 'none',
                         }}
                         transition={{ duration: 0.12, ease: 'easeOut' }}
@@ -130,7 +130,7 @@ export function CinematicSubtitles() {
 
               {/* Progress bar at bottom of card */}
               <motion.div
-                className="absolute bottom-0 left-0 h-[2px] rounded-full bg-gradient-to-r from-violet-500 via-purple-400 to-indigo-500"
+                className="absolute bottom-0 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#e0f2fe]0 via-[#0ea5e9] to-[#eff6ff]0"
                 initial={{ width: '0%' }}
                 animate={{ width: wordIndex >= 0
                   ? `${Math.round(((wordIndex + 1) / currentLine.words.length) * 100)}%`
@@ -151,14 +151,14 @@ export function CinematicSubtitles() {
             exit={{ opacity: 0 }}
             className="flex items-center gap-2.5 rounded-full px-5 py-2.5"
               style={{
-                background: 'rgba(13, 8, 28, 0.88)',
+                background: 'rgba(2, 13, 26, 0.88)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(167,139,250,0.2)',
+                border: '1px solid rgba(56,189,248,0.2)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
               }}
           >
             <motion.span
-              className="w-3 h-3 rounded-full border-2 border-violet-400 border-t-transparent"
+              className="w-3 h-3 rounded-full border-2 border-[#0ea5e9] border-t-transparent"
               animate={{ rotate: 360 }}
               transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
             />
@@ -171,3 +171,4 @@ export function CinematicSubtitles() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useMemo } from 'react';
 import GlassCard from './GlassCard';
 import { FormField, FormFieldType, FormTemplate, FormSection } from '../types';
@@ -109,7 +109,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onBack, initialTemplate, onSa
               Back to Templates
             </button>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#0047cc] rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
+              <div className="w-12 h-12 bg-[#0047cc] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#e0f2fe]0/20">
                 <Plus size={24} strokeWidth={3} />
               </div>
               <div>
@@ -146,7 +146,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onBack, initialTemplate, onSa
             </button>
             <button 
               onClick={() => onSave({ ...template, status: 'PUBLISHED' })}
-              className="px-8 py-3 bg-[#0047cc] text-white font-black text-[11px] uppercase tracking-widest rounded-2xl shadow-xl shadow-purple-500/20 hover:bg-[#6d39e0] transition-all flex items-center gap-2"
+              className="px-8 py-3 bg-[#0047cc] text-white font-black text-[11px] uppercase tracking-widest rounded-2xl shadow-xl shadow-[#e0f2fe]0/20 hover:bg-[#6d39e0] transition-all flex items-center gap-2"
             >
               <Save size={14} strokeWidth={3} />
               Save & Publish
@@ -306,3 +306,4 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onBack, initialTemplate, onSa
 };
 
 export default FormBuilder;
+

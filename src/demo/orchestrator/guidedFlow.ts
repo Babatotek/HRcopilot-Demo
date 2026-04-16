@@ -69,20 +69,11 @@ export const GUIDED_FLOW: DemoStep[] = [
   {
     id:           'ai-advisor',
     label:        'AI Advisor',
-    module:       '',                       // modal overlay, no route change
+    module:       '',
     narrationKey: 'dashboard.advisor',
     durationMs:   10_000,
     joyrideTarget: '#ai-advisor-btn',
     uiAction:     'open:ai-advisor',
-  },
-  {
-    id:           'leakage',
-    label:        'Leakage Analysis',
-    module:       '',                       // stay on current page — modal overlays it
-    narrationKey: 'accountingFinance.costSavings',
-    durationMs:   10_000,
-    joyrideTarget: '#leakage-widget',
-    uiAction:     'open:leakage',
   },
   {
     id:           'finance',
@@ -96,9 +87,10 @@ export const GUIDED_FLOW: DemoStep[] = [
     id:           'closing',
     label:        'ROI Summary',
     module:       '',
-    narrationKey: 'elevator.pitch.ceo',
+    narrationKey: 'closing.pitch',
     durationMs:   10_000,
     joyrideTarget: '#dashboard-kpis',
+    uiAction:     'open:leakage-closing',
   },
 ];
 
@@ -108,9 +100,9 @@ export const GUIDED_FLOW: DemoStep[] = [
 import { UserRole } from '../../../types';
 import { ALL_SCRIPTS } from '../voice/scripts/index';
 
-type ScriptRole = 'CEO' | 'HR' | 'FINANCE';
+export type ScriptRole = 'CEO' | 'HR' | 'FINANCE';
 
-function roleToScriptKey(role: UserRole | null): ScriptRole {
+export function roleToScriptKey(role: UserRole | null): ScriptRole {
   if (role === UserRole.HR_MANAGER)  return 'HR';
   if (role === UserRole.ACCOUNTANT)  return 'FINANCE';
   return 'CEO';

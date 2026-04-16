@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/DemoApp.tsx
 // PURPOSE: Root demo router. Manages the full visitor flow:
 //   Landing → WelcomeZoom → RoleSelection → OrgProfile (CEO)
@@ -35,10 +35,11 @@ const queryClient = new QueryClient({
 // ── Page loader ───────────────────────────────────────────────────────────────
 function PageLoader() {
   return (
-    <div className="min-h-screen bg-[#0d0a1a] flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center"
+      style={{ background: 'linear-gradient(160deg, #f8faff 0%, #eef4ff 50%, #f0f9ff 100%)' }}>
       <div className="flex flex-col items-center gap-4">
-        <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em]">Loading…</p>
+        <div className="w-7 h-7 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#0047cc', borderTopColor: 'transparent' }} />
+        <p className="text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: 'rgba(0,71,204,0.4)' }}>Loading…</p>
       </div>
     </div>
   );
@@ -47,14 +48,16 @@ function PageLoader() {
 // ── Global error fallback ─────────────────────────────────────────────────────
 function GlobalFallback({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) {
   return (
-    <div className="min-h-screen bg-[#0d0a1a] flex items-center justify-center px-6">
+    <div className="min-h-screen flex items-center justify-center px-6"
+      style={{ background: 'linear-gradient(160deg, #f8faff 0%, #eef4ff 50%, #f0f9ff 100%)' }}>
       <div className="text-center max-w-md">
         <div className="text-5xl mb-4">⚠️</div>
-        <h1 className="text-xl font-black text-white mb-2 uppercase tracking-tight">Something went wrong</h1>
-        <p className="text-white/40 text-sm mb-6 font-mono">{error.message}</p>
+        <h1 className="text-xl font-black mb-2 uppercase tracking-tight" style={{ color: '#0a1628' }}>Something went wrong</h1>
+        <p className="text-sm mb-6 font-mono" style={{ color: 'rgba(10,22,40,0.4)' }}>{error.message}</p>
         <button
           onClick={resetErrorBoundary}
-          className="px-6 py-3 bg-violet-600 hover:bg-violet-500 rounded-xl text-white text-sm font-black uppercase tracking-wider transition-colors"
+          className="px-6 py-3 rounded-xl text-white text-sm font-black uppercase tracking-wider transition-colors"
+          style={{ background: '#0047cc' }}
         >
           Restart Demo
         </button>
@@ -133,7 +136,10 @@ function ModeRoute() {
 
   return (
     <Suspense fallback={<PageLoader />}>
-      <ModeSelection onDone={() => navigate('/app')} />
+      <ModeSelection
+        onDone={() => navigate('/app')}
+        onBack={() => navigate('/role')}
+      />
     </Suspense>
   );
 }
@@ -192,12 +198,15 @@ export function DemoApp() {
     >
       <QueryClientProvider client={queryClient}>
         <HashRouter>
-          <AppRoutes />
-          {/* Always-visible overlays */}
-          <CinematicSubtitles />
-          <DemoCompletionModal />
+          <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #f8faff 0%, #eef4ff 50%, #f0f9ff 100%)' }}>
+            <AppRoutes />
+            {/* Always-visible overlays */}
+            <CinematicSubtitles />
+            <DemoCompletionModal />
+          </div>
         </HashRouter>
       </QueryClientProvider>
     </ErrorBoundary>
   );
 }
+

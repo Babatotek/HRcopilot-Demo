@@ -31,6 +31,10 @@ export interface NarratorConfig {
   muted:            boolean;
   subtitlesEnabled: boolean;
   subtitleFontSize: 'sm' | 'md' | 'lg';
+  // Ambience
+  ambienceEnabled:  boolean;
+  ambienceVolume:   number;
+  ambienceUrl:      string;
 }
 
 export interface SubtitleWord {
@@ -79,6 +83,9 @@ export const DEFAULT_NARRATOR_CONFIG: NarratorConfig = {
   muted:             false,
   subtitlesEnabled:  true,
   subtitleFontSize:  'md',
+  ambienceEnabled:   false,
+  ambienceVolume:    0.15,
+  ambienceUrl:       '/audio/ambience/oosongoo-background-music-224633.mp3',
 };
 
 export const GROQ_TTS_VOICES = [

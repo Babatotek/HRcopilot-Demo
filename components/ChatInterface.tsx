@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import GlassCard from './GlassCard';
 
@@ -120,7 +120,7 @@ const ChatInterface: React.FC = () => {
                   </div>
                </div>
                <div className="flex items-center gap-3 p-2 bg-slate-50 dark:bg-[#0f172a]/40 rounded-xl border border-slate-200 dark:border-white/5">
-                  <div className="w-8 h-8 bg-indigo-500/10 dark:bg-indigo-500/20 rounded flex items-center justify-center text-xs">📝</div>
+                  <div className="w-8 h-8 bg-[#eff6ff]0/10 dark:bg-[#eff6ff]0/20 rounded flex items-center justify-center text-xs">📝</div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[10px] font-bold text-slate-900 dark:text-white truncate">Report. docx</p>
                     <p className="text-[8px] text-slate-400 dark:text-slate-500 font-bold uppercase">1.25 MB • 9:12 AM</p>
@@ -177,7 +177,7 @@ const ChatInterface: React.FC = () => {
                <button className="text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13zM12 11v3m0-6h.01" strokeWidth="2" /></svg>
                </button>
-               <button className="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white shadow-lg shadow-purple-500/20 active:scale-90 transition-all">
+               <button className="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white shadow-lg shadow-[#e0f2fe]0/20 active:scale-90 transition-all">
                  <svg className="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
                </button>
             </div>
@@ -189,3 +189,4 @@ const ChatInterface: React.FC = () => {
 };
 
 export default ChatInterface;
+

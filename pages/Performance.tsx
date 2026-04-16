@@ -225,34 +225,34 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-700">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <div className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 cursor-pointer hover:text-[#0047cc] transition-colors">
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" strokeWidth="2.5" /></svg>
             Back to Performance
           </div>
-          <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
             Performance <span className="text-[#0047cc]">Management</span>
           </h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-2 italic">Templates, Review Cycles & Governance</p>
         </div>
-        <div className="flex gap-3">
-          <Button variant="primary" size="lg" onClick={() => setShowScopeModal(true)} icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" strokeWidth="3" /></svg>}>
+        <div className="flex flex-wrap gap-2 sm:gap-3">
+          <Button variant="primary" size="md" onClick={() => setShowScopeModal(true)} icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" strokeWidth="3" /></svg>}>
             New Cycle
           </Button>
-          <Button variant="secondary" size="lg" onClick={() => setView('BUILDER')}>
-            Create New Template
+          <Button variant="secondary" size="md" onClick={() => setView('BUILDER')}>
+            New Template
           </Button>
         </div>
       </div>
 
-      <div className="flex gap-8 border-b border-slate-200 dark:border-white/5 pb-0 overflow-x-auto">
+      <div className="tab-nav border-b border-slate-200 dark:border-white/5">
         {tabs.map((tab) => (
           <button
             key={tab}
             data-demo-id={`performance-tab-${tab.toLowerCase().replace(/\s+/g, '-')}`}
             onClick={() => setActiveTab(tab)}
-            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap ${activeTab === tab ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'}`}
+            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap flex-shrink-0 px-1 mr-4 sm:mr-6 ${activeTab === tab ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'}`}
           >
             {tab}
             {activeTab === tab && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#0047cc] shadow-[0_0_8px_#0047cc]" />}
@@ -265,10 +265,10 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3" id="performance-health-grid" data-demo-id="performance-health-grid">
               {[
-                { label: 'Org Health Score', val: '86.5', delta: '+2.1%', color: 'text-emerald-500', accent: '#10b981', icon: '💎' },
-                { label: 'Completion Rate', val: '94%', delta: 'Goal: 100%', color: 'text-[#0047cc]', accent: '#0047cc', icon: '🎯' },
-                { label: 'Top Performers', val: '42', delta: '11% of workforce', color: 'text-amber-500', accent: '#f59e0b', icon: '⭐' },
-                { label: 'Risk of Turnover', val: 'LOW', delta: 'AI Prediction', color: 'text-emerald-500', accent: '#10b981', icon: '🛡️' },
+                { label: 'Org Health Score', val: '86.5', delta: '+2.1%', color: 'text-emerald-500', accent: '#10b981', icon: '??' },
+                { label: 'Completion Rate', val: '94%', delta: 'Goal: 100%', color: 'text-[#0047cc]', accent: '#0047cc', icon: '??' },
+                { label: 'Top Performers', val: '42', delta: '11% of workforce', color: 'text-amber-500', accent: '#f59e0b', icon: '?' },
+                { label: 'Risk of Turnover', val: 'LOW', delta: 'AI Prediction', color: 'text-emerald-500', accent: '#10b981', icon: '???' },
               ].map((s, idx) => (
                 <GlassCard key={idx} accentColor={s.accent} className="!p-4">
                   <div className="flex justify-between items-center mb-3">
@@ -284,7 +284,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               <div className="lg:col-span-8">
                  <GlassCard title="Organization Competency Levels">
-                    <div className="h-72 mt-4">
+                    <div className="chart-md mt-4">
                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                           <BarChart data={teamPerformanceData}>
                              <CartesianGrid strokeDasharray="3 3" stroke="#00000010" vertical={false} />
@@ -324,7 +324,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">{cycle.title}</h4>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase mt-1">{cycle.participants} Participants • Deadline: {cycle.deadline}</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase mt-1">{cycle.participants} Participants � Deadline: {cycle.deadline}</p>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase ${
                         cycle.status === 'In Progress' ? 'bg-blue-500/10 text-blue-500' : 
@@ -496,14 +496,14 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
 
                         <div className="grid grid-cols-2 gap-4 mb-6">
                           <div className="flex items-center gap-3 p-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10">
-                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-xs shadow-sm">📚</div>
+                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-xs shadow-sm">??</div>
                             <div>
                               <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Sections</p>
                               <p className="text-xs font-black text-slate-900 dark:text-white">{template.sections.length}</p>
                             </div>
                           </div>
                           <div className="flex items-center gap-3 p-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/10">
-                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-xs shadow-sm">📝</div>
+                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-xs shadow-sm">??</div>
                             <div>
                               <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Questions</p>
                               <p className="text-xs font-black text-slate-900 dark:text-white">
@@ -544,7 +544,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
 
             {evaluationSubTab === 'REVIEW CYCLES' && (
               <GlassCard className="!p-0 overflow-hidden">
-                <div className="overflow-x-auto">
+                <div className="table-wrap">
                   <table className="w-full text-left">
                     <thead className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.01]">
                       <tr>
@@ -714,7 +714,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
       {showScopeModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white dark:bg-[#0f172a] w-full max-w-xl rounded-[32px] shadow-2xl overflow-hidden border border-slate-200 dark:border-white/10 animate-in zoom-in-95 duration-300">
-            <div className="p-8 space-y-8">
+            <div className="p-4 sm:p-8 space-y-8">
               <div className="space-y-2">
                 <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Select Visibility Scope:</h3>
               </div>
@@ -726,13 +726,13 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                   className={`w-full p-6 rounded-2xl border-2 text-left transition-all flex items-center gap-6 ${modalScope === 'GLOBAL' ? 'border-[#0047cc] bg-[#0047cc]/5' : 'border-slate-100 dark:border-white/5 hover:border-slate-200 dark:hover:border-white/10'}`}
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${modalScope === 'GLOBAL' ? 'bg-[#0047cc] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500'}`}>
-                    🌐
+                    ??
                   </div>
                   <div className="flex-1">
                     <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Global Scope</p>
                     <p className="text-[10px] text-slate-500 font-medium mt-1">Available fallback for all employees in the organization.</p>
                   </div>
-                  {modalScope === 'GLOBAL' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">✓</div>}
+                  {modalScope === 'GLOBAL' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">?</div>}
                 </button>
 
                 {/* Branch Specific */}
@@ -741,13 +741,13 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                   className={`w-full p-6 rounded-2xl border-2 text-left transition-all flex items-center gap-6 ${modalScope === 'BRANCH' ? 'border-[#0047cc] bg-[#0047cc]/5' : 'border-slate-100 dark:border-white/5 hover:border-slate-200 dark:hover:border-white/10'}`}
                 >
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${modalScope === 'BRANCH' ? 'bg-[#0047cc] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500'}`}>
-                    🏢
+                    ??
                   </div>
                   <div className="flex-1">
                     <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Branch Specific</p>
                     <p className="text-[10px] text-slate-500 font-medium mt-1">Overrides global template for employees in chosen branch.</p>
                   </div>
-                  {modalScope === 'BRANCH' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">✓</div>}
+                  {modalScope === 'BRANCH' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">?</div>}
                 </button>
 
                 {/* Department Specific */}
@@ -757,13 +757,13 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                     className="w-full p-6 text-left flex items-center gap-6"
                   >
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${modalScope === 'DEPT' ? 'bg-[#0047cc] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-500'}`}>
-                      🏢
+                      ??
                     </div>
                     <div className="flex-1">
                       <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Department Specific</p>
                       <p className="text-[10px] text-slate-500 font-medium mt-1">Highest priority. Can be assigned to multiple departments.</p>
                     </div>
-                    {modalScope === 'DEPT' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">✓</div>}
+                    {modalScope === 'DEPT' && <div className="w-5 h-5 rounded-full bg-[#0047cc] flex items-center justify-center text-white text-[10px]">?</div>}
                   </button>
 
                   {modalScope === 'DEPT' && (
@@ -787,7 +787,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-4 bg-purple-500/5 rounded-xl border border-purple-500/10">
+              <div className="flex items-center gap-2 p-4 bg-[#e0f2fe]0/5 rounded-xl border border-[#e0f2fe]0/10">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#0047cc]" />
                 <p className="text-[9px] text-slate-500 font-medium italic">Note: Employees will always see the most specific published template.</p>
               </div>
@@ -801,7 +801,7 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
                 </button>
                 <button 
                   onClick={handleCreateNew}
-                  className="px-10 py-3 bg-[#0047cc] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-xl shadow-purple-500/20 hover:bg-[#6d39e0] transition-all"
+                  className="px-10 py-3 bg-[#0047cc] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-xl shadow-[#e0f2fe]0/20 hover:bg-[#6d39e0] transition-all"
                 >
                   Continue to Editor
                 </button>
@@ -815,3 +815,6 @@ const Performance: React.FC<PerformanceProps> = ({ onNotify }) => {
 };
 
 export default Performance;
+
+
+

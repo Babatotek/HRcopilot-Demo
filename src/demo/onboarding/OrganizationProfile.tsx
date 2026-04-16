@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/onboarding/OrganizationProfile.tsx
 // PURPOSE: CEO-only step — collect company name, brand color,
 //          logo, industry, headcount. Applies CSS var on submit.
@@ -25,7 +25,7 @@ const HEADCOUNTS = [
   '1–10', '11–50', '51–100', '101–500', '501–1,000', '1,000+',
 ];
 
-const DEFAULT_COLOR = '#6366f1';
+const DEFAULT_COLOR = '#2563eb';
 
 export function OrganizationProfile({ onDone }: Props) {
   const { setOrgProfile, setStep } = useOnboardingStore();
@@ -83,11 +83,11 @@ export function OrganizationProfile({ onDone }: Props) {
   const hasPreview = form.companyName || form.primaryColor !== DEFAULT_COLOR || form.logoDataUrl;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 flex items-center justify-center px-6 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-[#eff6ff]/40 flex items-center justify-center px-4 py-8 md:py-12 relative overflow-hidden">
 
       {/* Background glow */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-100/50 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/40 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#bae6fd]/50 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#dbeafe]/40 rounded-full blur-[120px] pointer-events-none" />
 
       <motion.div
         className="relative z-10 w-full max-w-xl"
@@ -96,12 +96,12 @@ export function OrganizationProfile({ onDone }: Props) {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Card */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-slate-200/80 p-8 shadow-xl shadow-slate-200/50">
+        <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-slate-200/80 p-5 md:p-8 shadow-xl shadow-slate-200/50">
 
           {/* Header */}
           <div className="text-center mb-8">
             <div className="text-5xl mb-3">🏢</div>
-            <p className="text-xs font-black text-violet-600 uppercase tracking-[0.2em] mb-2">
+            <p className="text-xs font-black text-[#0369a1] uppercase tracking-[0.2em] mb-2">
               CEO Setup
             </p>
             <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">
@@ -124,7 +124,7 @@ export function OrganizationProfile({ onDone }: Props) {
                 value={form.companyName}
                 onChange={(e) => patch({ companyName: e.target.value })}
                 placeholder="Acme Corporation"
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all text-sm"
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#bae6fd] transition-all text-sm"
               />
             </div>
 
@@ -146,7 +146,7 @@ export function OrganizationProfile({ onDone }: Props) {
                   type="text"
                   value={form.primaryColor}
                   onChange={(e) => patch({ primaryColor: e.target.value })}
-                  className="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-mono text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+                  className="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-mono text-sm focus:outline-none focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#bae6fd] transition-all"
                 />
                 {/* Swatch preview */}
                 <div
@@ -195,7 +195,7 @@ export function OrganizationProfile({ onDone }: Props) {
             </div>
 
             {/* Industry + Headcount — side by side */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-white/70 text-xs font-bold uppercase tracking-wider mb-2">
                   Industry
@@ -203,7 +203,7 @@ export function OrganizationProfile({ onDone }: Props) {
                 <select
                   value={form.industry}
                   onChange={(e) => patch({ industry: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all appearance-none cursor-pointer"
+                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#bae6fd] transition-all appearance-none cursor-pointer"
                 >
                   {INDUSTRIES.map((ind) => (
                     <option key={ind} value={ind}>{ind}</option>
@@ -217,7 +217,7 @@ export function OrganizationProfile({ onDone }: Props) {
                 <select
                   value={form.employeeCount}
                   onChange={(e) => patch({ employeeCount: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all appearance-none cursor-pointer"
+                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#bae6fd] transition-all appearance-none cursor-pointer"
                 >
                   {HEADCOUNTS.map((h) => (
                     <option key={h} value={h}>{h}</option>
@@ -284,7 +284,7 @@ export function OrganizationProfile({ onDone }: Props) {
                 onClick={() => handleSubmit(false)}
                 disabled={submitting}
                 className="flex-2 flex-grow-[2] py-3 rounded-xl text-white text-sm font-black transition-all disabled:opacity-40 relative overflow-hidden"
-                style={{ background: `linear-gradient(135deg, ${form.primaryColor}, #8b5cf6)` }}
+                style={{ background: `linear-gradient(135deg, ${form.primaryColor}, #0ea5e9)` }}
               >
                 {submitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -305,3 +305,4 @@ export function OrganizationProfile({ onDone }: Props) {
     </div>
   );
 }
+

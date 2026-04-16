@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/admin/AdminShell.tsx
 // PURPOSE: Admin panel shell — sidebar + tab routing.
 //          Completely isolated from the main HR360 app.
@@ -33,8 +33,8 @@ export function AdminShell({ onLogout }: Props) {
 
       {/* Background glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-600/8 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/6 blur-[100px] rounded-full" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0369a1]/8 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#0369a1]/6 blur-[100px] rounded-full" />
       </div>
 
       {/* ── Sidebar ── */}
@@ -42,7 +42,7 @@ export function AdminShell({ onLogout }: Props) {
         {/* Logo */}
         <div className="px-6 py-6 border-b border-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-500/30 flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0369a1] to-[#075985] flex items-center justify-center shadow-lg shadow-[#e0f2fe]0/30 flex-shrink-0">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                   d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -61,7 +61,7 @@ export function AdminShell({ onLogout }: Props) {
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`w-full flex items-start gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 ${
                 activeTab === tab.id
-                  ? 'bg-violet-600/20 border border-violet-500/30 text-white'
+                  ? 'bg-[#0369a1]/20 border border-[#e0f2fe]0/30 text-white'
                   : 'text-white/50 hover:text-white/80 hover:bg-white/5 border border-transparent'
               }`}
             >
@@ -78,7 +78,7 @@ export function AdminShell({ onLogout }: Props) {
         <div className="px-4 py-4 border-t border-white/5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-violet-600/30 border border-violet-500/30 flex items-center justify-center text-[10px] font-black text-violet-300 uppercase">
+              <div className="w-7 h-7 rounded-lg bg-[#0369a1]/30 border border-[#e0f2fe]0/30 flex items-center justify-center text-[10px] font-black text-[#38bdf8] uppercase">
                 {username.charAt(0)}
               </div>
               <div>
@@ -175,3 +175,4 @@ function SystemInfoTab() {
     </div>
   );
 }
+

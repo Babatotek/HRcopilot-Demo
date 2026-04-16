@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/admin/AdminCredentialsTab.tsx
 // PURPOSE: Change admin username and password
 // ============================================
@@ -53,7 +53,7 @@ export function AdminCredentialsTab() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
-              className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 transition-all"
+              className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 transition-all"
             />
           </div>
 
@@ -72,7 +72,7 @@ export function AdminCredentialsTab() {
                   onChange={(e) => setNewPass(e.target.value)}
                   autoComplete="new-password"
                   placeholder="Min. 8 characters"
-                  className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 transition-all"
+                  className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 transition-all"
                 />
               </div>
               <div>
@@ -85,7 +85,7 @@ export function AdminCredentialsTab() {
                   onChange={(e) => setConfirmPass(e.target.value)}
                   autoComplete="new-password"
                   placeholder="Repeat new password"
-                  className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 transition-all"
+                  className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 transition-all"
                 />
               </div>
             </div>
@@ -109,7 +109,7 @@ export function AdminCredentialsTab() {
           </AnimatePresence>
 
           <button type="submit"
-            className="w-full py-3 bg-gradient-to-r from-violet-600 to-purple-700 text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-violet-500/20 hover:from-violet-500 hover:to-purple-600 transition-all">
+            className="w-full py-3 bg-gradient-to-r from-[#0369a1] to-[#075985] text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20 hover:from-[#e0f2fe]0 hover:to-[#0369a1] transition-all">
             Save Credentials
           </button>
         </form>
@@ -125,3 +125,4 @@ export function AdminCredentialsTab() {
     </div>
   );
 }
+

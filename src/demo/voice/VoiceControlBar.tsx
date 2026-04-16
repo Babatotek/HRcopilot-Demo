@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/voice/VoiceControlBar.tsx
 // PURPOSE: Floating mini voice control bar
 // Shows active provider, speaking status, quick mute, open admin
@@ -6,7 +6,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNarratorStore } from './narratorStore';
-import { stop } from './narrationEngine';
+import { stop, stopAmbience } from './narrationEngine';
+import { useDemoOrchestrator } from '../orchestrator/demoOrchestrator';
 
 const PROVIDER_ICONS: Record<string, string> = {
   elevenlabs: '⚡',
@@ -20,12 +21,18 @@ const PROVIDER_LABELS: Record<string, string> = {
 
 export function VoiceControlBar() {
   const store = useNarratorStore();
+  const { status: demoStatus, pauseDemo, resumeDemo } = useDemoOrchestrator();
+
+  const handleStop = () => {
+    stop();
+    stopAmbience();
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-6 right-6 z-[9998] flex items-center gap-2"
+      className="fixed bottom-20 md:bottom-6 right-3 md:right-6 z-[9998] flex items-center gap-2"
     >
       {/* Speaking indicator pill */}
       <AnimatePresence>
@@ -43,7 +50,7 @@ export function VoiceControlBar() {
               {[0, 1, 2, 3].map((i) => (
                 <motion.span
                   key={i}
-                  className="w-0.5 bg-violet-400 rounded-full"
+                  className="w-0.5 bg-[#0ea5e9] rounded-full"
                   animate={{ height: ['4px', '12px', '4px'] }}
                   transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.1 }}
                 />
@@ -52,9 +59,19 @@ export function VoiceControlBar() {
             <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest max-w-[160px] truncate">
               {store.currentWord || 'Speaking…'}
             </span>
+            {/* Pause/Resume demo */}
             <button
-              onClick={stop}
+              onClick={() => demoStatus === 'paused' ? resumeDemo() : pauseDemo()}
+              title={demoStatus === 'paused' ? 'Resume demo' : 'Pause demo'}
               className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/30 transition-all text-[8px]"
+            >
+              {demoStatus === 'paused' ? '▶' : '⏸'}
+            </button>
+            {/* Stop narration + ambience */}
+            <button
+              onClick={handleStop}
+              title="Stop narration and ambience"
+              className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-rose-500/60 transition-all text-[8px]"
             >
               ■
             </button>
@@ -69,7 +86,7 @@ export function VoiceControlBar() {
             exit={{ opacity: 0, x: 20 }}
             className="flex items-center gap-2 bg-black/80 backdrop-blur-xl rounded-full px-4 py-2 border border-white/10 shadow-xl"
           >
-            <span className="w-3 h-3 border border-violet-400 border-t-transparent rounded-full animate-spin" />
+            <span className="w-3 h-3 border border-[#0ea5e9] border-t-transparent rounded-full animate-spin" />
             <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">
               Loading model…
             </span>
@@ -82,8 +99,8 @@ export function VoiceControlBar() {
         onClick={store.toggleAdminPanel}
         className={`flex items-center gap-2 px-4 py-2.5 rounded-full border shadow-xl transition-all duration-200 ${
           store.adminPanelOpen
-            ? 'bg-violet-600 border-violet-500 text-white shadow-violet-500/30'
-            : 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:border-violet-400 hover:shadow-violet-500/10'
+            ? 'bg-[#0369a1] border-[#e0f2fe]0 text-white shadow-[#e0f2fe]0/30'
+            : 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-slate-200 dark:border-white/10 text-slate-700 dark:text-white hover:border-[#0ea5e9] hover:shadow-[#e0f2fe]0/10'
         }`}
       >
         <span className="text-base">{PROVIDER_ICONS[store.provider]}</span>
@@ -109,3 +126,4 @@ export function VoiceControlBar() {
     </motion.div>
   );
 }
+

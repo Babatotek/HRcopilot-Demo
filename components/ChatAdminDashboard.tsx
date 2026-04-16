@@ -1,4 +1,4 @@
-
+﻿
 import React from 'react';
 import GlassCard from './GlassCard';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -86,7 +86,7 @@ const ChatAdminDashboard: React.FC = () => {
                  <span className="px-2 py-0.5 bg-rose-500/10 text-rose-500 text-[8px] font-black uppercase rounded">Block</span>
                </div>
              ))}
-             <button className="w-full py-2 bg-[#0047cc] text-white text-[9px] font-black uppercase tracking-widest rounded-lg mt-2 shadow-lg shadow-purple-500/20">Add New Trigger</button>
+             <button className="w-full py-2 bg-[#0047cc] text-white text-[9px] font-black uppercase tracking-widest rounded-lg mt-2 shadow-lg shadow-[#e0f2fe]0/20">Add New Trigger</button>
           </div>
         </GlassCard>
       </div>
@@ -112,3 +112,4 @@ const ChatAdminDashboard: React.FC = () => {
 };
 
 export default ChatAdminDashboard;
+

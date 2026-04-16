@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/voice/CacheAdminTab.tsx
 // PURPOSE: Audio cache tab — shows ElevenLabs/Groq blob cache.
 //          Light/dark styling for NarratorAdminPanel.
@@ -64,7 +64,7 @@ export function CacheAdminTab() {
             Cache keyed by scriptId + provider + voiceId. Changing voice invalidates cache.
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-xl bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 text-[10px] font-black uppercase tracking-widest">
+        <span className="px-3 py-1.5 rounded-xl bg-[#bae6fd] dark:bg-[#e0f2fe]0/20 text-[#075985] dark:text-[#38bdf8] text-[10px] font-black uppercase tracking-widest">
           {PROVIDER_ICONS[store.provider]} {store.provider}
         </span>
       </div>
@@ -77,7 +77,7 @@ export function CacheAdminTab() {
           </p>
           <div className="flex gap-2">
             <button onClick={refresh} disabled={loading}
-              className="text-[9px] font-black text-slate-400 hover:text-violet-600 uppercase tracking-widest transition-colors">
+              className="text-[9px] font-black text-slate-400 hover:text-[#0369a1] uppercase tracking-widest transition-colors">
               {loading ? '…' : '↻ Refresh'}
             </button>
             <button onClick={handleClear} disabled={clearing || entries.length === 0}
@@ -103,7 +103,7 @@ export function CacheAdminTab() {
                   <span className="text-base flex-shrink-0">
                     {PROVIDER_ICONS[entry.provider] ?? '🎙️'}
                   </span>
-                  <span className="text-[10px] font-mono text-violet-600 dark:text-violet-400 flex-shrink-0 truncate max-w-[140px]">
+                  <span className="text-[10px] font-mono text-[#0369a1] dark:text-[#0ea5e9] flex-shrink-0 truncate max-w-[140px]">
                     {entry.scriptId}
                   </span>
                   <span className="text-[9px] text-slate-400 truncate">
@@ -150,7 +150,7 @@ function StatCard({ label, value, icon, color }: {
   label: string; value: string; icon: string; color: 'violet' | 'blue' | 'emerald';
 }) {
   const cls = {
-    violet:  'bg-violet-50 dark:bg-violet-500/10 border-violet-200 dark:border-violet-500/20 text-violet-700 dark:text-violet-300',
+    violet:  'bg-[#e0f2fe] dark:bg-[#e0f2fe]0/10 border-[#7dd3fc] dark:border-[#e0f2fe]0/20 text-[#075985] dark:text-[#38bdf8]',
     blue:    'bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-300',
     emerald: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300',
   }[color];
@@ -162,3 +162,4 @@ function StatCard({ label, value, icon, color }: {
     </div>
   );
 }
+

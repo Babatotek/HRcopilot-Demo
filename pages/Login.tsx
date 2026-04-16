@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { BrandSettings, UserRole, UserProfile } from '../types';
 import { ThemeToggle } from '../App';
 
@@ -56,7 +56,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToLanding, brand, theme, o
 
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[80%] bg-purple-500/10 blur-[140px] rounded-full" />
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[80%] bg-[#e0f2fe]0/10 blur-[140px] rounded-full" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[60%] bg-blue-500/10 blur-[120px] rounded-full" />
       </div>
 
@@ -217,3 +217,4 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToLanding, brand, theme, o
 };
 
 export default Login;
+

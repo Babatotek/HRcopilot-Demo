@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DomainCard.jsx
  * HR360+ Organizational Intelligence Widget
  * Part of: Phase 4 — Domain Sections
@@ -52,12 +52,12 @@ function getSeverityColor(value, annualPayroll) {
 
 const DOMAIN_META = {
   workforce:    { label: 'Workforce', icon: '👥', color: '#0047cc' },
-  performance:  { label: 'Performance', icon: '📊', color: '#8b5cf6' },
+  performance:  { label: 'Performance', icon: '📊', color: '#0ea5e9' },
   procurement:  { label: 'Procurement', icon: '🛒', color: '#f59e0b' },
   revenue:      { label: 'Revenue', icon: '💰', color: '#10b981' },
   programme:    { label: 'Programme Delivery', icon: '🎯', color: '#14b8a6' },
   finance:      { label: 'Finance & Accounting', icon: '🏦', color: '#0ea5e9' },
-  document:     { label: 'Document & Knowledge', icon: '📁', color: '#a855f7' },
+  document:     { label: 'Document & Knowledge', icon: '📁', color: '#38bdf8' },
   compliance:   { label: 'Compliance & Risk', icon: '⚖️', color: '#f97316' },
   reputational: { label: 'Reputational', icon: '🌐', color: '#ec4899' },
 }
@@ -165,3 +165,4 @@ export default function DomainCard({ domainKey, section, totalLeakage, annualPay
     </div>
   )
 }
+

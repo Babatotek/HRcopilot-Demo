@@ -129,7 +129,7 @@ const Procurement: React.FC = () => {
         </GlassCard>
       </div>
 
-      <GlassCard className="p-8">
+      <GlassCard className="p-4 sm:p-8">
         <div className="flex justify-between items-center mb-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic">Purchase Requests</h3>
           <button 
@@ -139,7 +139,7 @@ const Procurement: React.FC = () => {
             New Requisition
           </button>
         </div>
-        <div className="overflow-x-auto">
+        <div className="table-wrap">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-slate-100 dark:border-white/5">
@@ -156,7 +156,7 @@ const Procurement: React.FC = () => {
                   <td className="py-4 font-black text-[var(--brand-primary)]">{pr.id}</td>
                   <td className="py-4 font-bold uppercase">{pr.requesterName}</td>
                   <td className="py-4 font-bold text-slate-500 uppercase">{pr.department}</td>
-                  <td className="py-4 font-black italic">₦{pr.estimatedAmount.toLocaleString()}</td>
+                  <td className="py-4 font-black italic">?{pr.estimatedAmount.toLocaleString()}</td>
                   <td className="py-4">
                     <span className={`px-2 py-1 rounded-lg text-[9px] font-black uppercase ${
                       pr.status === 'APPROVED' ? 'bg-emerald-500/10 text-emerald-500' : 
@@ -177,7 +177,7 @@ const Procurement: React.FC = () => {
   const renderSourcing = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-6">Active RFQs</h3>
           <div className="space-y-4">
             {[
@@ -188,10 +188,10 @@ const Procurement: React.FC = () => {
               <div key={i} className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 flex justify-between items-center">
                 <div>
                   <h4 className="text-xs font-black uppercase tracking-tight">{rfq.title}</h4>
-                  <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">{rfq.vendors} Vendors Invited • {rfq.deadline}</p>
+                  <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">{rfq.vendors} Vendors Invited � {rfq.deadline}</p>
                 </div>
                 <span className={`px-2 py-1 rounded-lg text-[8px] font-black uppercase ${
-                  rfq.status === 'OPEN' ? 'bg-blue-500/10 text-blue-500' : 'bg-purple-500/10 text-purple-500'
+                  rfq.status === 'OPEN' ? 'bg-blue-500/10 text-blue-500' : 'bg-[#e0f2fe]0/10 text-[#e0f2fe]0'
                 }`}>
                   {rfq.status}
                 </span>
@@ -200,7 +200,7 @@ const Procurement: React.FC = () => {
           </div>
         </GlassCard>
 
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-6">Bid Evaluation Scoring</h3>
           <div className="space-y-6">
             <p className="text-[10px] text-slate-500 font-bold uppercase leading-relaxed">Select a vendor based on weighted criteria: Price (40%), Quality (30%), Delivery (20%), Compliance (10%).</p>
@@ -229,7 +229,7 @@ const Procurement: React.FC = () => {
 
   const renderPurchaseOrders = () => (
     <div className="space-y-6">
-      <GlassCard className="p-8">
+      <GlassCard className="p-4 sm:p-8">
         <div className="flex justify-between items-center mb-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic">All Purchase Orders</h3>
           <button 
@@ -239,7 +239,7 @@ const Procurement: React.FC = () => {
             Create PO
           </button>
         </div>
-        <div className="overflow-x-auto">
+        <div className="table-wrap">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-slate-100 dark:border-white/5">
@@ -288,7 +288,7 @@ const Procurement: React.FC = () => {
           <GlassCard key={idx} className="p-6 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--brand-primary)]/5 blur-2xl rounded-full -mr-12 -mt-12 group-hover:bg-[var(--brand-primary)]/10 transition-colors" />
             <h4 className="text-xs font-black uppercase tracking-tight mb-1">{s.name}</h4>
-            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Spend: ₦{(s.totalSpend / 1000000).toFixed(1)}M</p>
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Spend: ?{(s.totalSpend / 1000000).toFixed(1)}M</p>
             <div className="space-y-2">
               <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest">
                 <span className="text-slate-400">Score</span>
@@ -306,9 +306,9 @@ const Procurement: React.FC = () => {
 
   const renderReceipting = () => (
     <div className="space-y-6">
-      <GlassCard className="p-8">
+      <GlassCard className="p-4 sm:p-8">
         <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Goods Received Notes (GRN)</h3>
-        <div className="overflow-x-auto">
+        <div className="table-wrap">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-slate-100 dark:border-white/5">
@@ -348,7 +348,7 @@ const Procurement: React.FC = () => {
 
   const renderAPIntegration = () => (
     <div className="space-y-6">
-      <GlassCard className="p-8">
+      <GlassCard className="p-4 sm:p-8">
         <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Three-Way Match Verification</h3>
         <div className="space-y-4">
           {[
@@ -364,7 +364,7 @@ const Procurement: React.FC = () => {
                   </div>
                   <div className="text-center">
                     <p className="text-[8px] font-black text-slate-400 uppercase mb-1">GRN</p>
-                    <p className="text-[10px] font-black text-purple-500">{item.grn}</p>
+                    <p className="text-[10px] font-black text-[#e0f2fe]0">{item.grn}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-[8px] font-black text-slate-400 uppercase mb-1">Invoice</p>
@@ -374,7 +374,7 @@ const Procurement: React.FC = () => {
                 <div className="text-right">
                   <p className="text-sm font-black italic">{item.amount}</p>
                   <span className={`text-[9px] font-black uppercase ${item.match ? 'text-emerald-500' : 'text-rose-500'}`}>
-                    {item.match ? '✓ Matched' : '⚠ Mismatch Detected'}
+                    {item.match ? '? Matched' : '? Mismatch Detected'}
                   </span>
                 </div>
               </div>
@@ -393,7 +393,7 @@ const Procurement: React.FC = () => {
   const renderContracts = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Master Service Agreements</h3>
           <div className="space-y-4">
             {[
@@ -413,21 +413,21 @@ const Procurement: React.FC = () => {
             ))}
             <button 
               onClick={() => setIsContractModalOpen(true)}
-              className="w-full py-4 bg-purple-500/10 text-purple-500 border border-purple-500/20 rounded-2xl text-[10px] font-black uppercase tracking-widest"
+              className="w-full py-4 bg-[#e0f2fe]0/10 text-[#e0f2fe]0 border border-[#e0f2fe]0/20 rounded-2xl text-[10px] font-black uppercase tracking-widest"
             >
               Scan New Contract
             </button>
           </div>
         </GlassCard>
 
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Item Catalog</h3>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { name: 'Standard Laptop', price: '$1,200', img: '💻' },
-              { name: 'Ergonomic Chair', price: '$450', img: '🪑' },
-              { name: 'Monitor 27"', price: '$300', img: '🖥️' },
-              { name: 'Wireless Mouse', price: '$45', img: '🖱️' },
+              { name: 'Standard Laptop', price: '$1,200', img: '??' },
+              { name: 'Ergonomic Chair', price: '$450', img: '??' },
+              { name: 'Monitor 27"', price: '$300', img: '???' },
+              { name: 'Wireless Mouse', price: '$45', img: '???' },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 text-center hover:border-[var(--brand-primary)]/30 transition-all cursor-pointer">
                 <span className="text-2xl mb-2 block">{item.img}</span>
@@ -485,10 +485,10 @@ const Procurement: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4" id="procurement-analytics-header">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Procurement & <span className="text-[#0047cc]">Supply Chain</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Procurement & <span className="text-[#0047cc]">Supply Chain</span></h2>
           <p className="text-slate-500 text-[10px] sm:text-sm font-bold uppercase tracking-widest">AI-Optimized Strategic Sourcing</p>
         </div>
-        <div className="flex gap-4 w-full sm:w-auto">
+        <div className="flex gap-2 w-full sm:w-auto">
           <button className="flex-1 sm:flex-none p-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-500 hover:text-[var(--brand-primary)] transition-all flex justify-center">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" strokeWidth="2"/></svg>
           </button>
@@ -499,14 +499,14 @@ const Procurement: React.FC = () => {
       </div>
 
       {/* Primary Navigation */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
+      <div className="tab-nav pb-2">
         {TABS.map(tab => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${
+            className={`tab-btn ${
               activeTab === tab.id 
-              ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-purple-500/20' 
+              ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-[#e0f2fe]0/20' 
               : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.08]'
             }`}
           >
@@ -516,12 +516,12 @@ const Procurement: React.FC = () => {
       </div>
 
       {/* Secondary Navigation */}
-      <div className="flex gap-4 border-b border-slate-100 dark:border-white/5 pb-4">
+      <div className="tab-nav border-b border-slate-100 dark:border-white/5 pb-3">
         {TABS.find(t => t.id === activeTab)?.subTabs.map(subTab => (
           <button
             key={subTab}
             onClick={() => setActiveSubTab(subTab)}
-            className={`text-[9px] font-black uppercase tracking-widest transition-all ${
+            className={`text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap flex-shrink-0 mr-4 ${
               activeSubTab === subTab 
               ? 'text-[var(--brand-primary)]' 
               : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
@@ -566,7 +566,7 @@ const Procurement: React.FC = () => {
                     required
                     value={newPo.supplierName}
                     onChange={(e) => setNewPo(prev => ({ ...prev, supplierName: e.target.value }))}
-                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
                     placeholder="e.g. Acme Corp"
                   />
                 </div>
@@ -617,7 +617,7 @@ const Procurement: React.FC = () => {
 
               <div className="flex gap-4 pt-4">
                 <button type="button" onClick={() => setIsPoModalOpen(false)} className="flex-1 px-6 py-4 border border-slate-200 dark:border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500">Cancel</button>
-                <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">Submit PO</button>
+                <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20">Submit PO</button>
               </div>
             </form>
           </GlassCard>
@@ -640,14 +640,14 @@ const Procurement: React.FC = () => {
                 <textarea 
                   value={contractText}
                   onChange={(e) => setContractText(e.target.value)}
-                  className="w-full h-48 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-4 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  className="w-full h-48 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-4 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
                   placeholder="Paste contract text here for AI extraction..."
                 />
               </div>
 
               <button 
                 onClick={handleExtractContract}
-                className="w-full py-4 bg-purple-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20 hover:scale-[1.02] transition-all"
+                className="w-full py-4 bg-[#e0f2fe]0 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20 hover:scale-[1.02] transition-all"
               >
                 Extract Key Terms with Gemini
               </button>
@@ -676,3 +676,6 @@ const Procurement: React.FC = () => {
 };
 
 export default Procurement;
+
+
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ExportButton.jsx
  * HR360+ Organizational Intelligence Widget
  * Part of: Phase 6 — Close Sections
@@ -87,7 +87,7 @@ function buildReportHTML(results, profile, aiAnalysis, currency, formatFn) {
   ${aiAnalysis?.descriptive ? `
   <div class="section-title">AI Analysis</div>
   ${aiAnalysis.descriptive ? `<div class="ai-card"><div class="ai-type">Descriptive — What Is Happening</div><div class="ai-headline">${aiAnalysis.descriptive.headline}</div><div class="ai-insight">${aiAnalysis.descriptive.insight}</div></div>` : ''}
-  ${aiAnalysis.diagnostic ? `<div class="ai-card" style="border-color:#8b5cf6"><div class="ai-type" style="color:#8b5cf6">Diagnostic — Why It's Happening</div><div class="ai-headline">${aiAnalysis.diagnostic.headline}</div><div class="ai-insight">${aiAnalysis.diagnostic.rootCause}</div></div>` : ''}
+  ${aiAnalysis.diagnostic ? `<div class="ai-card" style="border-color:#0ea5e9"><div class="ai-type" style="color:#0ea5e9">Diagnostic — Why It's Happening</div><div class="ai-headline">${aiAnalysis.diagnostic.headline}</div><div class="ai-insight">${aiAnalysis.diagnostic.rootCause}</div></div>` : ''}
   ${aiAnalysis.prescriptive ? `<div class="ai-card" style="border-color:#10b981"><div class="ai-type" style="color:#10b981">Prescriptive — What To Do</div><div class="ai-headline">${aiAnalysis.prescriptive.headline}</div><div class="ai-insight">${aiAnalysis.prescriptive.insight}</div></div>` : ''}
   ` : ''}
 
@@ -140,3 +140,4 @@ export default function ExportButton({ results, profile, aiAnalysis, currency, l
     </button>
   )
 }
+

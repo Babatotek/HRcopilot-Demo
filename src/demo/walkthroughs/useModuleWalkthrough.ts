@@ -49,7 +49,7 @@ export function useModuleWalkthrough(moduleKey: string) {
           const text = resolveNarration(flowStep, role);
           if (text) {
             primeAudioContext();
-            speak(text, { scriptId: step.narrationKey }).catch(() => {});
+            speak(text, { scriptId: step.narrationKey, role: role ?? undefined }).catch(() => {});
           }
         }
       }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+﻿import React, { useState, useMemo, useCallback } from 'react';
 import GlassCard from '../components/GlassCard';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -211,7 +211,7 @@ const TurnoverModal = () => {
 
 const TenureModal = () => (
   <div className="space-y-1">
-    <StatRow label="Average Tenure" value="3.4 yrs" color="text-purple-500" />
+    <StatRow label="Average Tenure" value="3.4 yrs" color="text-[#e0f2fe]0" />
     <StatRow label="YoY Change" value="+1.3%" color="text-emerald-500" />
     <StatRow label="< 1 Year" value="62 employees" />
     <StatRow label="1 – 3 Years" value="148 employees" />
@@ -379,7 +379,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-slate-200 dark:border-white/10 pb-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">
             EXECUTIVE <span className="text-[#0047cc]">DASHBOARD</span>
           </h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1">ORGANISATION OVERVIEW</p>
@@ -387,11 +387,11 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
       </div>
 
       {/* Unified Filter Bar */}
-      <div id="dashboard-overview" className="flex flex-wrap items-center gap-4">
-        <div className="flex bg-slate-100 dark:bg-white/5 p-1 rounded-2xl border border-slate-200 dark:border-white/10">
+      <div id="dashboard-overview" className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3">
+        <div className="flex flex-wrap bg-slate-100 dark:bg-white/5 p-1 rounded-2xl border border-slate-200 dark:border-white/10 gap-0.5">
           {['TODAY', 'MTD', 'LAST MO', '3M', '6M', 'YTD', 'LY', 'CUSTOM'].map(r => (
             <button key={r} onClick={() => setActiveRange(r)}
-              className={`px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${activeRange === r ? 'bg-[#0047cc] text-white shadow-xl shadow-blue-500/20' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>
+              className={`px-2 sm:px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${activeRange === r ? 'bg-[#0047cc] text-white shadow-xl shadow-blue-500/20' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>
               {r}
             </button>
           ))}
@@ -400,7 +400,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
         <select
           value={activeBranch}
           onChange={(e) => setActiveBranch(e.target.value)}
-          className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-slate-200 outline-none hover:border-[#0047cc]/30 transition-all cursor-pointer"
+          className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-slate-200 outline-none hover:border-[#0047cc]/30 transition-all cursor-pointer w-full sm:w-auto"
         >
           <option>All Branches</option>
           <option>Headquarters</option>
@@ -408,7 +408,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
           <option>Satellite - APAC</option>
         </select>
 
-        <div className="flex items-center gap-2 text-[9px] font-bold text-slate-400 ml-auto">
+        <div className="flex items-center gap-2 text-[9px] font-bold text-slate-400 sm:ml-auto">
           <span className={`w-2 h-2 rounded-full ${isEvaluating ? 'bg-amber-500 animate-ping' : 'bg-emerald-500'} transition-colors`} />
           {isEvaluating ? 'REFRESHING METRICS...' : 'DATA SYNCHRONIZED'}
         </div>
@@ -419,7 +419,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
 
 
       {/* KPI Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
         {filteredKpis.slice(0, 6).map((s, i) => (
           <GlassCard key={i} accentColor={s.accent} modalContent={s.modal} modalTitle={s.modalTitle} className="!p-4 group cursor-pointer">
             <div className="flex justify-between items-center mb-3">
@@ -439,7 +439,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
             <GlassCard title="Headcount Over Time"
               action={<span className={`px-2 py-0.5 ${hcDelta >= 0 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'} text-[8px] font-black uppercase rounded-lg`}>{hcDelta >= 0 ? 'Steady Growth' : 'Attrition Detected'}</span>}
               modalTitle="Headcount Trend" modalContent={<HeadcountModal data={processedHeadcount} />}>
-              <div className="h-[260px] w-full min-w-0 relative mt-2">
+              <div className="h-[200px] sm:h-[260px] w-full min-w-0 relative mt-2">
                 <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                   <AreaChart data={processedHeadcount}>
                     <defs>
@@ -839,3 +839,4 @@ const Dashboard: React.FC<DashboardProps> = ({ userProfile }) => {
 };
 
 export default Dashboard;
+

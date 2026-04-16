@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/voice/CacheAdminTabDark.tsx
 // PURPOSE: Audio cache tab — shows ElevenLabs/Groq blob cache.
 //          Dark-first styling for the inline admin panel.
@@ -56,13 +56,13 @@ export function CacheAdminTabDark() {
           { icon: '⚡', label: 'Total Hits',      value: loading ? '…' : String(totalHits),       accent: 'emerald'},
         ].map(({ icon, label, value, accent }) => (
           <div key={label} className={`rounded-2xl p-4 border ${
-            accent === 'violet'  ? 'bg-violet-500/10 border-violet-500/20'  :
+            accent === 'violet'  ? 'bg-[#e0f2fe]0/10 border-[#e0f2fe]0/20'  :
             accent === 'blue'    ? 'bg-blue-500/10 border-blue-500/20'      :
             'bg-emerald-500/10 border-emerald-500/20'
           }`}>
             <div className="text-2xl mb-2">{icon}</div>
             <p className={`text-xl font-black ${
-              accent === 'violet'  ? 'text-violet-300'  :
+              accent === 'violet'  ? 'text-[#38bdf8]'  :
               accent === 'blue'    ? 'text-blue-300'    :
               'text-emerald-300'
             }`}>{value}</p>
@@ -79,7 +79,7 @@ export function CacheAdminTabDark() {
             Cache is keyed by scriptId + provider + voiceId. Changing voice invalidates cache.
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-xl bg-violet-500/20 text-violet-300 text-[10px] font-black uppercase tracking-widest">
+        <span className="px-3 py-1.5 rounded-xl bg-[#e0f2fe]0/20 text-[#38bdf8] text-[10px] font-black uppercase tracking-widest">
           {PROVIDER_ICONS[store.provider]} {store.provider}
         </span>
       </div>
@@ -92,7 +92,7 @@ export function CacheAdminTabDark() {
           </p>
           <div className="flex gap-3">
             <button onClick={refresh} disabled={loading}
-              className="text-[9px] font-black text-white/30 hover:text-violet-400 uppercase tracking-widest transition-colors">
+              className="text-[9px] font-black text-white/30 hover:text-[#0ea5e9] uppercase tracking-widest transition-colors">
               {loading ? '…' : '↻ Refresh'}
             </button>
             <button onClick={handleClear} disabled={clearing || entries.length === 0}
@@ -119,7 +119,7 @@ export function CacheAdminTabDark() {
                   <span className="text-base flex-shrink-0">
                     {PROVIDER_ICONS[entry.provider] ?? '🎙️'}
                   </span>
-                  <span className="text-[10px] font-mono text-violet-400 flex-shrink-0 truncate max-w-[140px]">
+                  <span className="text-[10px] font-mono text-[#0ea5e9] flex-shrink-0 truncate max-w-[140px]">
                     {entry.scriptId}
                   </span>
                   <span className="text-[9px] text-white/30 truncate">
@@ -159,3 +159,4 @@ export function CacheAdminTabDark() {
     </div>
   );
 }
+

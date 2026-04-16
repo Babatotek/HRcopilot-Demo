@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/admin/ApiKeysTab.tsx
 // PURPOSE: Admin UI — manage Groq key pool (up to 10) + ElevenLabs pool (up to 10).
 //   Keys saved to localStorage, pools reload instantly — no restart needed.
@@ -146,7 +146,7 @@ function GroqPoolSection() {
                 onChange={(e) => update(i, e.target.value)}
                 placeholder="gsk_..."
                 spellCheck={false}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-[12px] font-mono text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 pr-10 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-[12px] font-mono text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 pr-10 transition-all"
               />
               <button type="button" onClick={() => toggle(i)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 text-[11px]">
@@ -163,8 +163,8 @@ function GroqPoolSection() {
 
       {keys.length < MAX_KEYS && (
         <button onClick={() => setKeys((p) => [...p, ''])}
-          className="mt-3 flex items-center gap-2 text-[10px] font-black text-violet-400 hover:text-violet-300 uppercase tracking-widest transition-colors">
-          <span className="w-5 h-5 rounded-lg bg-violet-500/20 flex items-center justify-center text-xs">+</span>
+          className="mt-3 flex items-center gap-2 text-[10px] font-black text-[#0ea5e9] hover:text-[#38bdf8] uppercase tracking-widest transition-colors">
+          <span className="w-5 h-5 rounded-lg bg-[#e0f2fe]0/20 flex items-center justify-center text-xs">+</span>
           Add key ({keys.length}/{MAX_KEYS})
         </button>
       )}
@@ -172,7 +172,7 @@ function GroqPoolSection() {
       <SaveFeedback saved={saved} error={error} />
 
       <button onClick={save}
-        className="mt-4 w-full py-3 bg-gradient-to-r from-violet-600 to-purple-700 text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-violet-500/20 hover:from-violet-500 hover:to-purple-600 transition-all">
+        className="mt-4 w-full py-3 bg-gradient-to-r from-[#0369a1] to-[#075985] text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20 hover:from-[#e0f2fe]0 hover:to-[#0369a1] transition-all">
         Save & Reload Groq Pool
       </button>
 
@@ -182,7 +182,7 @@ function GroqPoolSection() {
           <li>• Round-robins across all LLM + TTS calls</li>
           <li>• 429 → key pauses 60s, next key takes over instantly</li>
           <li>• 401 → key permanently removed from rotation</li>
-          <li>• Free keys at <span className="text-violet-400 font-mono">console.groq.com</span> — no credit card</li>
+          <li>• Free keys at <span className="text-[#0ea5e9] font-mono">console.groq.com</span> — no credit card</li>
         </ul>
       </div>
     </section>
@@ -472,7 +472,7 @@ function StressTestSection() {
             {(['groq', 'elevenlabs'] as TestProvider[]).map((p) => (
               <button key={p} onClick={() => setProvider(p)}
                 className={`flex-1 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                  provider === p ? (p === 'groq' ? 'bg-violet-600 text-white' : 'bg-amber-500 text-white') : 'bg-white/5 text-white/40 hover:text-white/70'
+                  provider === p ? (p === 'groq' ? 'bg-[#0369a1] text-white' : 'bg-amber-500 text-white') : 'bg-white/5 text-white/40 hover:text-white/70'
                 }`}>
                 {p === 'groq' ? '🚀 Groq' : '⚡ EL'}
               </button>
@@ -481,12 +481,12 @@ function StressTestSection() {
         </div>
         <div>
           <label className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1.5">Requests — {burst}</label>
-          <input type="range" min={1} max={20} step={1} value={burst} onChange={(e) => setBurst(+e.target.value)} className="w-full accent-violet-500 mt-1" />
+          <input type="range" min={1} max={20} step={1} value={burst} onChange={(e) => setBurst(+e.target.value)} className="w-full accent-[#e0f2fe]0 mt-1" />
           <div className="flex justify-between text-[8px] text-white/20 mt-0.5"><span>1</span><span>10</span><span>20</span></div>
         </div>
         <div>
           <label className="block text-[9px] font-black text-white/30 uppercase tracking-widest mb-1.5">Concurrency — {concurrency}</label>
-          <input type="range" min={1} max={5} step={1} value={concurrency} onChange={(e) => setConcurrency(+e.target.value)} className="w-full accent-violet-500 mt-1" />
+          <input type="range" min={1} max={5} step={1} value={concurrency} onChange={(e) => setConcurrency(+e.target.value)} className="w-full accent-[#e0f2fe]0 mt-1" />
           <div className="flex justify-between text-[8px] text-white/20 mt-0.5"><span>1</span><span>3</span><span>5</span></div>
         </div>
       </div>
@@ -511,7 +511,7 @@ function StressTestSection() {
         <button onClick={running ? () => { abortRef.current = true; } : runTest}
           disabled={poolKeys.length === 0}
           className={`flex-1 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
-            running ? 'bg-rose-600 hover:bg-rose-500 text-white' : 'bg-gradient-to-r from-violet-600 to-purple-700 hover:from-violet-500 hover:to-purple-600 text-white shadow-lg shadow-violet-500/20'
+            running ? 'bg-rose-600 hover:bg-rose-500 text-white' : 'bg-gradient-to-r from-[#0369a1] to-[#075985] hover:from-[#e0f2fe]0 hover:to-[#0369a1] text-white shadow-lg shadow-[#e0f2fe]0/20'
           }`}>
           {running ? '⏹ Stop' : `▶ Run ${burst} Requests`}
         </button>
@@ -587,3 +587,4 @@ export function ApiKeysTab() {
     </div>
   );
 }
+

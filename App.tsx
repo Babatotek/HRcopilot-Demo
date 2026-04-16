@@ -97,7 +97,7 @@ const SidebarItem: React.FC<{ item: any; isCollapsed: boolean }> = ({ item, isCo
 export const ThemeToggle: React.FC<{ theme: 'dark' | 'light'; onToggle: () => void }> = ({ theme, onToggle }) => (
   <button 
     onClick={onToggle}
-    className="p-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-400 hover:text-[var(--brand-primary)] transition-all group"
+    className="p-2 md:p-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl md:rounded-2xl text-slate-400 hover:text-[var(--brand-primary)] transition-all group flex-shrink-0"
     title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
   >
     {theme === 'dark' ? (
@@ -129,7 +129,7 @@ const NotificationCenter: React.FC<{ notifications: Notification[]; onMarkAsRead
     <div className="relative" ref={dropdownRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="p-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all relative group"
+        className="p-2 md:p-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl md:rounded-2xl text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all relative group flex-shrink-0"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -140,7 +140,7 @@ const NotificationCenter: React.FC<{ notifications: Notification[]; onMarkAsRead
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-4 w-[380px] bg-white dark:bg-[#120e24]/95 backdrop-blur-3xl border border-slate-200 dark:border-white/10 rounded-[32px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.2)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] z-[100] animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute right-0 mt-4 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] bg-white dark:bg-[#120e24]/95 backdrop-blur-3xl border border-slate-200 dark:border-white/10 rounded-[32px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.2)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] z-[100] animate-in fade-in zoom-in-95 duration-200">
           <div className="p-6 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
             <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest italic">Notifications</h3>
             <span className="px-2.5 py-1 bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] text-[9px] font-black uppercase rounded-lg">{unreadCount} New</span>
@@ -330,20 +330,20 @@ const MainApp: React.FC<{
       </aside>
 
       <div className="flex-1 flex flex-col overflow-hidden relative">
-        <header className="h-20 border-b border-slate-200 dark:border-white/5 flex items-center px-4 md:px-10 bg-white/80 dark:bg-[#0d0a1a]/60 backdrop-blur-2xl justify-between z-50">
-           <div className="flex items-center gap-4 md:gap-6 flex-1">
+        <header className="h-16 md:h-20 border-b border-slate-200 dark:border-white/5 flex items-center px-3 md:px-10 bg-white/80 dark:bg-[#0d0a1a]/60 backdrop-blur-2xl justify-between z-50">
+           <div className="flex items-center gap-2 md:gap-6 flex-1 min-w-0">
               <button 
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="md:hidden p-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all"
+                className="md:hidden p-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all flex-shrink-0"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" strokeWidth="2.5"/></svg>
               </button>
 
-              <div className="flex items-center gap-3 mr-4">
-                <div className="w-8 h-8 flex items-center justify-center">
+              <div className="flex items-center gap-2 mr-2 md:mr-4 flex-shrink-0">
+                <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center">
                   <img src="/Analytictosin_Logo.png" alt="Analytictosin Logo" className="w-full h-full object-contain" />
                 </div>
-                <span className="text-lg font-black text-[#0047cc] italic hidden xs:block">HR360</span>
+                <span className="text-base md:text-lg font-black text-[#0047cc] italic hidden xs:block">HR360</span>
               </div>
 
               <div className="relative flex-1 max-w-md hidden md:block">
@@ -369,7 +369,7 @@ const MainApp: React.FC<{
               </div>
            </div>
            
-           <div className="flex items-center gap-2 md:gap-4">
+           <div className="flex items-center gap-1.5 md:gap-4 flex-shrink-0">
               {/* Clock-In Widget */}
               <button
                 onClick={() => setIsClockInOpen(true)}
@@ -388,23 +388,32 @@ const MainApp: React.FC<{
                 </div>
               </button>
 
+              {/* Mobile AI + Clock button */}
+              <button
+                onClick={() => setIsAIModalOpen(true)}
+                className="md:hidden p-2 bg-[#0047cc] text-white rounded-xl flex-shrink-0"
+                title="AI Advisor"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+              </button>
+
               <ThemeToggle theme={theme} onToggle={onToggleTheme} />
               
               <NotificationCenter notifications={notifications} onMarkAsRead={markAsRead} />
               
-              <div className="flex items-center gap-3 group cursor-pointer p-1 rounded-2xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all" onClick={onLogout}>
+              <div className="flex items-center gap-2 group cursor-pointer p-1 rounded-2xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all" onClick={onLogout}>
                  <div className="text-right hidden sm:block">
                    <p className="text-xs font-black text-slate-900 dark:text-white">HR360 System</p>
                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">SYSTEM</p>
                  </div>
-                 <div className="w-10 h-10 rounded-2xl border-2 border-orange-500 bg-orange-500/20 flex items-center justify-center text-orange-500 font-black text-xl italic shadow-lg">
+                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-2xl border-2 border-orange-500 bg-orange-500/20 flex items-center justify-center text-orange-500 font-black text-lg md:text-xl italic shadow-lg">
                    H
                  </div>
               </div>
            </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto relative p-4 md:p-10 scroll-smooth text-slate-900 dark:text-white">
+        <main className="flex-1 overflow-y-auto relative p-3 sm:p-5 md:p-10 scroll-smooth text-slate-900 dark:text-white">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[var(--brand-primary)]/5 blur-[160px] rounded-full pointer-events-none -z-10 animate-pulse" />
 
           <div className="max-w-[1400px] mx-auto animate-fade-in">

@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/admin/AdminLogin.tsx
 // PURPOSE: Isolated admin login page — no connection to main app
 // ============================================
@@ -55,8 +55,8 @@ export function AdminLogin({ onSuccess }: Props) {
     <div className="min-h-screen bg-[#0d0a1a] flex items-center justify-center p-4">
       {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-purple-600/8 blur-[100px] rounded-full" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#0369a1]/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-[#0369a1]/8 blur-[100px] rounded-full" />
       </div>
 
       <motion.div
@@ -70,7 +70,7 @@ export function AdminLogin({ onSuccess }: Props) {
 
           {/* Logo + title */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-500/30">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#0369a1] to-[#075985] flex items-center justify-center shadow-lg shadow-[#e0f2fe]0/30">
               <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                   d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -97,7 +97,7 @@ export function AdminLogin({ onSuccess }: Props) {
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={locked}
                 autoComplete="username"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/40 transition-all disabled:opacity-40"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 focus:border-[#e0f2fe]0/40 transition-all disabled:opacity-40"
                 placeholder="Enter username"
               />
             </div>
@@ -113,7 +113,7 @@ export function AdminLogin({ onSuccess }: Props) {
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={locked}
                   autoComplete="current-password"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-11 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/40 transition-all disabled:opacity-40"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-11 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/40 focus:border-[#e0f2fe]0/40 transition-all disabled:opacity-40"
                   placeholder="Enter password"
                 />
                 <button
@@ -150,7 +150,7 @@ export function AdminLogin({ onSuccess }: Props) {
             <button
               type="submit"
               disabled={loading || locked || !username || !password}
-              className="w-full py-3 bg-gradient-to-r from-violet-600 to-purple-700 text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30 hover:from-violet-500 hover:to-purple-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-[#0369a1] to-[#075985] text-white rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20 hover:shadow-[#e0f2fe]0/30 hover:from-[#e0f2fe]0 hover:to-[#0369a1] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -177,3 +177,4 @@ export function AdminLogin({ onSuccess }: Props) {
     </div>
   );
 }
+

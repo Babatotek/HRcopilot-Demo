@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import GlassCard from '../components/GlassCard';
 import Avatar from '../components/Avatar';
@@ -130,9 +130,9 @@ const Employees: React.FC = () => {
   if (isAddingEmployee) {
     return (
       <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-        <div className="flex justify-between items-center px-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4">
           <div>
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Provision <span className="text-[#eab308]">Identity</span></h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Provision <span className="text-[#eab308]">Identity</span></h2>
             <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1">HR360 Human Capital Onboarding</p>
           </div>
           <button onClick={() => setIsAddingEmployee(false)} className="px-4 py-2 bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 font-bold text-[10px] uppercase tracking-widest rounded-xl transition-all">Cancel Onboarding</button>
@@ -227,26 +227,26 @@ const Employees: React.FC = () => {
   }
 
   return (
-    <div className="space-y-10 animate-in fade-in duration-700 relative pb-20 px-4 md:px-0">
+    <div className="space-y-6 sm:space-y-10 animate-in fade-in duration-700 relative pb-20 px-0">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-           <h2 className="text-3xl font-black tracking-tight uppercase italic"><span className="text-slate-900 dark:text-white">Employee</span> <span className="text-[#0047cc]">Directory</span></h2>
-           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mt-3 opacity-70">Global Workforce Governance Hub</p>
+           <h2 className="text-2xl sm:text-3xl font-black tracking-tight uppercase italic"><span className="text-slate-900 dark:text-white">Employee</span> <span className="text-[#0047cc]">Directory</span></h2>
+           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mt-2 sm:mt-3 opacity-70">Global Workforce Governance Hub</p>
         </div>
-        <div className="flex gap-4 w-full md:w-auto">
+        <div className="flex gap-4 w-full sm:w-auto">
             <button 
               data-demo-id="add-employee-btn"
               onClick={() => setIsAddingEmployee(true)} 
-              className="flex-1 md:flex-none px-10 py-4 bg-[#0047cc] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-full shadow-[0_8px_30px_rgba(0,71,204,0.3)] hover:shadow-[0_15px_40px_rgba(0,71,204,0.4)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
+              className="flex-1 sm:flex-none px-6 sm:px-10 py-3 sm:py-4 bg-[#0047cc] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-full shadow-[0_8px_30px_rgba(0,71,204,0.3)] hover:shadow-[0_15px_40px_rgba(0,71,204,0.4)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
             >
-               <span>+ ADD NEW EMPLOYEE</span>
+               <span>+ ADD EMPLOYEE</span>
             </button>
         </div>
       </div>
 
       {/* KPI Ribbon */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="workforce-kpi-ribbon">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6" id="workforce-kpi-ribbon">
          {[
             { label: 'Total Strength', value: employees.length, color: 'text-slate-900 dark:text-white' },
             { label: 'Active Assets', value: employees.filter(e => e.status === 'Active').length, color: 'text-emerald-500' },
@@ -296,7 +296,24 @@ const Employees: React.FC = () => {
 
       {/* Directory Content */}
       <div className="space-y-6 pt-4">
-        <div className="overflow-x-auto">
+        {/* Mobile card view */}
+        <div className="block sm:hidden space-y-3">
+          {filteredEmployees.map((emp) => (
+            <div key={emp.id} className="p-4 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <Avatar src={emp.avatar} name={emp.name} size={40} radius="rounded-full" className="shadow-sm flex-shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight truncate">{emp.name}</p>
+                  <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest truncate">{emp.position}</p>
+                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest ${statusColors[emp.status]}`}>{emp.status}</span>
+                </div>
+              </div>
+              <button onClick={() => setSelectedEmployeeProfile(emp)} className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest flex-shrink-0">View</button>
+            </div>
+          ))}
+        </div>
+        {/* Desktop table view */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-slate-400 text-[10px] uppercase font-black tracking-[0.2em]">
@@ -391,7 +408,7 @@ const Employees: React.FC = () => {
               </div>
               <div className="p-8 border-t border-slate-100 dark:border-white/5 bg-slate-50/80 dark:bg-black/40 backdrop-blur-md flex gap-4">
                  <button className="flex-1 py-4 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white/10 shadow-sm transition-all">Download PDF</button>
-                 <button className="flex-1 py-4 bg-[#0047cc] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-purple-500/20 hover:scale-[1.02] transition-all">Close Nexus</button>
+                 <button className="flex-1 py-4 bg-[#0047cc] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-[#e0f2fe]0/20 hover:scale-[1.02] transition-all">Close Nexus</button>
               </div>
            </div>
         </div>
@@ -401,3 +418,4 @@ const Employees: React.FC = () => {
 };
 
 export default Employees;
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 /**
  * HR360 Design System — Button
@@ -28,7 +28,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANT_CLASSES: Record<Variant, string> = {
   primary:
-    'bg-[#0047cc] text-white border border-transparent shadow-lg shadow-purple-500/20 hover:bg-[#7040d4] hover:shadow-purple-500/30 active:bg-[#6030c0]',
+    'bg-[#0047cc] text-white border border-transparent shadow-lg shadow-[#e0f2fe]0/20 hover:bg-[#7040d4] hover:shadow-[#e0f2fe]0/30 active:bg-[#6030c0]',
   secondary:
     'bg-white dark:bg-white/5 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-slate-300 dark:hover:border-white/20',
   success:
@@ -92,3 +92,4 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
+

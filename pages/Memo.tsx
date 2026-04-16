@@ -39,8 +39,8 @@ const MemoSystem: React.FC = () => {
 
   return (
     <div className="h-[calc(100vh-140px)] flex bg-white dark:bg-[#0f172a] rounded-[32px] overflow-hidden border border-slate-200 dark:border-white/5 animate-in fade-in duration-700 shadow-xl">
-      {/* Left Sidebar: Filters */}
-      <aside className="w-56 bg-slate-50 dark:bg-white/[0.02] border-r border-slate-200 dark:border-white/5 flex flex-col p-6 space-y-8">
+      {/* Left Sidebar: Filters — hidden on mobile */}
+      <aside className="hidden md:flex w-56 bg-slate-50 dark:bg-white/[0.02] border-r border-slate-200 dark:border-white/5 flex-col p-6 space-y-8">
         <div className="space-y-4">
           <div className="relative">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" strokeWidth="2.5"/></svg>
@@ -76,8 +76,8 @@ const MemoSystem: React.FC = () => {
         </div>
       </aside>
 
-      {/* Middle Pane: Memo List */}
-      <aside className="w-[320px] border-r border-slate-200 dark:border-white/5 flex flex-col p-6 bg-slate-50/50 dark:bg-white/[0.01]">
+      {/* Middle Pane: Memo List — full width on mobile, fixed width on desktop */}
+      <aside className="w-full sm:w-[320px] border-r border-slate-200 dark:border-white/5 flex flex-col p-4 sm:p-6 bg-slate-50/50 dark:bg-white/[0.01]">
         <div className="flex items-center gap-2 mb-6">
           <button className="flex-1 py-2.5 bg-[#f59e0b] hover:bg-[#d97706] text-white font-black text-[11px] uppercase tracking-widest rounded-xl shadow-lg shadow-orange-500/20 transition-all">
             + New Memo
@@ -121,10 +121,10 @@ const MemoSystem: React.FC = () => {
       </aside>
 
       {/* Main Content: Memo Detail */}
-      <main className="flex-1 flex flex-col bg-white dark:bg-[#0f172a] relative">
-        <div className="p-8 border-b border-slate-200 dark:border-white/5 flex justify-between items-center">
-          <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">{selectedMemo.subject}</h3>
-          <div className="flex gap-2">
+      <main className="hidden sm:flex flex-1 flex-col bg-white dark:bg-[#0f172a] relative">
+        <div className="p-4 sm:p-8 border-b border-slate-200 dark:border-white/5 flex flex-wrap justify-between items-center gap-2">
+          <h3 className="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">{selectedMemo.subject}</h3>
+          <div className="flex gap-1 sm:gap-2">
             <button className="px-4 py-2 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest hover:text-slate-900 dark:hover:text-white flex items-center gap-2">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 10h10a8 8 0 018 8v2M3 10l5 5m-5-5l5-5" strokeWidth="2.5"/></svg> Reply
             </button>

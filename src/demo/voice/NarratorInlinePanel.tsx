@@ -1,15 +1,25 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/voice/NarratorInlinePanel.tsx
 // PURPOSE: Narrator panel — ElevenLabs + Groq only. Kokoro removed.
 // ============================================
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { useNarratorStore } from './narratorStore';
-import { testProvider, speak, stop, primeAudioContext } from './narrationEngine';
+import { testProvider, speak, stop, primeAudioContext, startAmbience, stopAmbience } from './narrationEngine';
 import { GROQ_TTS_VOICES } from './types';
 import type { NarratorProvider, NarratorTestResult } from './types';
 import { CacheAdminTabDark } from './CacheAdminTabDark';
+
+// ── Ambience presets ───────────────────────────────────────────────────────────
+// Local files served from public/audio/ambience/ — avoids CDN hotlink blocking.
+const AMBIENCE_PRESETS = [
+  { label: 'Minimalist Tech', icon: '💻', url: '/audio/ambience/oosongoo-background-music-224633.mp3' },
+  { label: 'Soft Cinematic',  icon: '🎬', url: '/audio/ambience/diamond_tunes-cinematic-sound-effect-327618.mp3' },
+  { label: 'Corporate Flow',  icon: '🏢', url: '/audio/ambience/prettyjohn1-corporate-background-music_33sec-483404.mp3' },
+  { label: 'Narrative Bed',   icon: '🎙️', url: '/audio/ambience/openmindaudio-podcast-background-relaxed-narrative-bed-469114.mp3' },
+  { label: 'Space Ambient',   icon: '🌌', url: '/audio/ambience/audiopapkin-ambient-soundscapes-004-space-atmosphere-303243.mp3' },
+] as const;
 
 type MainTab = 'providers' | 'settings' | 'cache';
 
@@ -25,6 +35,43 @@ export function NarratorInlinePanel() {
   const [configTab,   setConfigTab]   = useState<NarratorProvider>('elevenlabs');
   const [mainTab,     setMainTab]     = useState<MainTab>('providers');
   const [previewText, setPreviewText] = useState('Welcome to HR360. Your workforce intelligence platform is ready.');
+
+  // ── Ambience preview (admin-only, one-shot 6s clip) ───────────────────────
+  const previewRef  = useRef<HTMLAudioElement | null>(null);
+  const previewTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [previewing, setPreviewing] = useState(false);
+
+  const stopAmbiencePreview = useCallback(() => {
+    if (previewTimer.current) { clearTimeout(previewTimer.current); previewTimer.current = null; }
+    if (previewRef.current) {
+      previewRef.current.pause();
+      previewRef.current.src = '';
+      previewRef.current = null;
+    }
+    setPreviewing(false);
+  }, []);
+
+  const playAmbiencePreview = useCallback((url: string) => {
+    stopAmbiencePreview();
+    primeAudioContext();
+    const audio = new Audio(url);
+    audio.volume = store.ambienceVolume;
+    audio.loop   = false; // one-shot — never loops
+    previewRef.current = audio;
+    setPreviewing(true);
+    audio.play().catch(() => setPreviewing(false));
+    // Auto-stop after 6 seconds regardless
+    previewTimer.current = setTimeout(stopAmbiencePreview, 6000);
+    audio.onended = stopAmbiencePreview;
+  }, [store.ambienceVolume, stopAmbiencePreview]);
+
+  // Keep preview volume in sync with slider while it's playing
+  useEffect(() => {
+    if (previewRef.current) previewRef.current.volume = store.ambienceVolume;
+  }, [store.ambienceVolume]);
+
+  // Clean up on unmount
+  useEffect(() => () => stopAmbiencePreview(), [stopAmbiencePreview]);
 
   const handleTest = useCallback(async (p: NarratorProvider) => {
     setTesting(p);
@@ -44,12 +91,17 @@ export function NarratorInlinePanel() {
 
       {/* Status bar */}
       <div className="flex items-center gap-3 flex-wrap">
-        <span className="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-violet-500/20 text-violet-300 border border-violet-500/30">
+        <span className="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-[#e0f2fe]0/20 text-[#38bdf8] border border-[#e0f2fe]0/30">
           Active: {PROVIDER_META[store.provider]?.label ?? store.provider}
         </span>
         {store.status === 'speaking' && (
           <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />Speaking…
+          </span>
+        )}
+        {store.ambienceEnabled && (
+          <span className="flex items-center gap-1.5 text-[10px] font-bold text-violet-400 uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />Ambience
           </span>
         )}
       </div>
@@ -63,7 +115,7 @@ export function NarratorInlinePanel() {
         ] as { id: MainTab; label: string }[]).map((t) => (
           <button key={t.id} onClick={() => setMainTab(t.id)}
             className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-              mainTab === t.id ? 'bg-violet-600 text-white' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+              mainTab === t.id ? 'bg-[#0369a1] text-white' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
             }`}>
             {t.label}
           </button>
@@ -75,7 +127,7 @@ export function NarratorInlinePanel() {
         <div className="space-y-5">
           <div>
             <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">Select Active Provider</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {(Object.keys(PROVIDER_META) as NarratorProvider[]).map((p) => {
                 const meta     = PROVIDER_META[p];
                 const isActive = store.provider === p;
@@ -83,7 +135,7 @@ export function NarratorInlinePanel() {
                 return (
                   <button key={p} onClick={() => { store.setProvider(p); setConfigTab(p); }}
                     className={`relative p-4 rounded-2xl border-2 text-left transition-all ${
-                      isActive ? 'border-violet-500 bg-violet-500/15 shadow-lg shadow-violet-500/10' : 'border-white/10 hover:border-violet-500/40 bg-white/5'
+                      isActive ? 'border-[#e0f2fe]0 bg-[#e0f2fe]0/15 shadow-lg shadow-[#e0f2fe]0/10' : 'border-white/10 hover:border-[#e0f2fe]0/40 bg-white/5'
                     }`}>
                     <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${meta.color} flex items-center justify-center text-white text-sm mb-2`}>
                       {meta.icon}
@@ -96,7 +148,7 @@ export function NarratorInlinePanel() {
                         <span>{result.success ? `${result.latencyMs}ms` : result.error?.slice(0, 28)}</span>
                       </div>
                     )}
-                    {isActive && <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_6px_rgba(139,92,246,0.8)]" />}
+                    {isActive && <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#e0f2fe]0 shadow-[0_0_6px_rgba(14,165,233,0.8)]" />}
                   </button>
                 );
               })}
@@ -123,14 +175,14 @@ export function NarratorInlinePanel() {
           <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
             <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">Voice Preview</p>
             <textarea value={previewText} onChange={(e) => setPreviewText(e.target.value)} rows={2}
-              className="w-full bg-white/10 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/30 resize-none mb-3" />
+              className="w-full bg-white/10 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/30 resize-none mb-3" />
             <button onClick={handlePreview}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
                 store.status === 'speaking'
                   ? 'bg-rose-600 hover:bg-rose-500 text-white'
                   : store.status === 'loading'
                     ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 cursor-wait'
-                    : 'bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-500/25'
+                    : 'bg-[#0369a1] hover:bg-[#e0f2fe]0 text-white shadow-lg shadow-[#e0f2fe]0/25'
               }`}>
               {store.status === 'speaking' ? '⏹ Stop' : store.status === 'loading' ? '⏳ Loading…' : `▶ Preview · ${PROVIDER_META[configTab]?.label}`}
             </button>
@@ -148,7 +200,7 @@ export function NarratorInlinePanel() {
               {(Object.keys(PROVIDER_META) as NarratorProvider[]).map((p) => (
                 <button key={p} onClick={() => setConfigTab(p)}
                   className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                    configTab === p ? 'bg-violet-600 text-white' : 'bg-white/10 text-white/40 hover:text-white hover:bg-white/15'
+                    configTab === p ? 'bg-[#0369a1] text-white' : 'bg-white/10 text-white/40 hover:text-white hover:bg-white/15'
                   }`}>
                   {PROVIDER_META[p].icon} {PROVIDER_META[p].label}
                 </button>
@@ -189,14 +241,14 @@ export function NarratorInlinePanel() {
           </div>
 
           {/* Volume + Subtitles */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
               <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">
                 Volume — <span className="text-white">{Math.round(store.volume * 100)}%</span>
               </p>
               <input type="range" min="0" max="1" step="0.05" value={store.volume}
                 onChange={(e) => store.updateConfig({ volume: parseFloat(e.target.value) })}
-                className="w-full accent-violet-500 h-2 mb-4" />
+                className="w-full accent-[#e0f2fe]0 h-2 mb-4" />
               <button onClick={() => store.updateConfig({ muted: !store.muted })}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl text-[10px] font-black uppercase transition-all w-full justify-center ${
                   store.muted ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-white/10 text-white/60 border border-white/10'
@@ -209,7 +261,7 @@ export function NarratorInlinePanel() {
               <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-3">Subtitles</p>
               <button onClick={() => store.updateConfig({ subtitlesEnabled: !store.subtitlesEnabled })}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl text-[10px] font-black uppercase transition-all w-full justify-center mb-3 ${
-                  store.subtitlesEnabled ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30' : 'bg-white/10 text-white/40 border border-white/10'
+                  store.subtitlesEnabled ? 'bg-[#e0f2fe]0/20 text-[#38bdf8] border border-[#e0f2fe]0/30' : 'bg-white/10 text-white/40 border border-white/10'
                 }`}>
                 {store.subtitlesEnabled ? '✓ Enabled' : '✗ Disabled'}
               </button>
@@ -217,11 +269,84 @@ export function NarratorInlinePanel() {
                 {(['sm', 'md', 'lg'] as const).map((size) => (
                   <button key={size} onClick={() => store.updateConfig({ subtitleFontSize: size })}
                     className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase transition-all ${
-                      store.subtitleFontSize === size ? 'bg-violet-600 text-white' : 'bg-white/10 text-white/40'
+                      store.subtitleFontSize === size ? 'bg-[#0369a1] text-white' : 'bg-white/10 text-white/40'
                     }`}>
                     {size.toUpperCase()}
                   </button>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Ambience */}
+          <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
+            <div className="flex justify-between items-center mb-3">
+              <div>
+                <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">🎵 Background Ambience</p>
+                <p className="text-[9px] text-white/25 mt-0.5">Enable for live demo · preview tracks below</p>
+              </div>
+              <button
+                onClick={() => {
+                  const next = !store.ambienceEnabled;
+                  store.updateConfig({ ambienceEnabled: next });
+                  if (next) startAmbience(); else stopAmbience();
+                }}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase transition-all ${
+                  store.ambienceEnabled
+                    ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30'
+                    : 'bg-white/10 text-white/40 border border-white/10'
+                }`}>
+                {store.ambienceEnabled ? '✓ Enabled for demo' : '✗ Off'}
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {/* Preset buttons — click to audition 6s clip */}
+              <div>
+                <p className="text-[9px] font-black text-white/30 uppercase tracking-widest mb-2">
+                  Click to audition · {previewing ? <span className="text-violet-400 animate-pulse">▶ playing 6s preview…</span> : 'select active track'}
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  {AMBIENCE_PRESETS.map((preset) => {
+                    const isActive   = store.ambienceUrl === preset.url;
+                    const isPlaying  = previewing && isActive;
+                    return (
+                      <button key={preset.label}
+                        onClick={() => {
+                          store.updateConfig({ ambienceUrl: preset.url });
+                          if (isPlaying) { stopAmbiencePreview(); }
+                          else { playAmbiencePreview(preset.url); }
+                        }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border ${
+                          isActive
+                            ? 'bg-[#0369a1] text-white border-[#0369a1]'
+                            : 'bg-white/10 text-white/40 border-transparent hover:border-violet-400/40'
+                        }`}>
+                        {isPlaying
+                          ? <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse flex-shrink-0" />
+                          : <span>{preset.icon}</span>}
+                        {preset.label}
+                      </button>
+                    );
+                  })}
+                  {previewing && (
+                    <button onClick={stopAmbiencePreview}
+                      className="px-2.5 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest bg-rose-500/20 text-rose-400 border border-rose-500/30 transition-all">
+                      ⏹ Stop
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Volume slider — affects both preview and live demo */}
+              <div>
+                <p className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1.5">
+                  Music Volume — <span className="text-white">{Math.round(store.ambienceVolume * 100)}%</span>
+                </p>
+                <input type="range" min="0" max="0.5" step="0.01" value={store.ambienceVolume}
+                  onChange={(e) => store.updateConfig({ ambienceVolume: parseFloat(e.target.value) })}
+                  className="w-full accent-violet-400 h-2" />
+                <p className="text-[9px] text-white/25 mt-1">Ducks to 20% while narrator speaks</p>
               </div>
             </div>
           </div>
@@ -251,7 +376,7 @@ function Field({ label, type = 'text', placeholder, value, onChange }: {
     <div>
       <label className="block text-[10px] font-black text-white/40 uppercase tracking-widest mb-1.5">{label}</label>
       <input type={type} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-[#1a1530] border border-white/10 rounded-xl px-3 py-2.5 text-sm font-mono text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/30" />
+        className="w-full bg-[#1a1530] border border-white/10 rounded-xl px-3 py-2.5 text-sm font-mono text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/30" />
     </div>
   );
 }

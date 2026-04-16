@@ -65,12 +65,6 @@ export const useNarratorStore = create<NarratorStore>()(
   persist(
     (set) => ({
       ...DEFAULT_NARRATOR_CONFIG,
-      // Seed from env on first creation
-      elevenLabsApiKey:  import.meta.env.VITE_ELEVENLABS_API_KEY  as string || '',
-      elevenLabsVoiceId: import.meta.env.VITE_ELEVENLABS_VOICE_ID as string || '',
-      groqApiKey:        import.meta.env.VITE_GROQ_API_KEY        as string || '',
-      provider:          detectBestProvider(),
-
       // Runtime (never persisted)
       status:         'idle',
       currentText:    '',
@@ -91,7 +85,8 @@ export const useNarratorStore = create<NarratorStore>()(
       toggleAdminPanel: () => set((s) => ({ adminPanelOpen: !s.adminPanelOpen })),
     }),
     {
-      name: 'hr360_narrator_config',
+      name:    'hr360_narrator_config',
+      version: 2, // bump when shape changes — triggers onRehydrateStorage cleanly
       partialize: (s) => ({
         provider:          s.provider,
         elevenLabsApiKey:  s.elevenLabsApiKey,
@@ -103,21 +98,26 @@ export const useNarratorStore = create<NarratorStore>()(
         muted:             s.muted,
         subtitlesEnabled:  s.subtitlesEnabled,
         subtitleFontSize:  s.subtitleFontSize,
+        // ambienceEnabled intentionally NOT persisted — always starts off.
+        ambienceVolume:    s.ambienceVolume,
+        ambienceUrl:       s.ambienceUrl,
       }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
-        // Force off kokoro if somehow still stored
+        // Fix stale provider
         if ((state.provider as string) === 'kokoro') state.provider = 'groq';
         // Fix invalid Groq voice
         const validOrpheus = ['autumn','diana','hannah','austin','daniel','troy'];
         if (!validOrpheus.includes(state.groqVoice)) state.groqVoice = 'autumn';
-        // Inject env keys if store is empty
+        // Seed from env ONLY if the stored value is blank — never overwrite user choices
         const el  = import.meta.env.VITE_ELEVENLABS_API_KEY  as string | undefined;
         const elV = import.meta.env.VITE_ELEVENLABS_VOICE_ID as string | undefined;
         const gr  = import.meta.env.VITE_GROQ_API_KEY        as string | undefined;
-        if (el  && !state.elevenLabsApiKey)  state.elevenLabsApiKey  = el;
-        if (elV && !state.elevenLabsVoiceId) state.elevenLabsVoiceId = elV;
-        if (gr  && !state.groqApiKey)        state.groqApiKey        = gr;
+        if (!state.elevenLabsApiKey  && el)  state.elevenLabsApiKey  = el;
+        if (!state.elevenLabsVoiceId && elV) state.elevenLabsVoiceId = elV;
+        if (!state.groqApiKey        && gr)  state.groqApiKey        = gr;
+        // Auto-detect best provider based on what keys are now available
+        state.provider = detectBestProvider();
       },
     },
   ),

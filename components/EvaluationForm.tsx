@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import GlassCard from './GlassCard';
 import { FormTemplate, FormField } from '../types';
@@ -152,7 +152,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ template, employeeName,
                 onClick={() => handleInputChange(field.id, star)}
                 className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all ${
                   value >= star 
-                    ? 'bg-[#0047cc] text-white shadow-lg shadow-purple-500/30' 
+                    ? 'bg-[#0047cc] text-white shadow-lg shadow-[#e0f2fe]0/30' 
                     : 'bg-white/5 text-slate-700 hover:bg-white/10'
                 }`}
               >
@@ -296,7 +296,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ template, employeeName,
           <button 
             onClick={handleNext}
             data-demo-id="eval-submit-btn"
-            className="px-8 py-3 bg-[#0047cc] text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-xl shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="px-8 py-3 bg-[#0047cc] text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-xl shadow-[#e0f2fe]0/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             {currentStep === totalSteps - 1 ? 'Finish Review' : 'Next Section →'}
           </button>
@@ -307,3 +307,4 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ template, employeeName,
 };
 
 export default EvaluationForm;
+

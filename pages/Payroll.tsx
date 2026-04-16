@@ -47,11 +47,11 @@ const Payroll: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700 pb-20">
+    <div className="space-y-6 animate-in fade-in duration-700 pb-20">
       {/* Header Section */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">
+          <h1 className="page-header text-slate-900 dark:text-white">
             GLOBAL <span className="text-[#0047cc]">PAYROLL</span>
           </h1>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.25em] mt-1 italic opacity-70">
@@ -59,14 +59,14 @@ const Payroll: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex bg-slate-100 dark:bg-white/5 p-1 rounded-2xl border border-slate-200 dark:border-white/10">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div className="tab-nav bg-slate-100 dark:bg-white/5 p-1 rounded-2xl border border-slate-200 dark:border-white/10">
             {['DASHBOARD', 'PERIODS', 'MANAGEMENT', 'APPROVALS', 'SETTINGS'].map((tab) => (
               <button
                 key={tab}
                 data-demo-id={`payroll-tab-${tab.toLowerCase()}`}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                className={`tab-btn ${
                   activeTab === tab 
                     ? 'bg-[#0047cc] text-white shadow-lg shadow-blue-500/20' 
                     : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
@@ -76,17 +76,19 @@ const Payroll: React.FC = () => {
               </button>
             ))}
           </div>
-          <Button variant="secondary" size="md" icon={<Download size={14} />}>Export</Button>
-          <Button 
-            id="run-payroll"
-            data-demo-id="run-payroll"
-            variant="success" 
-            size="md" 
-            icon={<Plus size={14} strokeWidth={3} />}
-            onClick={() => setIsCreatePayrollModalOpen(true)}
-          >
-            Create Payroll
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="secondary" size="sm" icon={<Download size={14} />}>Export</Button>
+            <Button 
+              id="run-payroll"
+              data-demo-id="run-payroll"
+              variant="success" 
+              size="sm" 
+              icon={<Plus size={14} strokeWidth={3} />}
+              onClick={() => setIsCreatePayrollModalOpen(true)}
+            >
+              Create Payroll
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -95,10 +97,10 @@ const Payroll: React.FC = () => {
         {activeTab === 'DASHBOARD' && (
           <div className="space-y-8">
             {/* Stats Grid */}
-            <div data-demo-id="payroll-stats-grid" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div data-demo-id="payroll-stats-grid" className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
               {[
-                { label: 'MONTHLY PAYROLL', value: `₦${(DEMO_DASHBOARD_KPIS.monthlyPayrollTotal / 1000000).toFixed(2)}M`, sub: 'NET DISBURSEMENT', icon: TrendingUp, color: 'text-[#0047cc]', accent: '#0047cc' },
-                { label: 'AVERAGE PAY',     value: `₦${Math.round(DEMO_DASHBOARD_KPIS.monthlyPayrollTotal / DEMO_DASHBOARD_KPIS.activeEmployees / 1000)}K`, sub: 'PER WORKFORCE', icon: Users, color: 'text-emerald-500', accent: '#10b981' },
+                { label: 'MONTHLY PAYROLL', value: `?${(DEMO_DASHBOARD_KPIS.monthlyPayrollTotal / 1000000).toFixed(2)}M`, sub: 'NET DISBURSEMENT', icon: TrendingUp, color: 'text-[#0047cc]', accent: '#0047cc' },
+                { label: 'AVERAGE PAY',     value: `?${Math.round(DEMO_DASHBOARD_KPIS.monthlyPayrollTotal / DEMO_DASHBOARD_KPIS.activeEmployees / 1000)}K`, sub: 'PER WORKFORCE', icon: Users, color: 'text-emerald-500', accent: '#10b981' },
                 { label: 'HEADCOUNT',       value: String(DEMO_DASHBOARD_KPIS.activeEmployees), sub: 'ACTIVE EMPLOYEES', icon: Users, color: 'text-amber-500', accent: '#f59e0b' },
                 { label: 'PENDING RUNS',    value: String(DEMO_DASHBOARD_KPIS.pendingPayrollApprovals), sub: 'APPROVALS NEEDED', icon: Clock, color: 'text-rose-500', accent: '#ef4444' },
               ].map((stat, i) => (
@@ -117,8 +119,8 @@ const Payroll: React.FC = () => {
 
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <GlassCard className="lg:col-span-2 p-8">
-                <div className="flex justify-between items-center mb-10">
+              <GlassCard className="lg:col-span-2 p-4 sm:p-8">
+                <div className="flex justify-between items-center mb-6 sm:mb-10">
                   <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight uppercase italic border-l-4 border-[#0047cc] pl-4">
                     PAYMENT HISTORY
                   </h3>
@@ -127,7 +129,7 @@ const Payroll: React.FC = () => {
                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">MONTHLY NET</span>
                   </div>
                 </div>
-                <div className="h-[300px] w-full min-w-0 relative">
+                <div className="chart-md w-full min-w-0 relative">
                   <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <LineChart data={MOCK_PAYMENT_HISTORY}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -168,11 +170,11 @@ const Payroll: React.FC = () => {
                 </div>
               </GlassCard>
 
-              <GlassCard className="p-8">
-                <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight uppercase italic border-l-4 border-[#0047cc] pl-4 mb-10">
+              <GlassCard className="p-4 sm:p-8">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight uppercase italic border-l-4 border-[#0047cc] pl-4 mb-6 sm:mb-10">
                   WORKFORCE MIX
                 </h3>
-                <div className="h-[250px] min-w-0 relative">
+                <div className="chart-sm min-w-0 relative">
                   <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <PieChart>
                       <Pie
@@ -211,7 +213,7 @@ const Payroll: React.FC = () => {
 
             {/* Transitions Table */}
             <GlassCard className="overflow-hidden">
-              <div className="p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
+              <div className="p-4 sm:p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
                 <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight uppercase italic border-l-4 border-amber-500 pl-4">
                   APPROVED TRANSITIONS
                 </h3>
@@ -220,7 +222,7 @@ const Payroll: React.FC = () => {
                   <ExternalLink size={12} />
                 </button>
               </div>
-              <div className="overflow-x-auto">
+              <div className="table-wrap">
                 <table className="w-full">
                   <thead>
                     <tr className="bg-slate-50/50 dark:bg-white/[0.02]">
@@ -239,7 +241,7 @@ const Payroll: React.FC = () => {
                             <Clock size={32} />
                           </div>
                           <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                            NO APPROVED PAYROLL RUNS YET — APPROVE A RUN TO SEE IT HERE
+                            NO APPROVED PAYROLL RUNS YET � APPROVE A RUN TO SEE IT HERE
                           </p>
                         </div>
                       </td>
@@ -264,8 +266,8 @@ const Payroll: React.FC = () => {
                     <div className="text-right">
                       <p className="text-sm font-black text-slate-900 dark:text-white">
                         {DEMO_PAYROLL_RUNS.find(r => r.periodId === period.id)
-                          ? `₦${DEMO_PAYROLL_RUNS.find(r => r.periodId === period.id)!.totalNet.toLocaleString()}`
-                          : '₦0.00'}
+                          ? `?${DEMO_PAYROLL_RUNS.find(r => r.periodId === period.id)!.totalNet.toLocaleString()}`
+                          : '?0.00'}
                       </p>
                       <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase ${period.status === 'OPEN' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-500/10 text-slate-500'}`}>
                         {period.status}
@@ -281,7 +283,7 @@ const Payroll: React.FC = () => {
         {activeTab === 'MANAGEMENT' && (
           <div className="space-y-6">
             <GlassCard title="Employee Compensation Management">
-              <div className="overflow-x-auto">
+              <div className="table-wrap">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-white/5">
@@ -304,10 +306,10 @@ const Payroll: React.FC = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">₦{line.baseSalary.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">₦{line.allowances.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-xs text-rose-500">₦{line.deductions.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-xs font-black text-slate-900 dark:text-white text-right">₦{line.netPay.toLocaleString()}</td>
+                        <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">?{line.baseSalary.toLocaleString()}</td>
+                        <td className="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">?{line.allowances.toLocaleString()}</td>
+                        <td className="px-6 py-4 text-xs text-rose-500">?{line.deductions.toLocaleString()}</td>
+                        <td className="px-6 py-4 text-xs font-black text-slate-900 dark:text-white text-right">?{line.netPay.toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -340,7 +342,7 @@ const Payroll: React.FC = () => {
                   <div className="w-1.5 h-6 bg-[#0047cc] rounded-full" />
                   <div>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">STATUTORY DEDUCTIONS</h3>
-                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">TOGGLE EACH DEDUCTION ON/OFF — NIGERIA FINANCE ACT 2025</p>
+                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">TOGGLE EACH DEDUCTION ON/OFF � NIGERIA FINANCE ACT 2025</p>
                   </div>
                 </div>
               </div>
@@ -402,7 +404,7 @@ const Payroll: React.FC = () => {
                 <div className="flex items-center justify-between py-3">
                   <div>
                     <p className="text-xs font-bold text-slate-900 dark:text-white">State Development Levy</p>
-                    <p className="text-[9px] text-slate-500 uppercase mt-0.5">₦100 fixed annual deduction per employee. Remitted to the specific State Internal Revenue Service.</p>
+                    <p className="text-[9px] text-slate-500 uppercase mt-0.5">?100 fixed annual deduction per employee. Remitted to the specific State Internal Revenue Service.</p>
                   </div>
                   <div className="flex items-center gap-2 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-500">
                     <div className="w-2 h-2 rounded-full bg-emerald-500" /> ON
@@ -449,11 +451,11 @@ const Payroll: React.FC = () => {
               <div className="p-6 space-y-1">
                 <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-white/5">
                   <div>
-                    <p className="text-xs font-bold text-slate-900 dark:text-white">National Minimum Wage (₦/month)</p>
+                    <p className="text-xs font-bold text-slate-900 dark:text-white">National Minimum Wage (?/month)</p>
                     <p className="text-[9px] text-slate-500 uppercase mt-0.5">National Minimum Wage Act (2024 amendment). Payroll submission is blocked if any employee's net pay falls below this.</p>
                   </div>
                   <div className="flex items-center gap-3 bg-slate-50 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10">
-                    <span className="text-[10px] font-black text-slate-400">₦</span>
+                    <span className="text-[10px] font-black text-slate-400">?</span>
                     <span className="text-xs font-bold text-slate-900 dark:text-white">70000</span>
                   </div>
                 </div>
@@ -468,11 +470,11 @@ const Payroll: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-white/5">
                   <div>
-                    <p className="text-xs font-bold text-slate-900 dark:text-white">Rent Relief Monthly Cap (₦)</p>
-                    <p className="text-[9px] text-slate-500 uppercase mt-0.5">FIRS standard: ₦200,000/year ÷ 12 = ₦16,667/month. Employees with documented FIRS approval can exceed this.</p>
+                    <p className="text-xs font-bold text-slate-900 dark:text-white">Rent Relief Monthly Cap (?)</p>
+                    <p className="text-[9px] text-slate-500 uppercase mt-0.5">FIRS standard: ?200,000/year � 12 = ?16,667/month. Employees with documented FIRS approval can exceed this.</p>
                   </div>
                   <div className="flex items-center gap-3 bg-slate-50 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10">
-                    <span className="text-[10px] font-black text-slate-400">₦</span>
+                    <span className="text-[10px] font-black text-slate-400">?</span>
                     <span className="text-xs font-bold text-slate-900 dark:text-white">16667</span>
                   </div>
                 </div>
@@ -501,7 +503,7 @@ const Payroll: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 cursor-pointer">
                     <span className="text-xs font-bold text-slate-900 dark:text-white">Basic Wages (Correct)</span>
-                    <span className="text-slate-400 text-[10px]">▼</span>
+                    <span className="text-slate-400 text-[10px]">?</span>
                   </div>
                 </div>
               </div>
@@ -530,11 +532,11 @@ const Payroll: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-white/5">
                   <div>
-                    <p className="text-xs font-bold text-slate-900 dark:text-white">Dual Approval Threshold (₦)</p>
+                    <p className="text-xs font-bold text-slate-900 dark:text-white">Dual Approval Threshold (?)</p>
                     <p className="text-[9px] text-slate-500 uppercase mt-0.5">Remittances above this amount require a second approver. Applies to PAYE, Pension, NHF, and NSITF.</p>
                   </div>
                   <div className="flex items-center gap-3 bg-slate-50 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10">
-                    <span className="text-[10px] font-black text-slate-400">₦</span>
+                    <span className="text-[10px] font-black text-slate-400">?</span>
                     <span className="text-xs font-bold text-slate-900 dark:text-white">1000000</span>
                   </div>
                 </div>
@@ -632,7 +634,7 @@ const Payroll: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 cursor-pointer w-24 justify-between">
                     <span className="text-xs font-bold text-slate-900 dark:text-white">A4</span>
-                    <span className="text-slate-400 text-[10px]">▼</span>
+                    <span className="text-slate-400 text-[10px]">?</span>
                   </div>
                 </div>
               </div>
@@ -645,7 +647,7 @@ const Payroll: React.FC = () => {
                   <div className="w-1.5 h-6 bg-rose-500 rounded-full" />
                   <div>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">ACTIVE TAX RULE</h3>
-                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">NIGERIA PAYE 2026 (FINANCE ACT 2025) — EFFECTIVE 2026-01-01</p>
+                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">NIGERIA PAYE 2026 (FINANCE ACT 2025) � EFFECTIVE 2026-01-01</p>
                   </div>
                 </div>
               </div>
@@ -653,7 +655,7 @@ const Payroll: React.FC = () => {
                 <div className="grid grid-cols-4 gap-4 mb-6">
                   <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-2xl border border-slate-100 dark:border-white/10">
                     <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">TAX-FREE THRESHOLD</p>
-                    <p className="text-sm font-black text-slate-900 dark:text-white">₦800,000</p>
+                    <p className="text-sm font-black text-slate-900 dark:text-white">?800,000</p>
                   </div>
                   <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-2xl border border-slate-100 dark:border-white/10">
                     <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">PENSION EMPLOYEE</p>
@@ -669,7 +671,7 @@ const Payroll: React.FC = () => {
                   </div>
                 </div>
                 <button className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest flex items-center gap-2 hover:opacity-70 transition-opacity">
-                  <span className="text-[8px]">▼</span> SHOW PAYE BANDS
+                  <span className="text-[8px]">?</span> SHOW PAYE BANDS
                 </button>
               </div>
             </GlassCard>
@@ -681,15 +683,15 @@ const Payroll: React.FC = () => {
                   <div className="w-1.5 h-6 bg-[#0047cc] rounded-full" />
                   <div>
                     <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">TAX RULE VERSIONS</h3>
-                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">HISTORICAL AND ACTIVE PAYE RULE SETS — ACTIVATE TO SWITCH</p>
+                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">HISTORICAL AND ACTIVE PAYE RULE SETS � ACTIVATE TO SWITCH</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <button className="px-4 py-2 bg-[#0047cc] text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg shadow-purple-500/20 hover:scale-105 transition-all flex items-center gap-2">
+                  <button className="px-4 py-2 bg-[#0047cc] text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg shadow-[#e0f2fe]0/20 hover:scale-105 transition-all flex items-center gap-2">
                     <Plus size={12} strokeWidth={3} /> NEW RULE
                   </button>
                   <button className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest flex items-center gap-1 hover:opacity-70 transition-opacity">
-                    <span className="text-[8px]">▼</span> SHOW ALL
+                    <span className="text-[8px]">?</span> SHOW ALL
                   </button>
                 </div>
               </div>
@@ -701,7 +703,7 @@ const Payroll: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <div className="w-1.5 h-6 bg-rose-500 rounded-full" />
                   <div>
-                    <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">FIRS FORM A — ANNUAL PAYE RETURN</h3>
+                    <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">FIRS FORM A � ANNUAL PAYE RETURN</h3>
                     <p className="text-[9px] text-slate-500 font-bold uppercase mt-0.5 tracking-widest">GENERATE AND EXPORT THE ANNUAL PAYE RETURN FOR E-TAX PORTAL UPLOAD</p>
                   </div>
                 </div>
@@ -712,7 +714,7 @@ const Payroll: React.FC = () => {
                   <div className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 px-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 w-32 justify-center">
                     <span className="text-sm font-bold text-slate-900 dark:text-white">2026</span>
                   </div>
-                  <button className="px-6 py-3 bg-[#0047cc] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg shadow-purple-500/20 hover:scale-105 transition-all flex items-center gap-2">
+                  <button className="px-6 py-3 bg-[#0047cc] text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg shadow-[#e0f2fe]0/20 hover:scale-105 transition-all flex items-center gap-2">
                     <Download size={14} strokeWidth={3} /> GENERATE
                   </button>
                 </div>
@@ -744,7 +746,7 @@ const Payroll: React.FC = () => {
             >
               <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#0047cc] to-transparent opacity-50" />
               
-              <div className="p-12 pb-6 flex justify-between items-start">
+              <div className="p-5 sm:p-12 pb-6 flex justify-between items-start">
                 <div>
                   <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
                     RUN <span className="text-[#0047cc]">PAYROLL</span>
@@ -761,7 +763,7 @@ const Payroll: React.FC = () => {
                 </button>
               </div>
 
-              <div className="p-12 pt-6 space-y-10">
+              <div className="p-5 sm:p-12 pt-6 space-y-10">
                 <div className="grid grid-cols-2 gap-8">
                   {/* Period Selection */}
                   <div className="space-y-4">
@@ -807,11 +809,11 @@ const Payroll: React.FC = () => {
                       <p className="text-[9px] text-slate-500 font-black uppercase mt-2 tracking-widest">Employees</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">₦4.8M+</p>
+                      <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">?4.8M+</p>
                       <p className="text-[9px] text-slate-500 font-black uppercase mt-2 tracking-widest">Est. Net Pay</p>
                     </div>
                     <div>
-                      <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">₦1.2M+</p>
+                      <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">?1.2M+</p>
                       <p className="text-[9px] text-slate-500 font-black uppercase mt-2 tracking-widest">Statutory Liab.</p>
                     </div>
                   </div>
@@ -843,7 +845,7 @@ const Payroll: React.FC = () => {
                 </div>
 
                 <p className="text-center text-[9px] text-slate-500 font-black uppercase tracking-[0.1em] opacity-40">
-                  Secure disbursement channel • Audited by HR360 Engine v4.0
+                  Secure disbursement channel � Audited by HR360 Engine v4.0
                 </p>
               </div>
             </motion.div>
@@ -855,3 +857,6 @@ const Payroll: React.FC = () => {
 };
 
 export default Payroll;
+
+
+

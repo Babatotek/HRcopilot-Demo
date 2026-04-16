@@ -67,40 +67,39 @@ const Goals: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-700 pb-20">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Strategic Goals & <span className="text-[#0047cc]">OKRs</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Strategic Goals & <span className="text-[#0047cc]">OKRs</span></h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0047cc] animate-pulse" />
             Active Governance Period: Q1-Q2 2024
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <div className="relative group">
             <input 
               type="text" 
               placeholder="Architect new goal..." 
               value={newObjectiveTitle}
               onChange={(e) => setNewObjectiveTitle(e.target.value)}
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white w-64 focus:border-emerald-500/50 outline-none transition-all"
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white w-full sm:w-64 focus:border-emerald-500/50 outline-none transition-all"
             />
             <button 
               onClick={handleAiArchitect}
               disabled={isAiArchitecting || !newObjectiveTitle}
               className="absolute right-2 top-1.5 p-1.5 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-all disabled:opacity-30"
             >
-              {/* Fixed: replaced isAiGenerating with isAiArchitecting */}
-              {isAiArchitecting ? '✨' : 'Suggest'}
+              {isAiArchitecting ? '?' : 'Suggest'}
             </button>
           </div>
-          <button className="px-6 py-2.5 gradient-bg text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-xl shadow-purple-500/20 active:scale-95 transition-all">
+          <button className="px-5 py-2.5 gradient-bg text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-xl shadow-[#e0f2fe]0/20 active:scale-95 transition-all">
             Manual Create
           </button>
         </div>
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           { l: 'Completion Rate', v: '72%', d: 'Org-wide average', c: 'text-[#0047cc]' },
           { l: 'Strategic Impact', v: 'High', d: 'Alignment health', c: 'text-emerald-400' },
@@ -135,7 +134,7 @@ const Goals: React.FC = () => {
           </GlassCard>
 
           <GlassCard title="Alignment Tree" className="!p-4 opacity-50">
-             <div className="p-8 border-2 border-dashed border-white/5 rounded-2xl text-center">
+             <div className="p-4 sm:p-8 border-2 border-dashed border-white/5 rounded-2xl text-center">
                 <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest leading-relaxed">
                    Visual tree showing goal cascading will render here
                 </p>
@@ -149,7 +148,7 @@ const Goals: React.FC = () => {
             const progress = calculateProgress(obj.keyResults);
             return (
               <GlassCard key={obj.id} className="relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-4 opacity-5 text-6xl select-none group-hover:opacity-10 transition-opacity">🎯</div>
+                <div className="absolute top-0 right-0 p-4 opacity-5 text-6xl select-none group-hover:opacity-10 transition-opacity">??</div>
                 
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Left: Metadata */}
@@ -167,7 +166,7 @@ const Goals: React.FC = () => {
                     </div>
                     <div className="space-y-1">
                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Period</p>
-                       <p className="text-[10px] font-mono text-slate-400">{obj.startDate} → {obj.endDate}</p>
+                       <p className="text-[10px] font-mono text-slate-400">{obj.startDate} ? {obj.endDate}</p>
                     </div>
                   </div>
 
@@ -230,3 +229,5 @@ const Goals: React.FC = () => {
 };
 
 export default Goals;
+
+

@@ -47,7 +47,7 @@ const GlassCard: React.FC<GlassCardProps> = ({
           shadow-[0_12px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]
           hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)]
           hover:-translate-y-1 active:translate-y-0
-          transition-all duration-300 p-8 overflow-hidden
+          transition-all duration-300 p-4 sm:p-6 md:p-8 overflow-hidden
           ${isClickable ? 'cursor-pointer' : ''}
           ${className}
         `}

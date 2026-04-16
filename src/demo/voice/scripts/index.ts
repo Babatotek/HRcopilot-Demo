@@ -13,6 +13,8 @@ export const ALL_SCRIPTS: Record<string, any> = {
 
   'elevator.pitch.ceo': {
     CEO: "The average organisation with two hundred employees loses between forty and eighty thousand dollars annually to payroll errors, attendance fraud, manual reconciliation, and disconnected systems. HR360+ closes every one of those gaps — and the ROI is typically visible within the first payroll cycle.",
+    HR:  "Your team spends an estimated thirty percent of its time on tasks that should be automated — chasing approvals, reconciling attendance, correcting payroll errors, and generating reports manually. HR360+ gives that time back. Most HR teams recover eight to twelve hours per week within the first month.",
+    FINANCE: "Manual payroll processing, disconnected procurement, and delayed financial close are your three biggest controllable cost risks. HR360+ automates all three — payroll posts to the ledger automatically, procurement enforces three-way match, and financial close shrinks from days to hours.",
   },
   'elevator.pitch.hr': {
     HR: "Your team spends an estimated thirty percent of its time on tasks that should be automated — chasing approvals, reconciling attendance, correcting payroll errors, and generating reports manually. HR360+ gives that time back. Most HR teams recover eight to twelve hours per week within the first month.",
@@ -285,7 +287,7 @@ export const ALL_SCRIPTS: Record<string, any> = {
     FINANCE: "Hiring costs, onboarding timelines, and headcount changes feed directly into financial planning. Cost-per-hire and time-to-productivity are tracked automatically.",
   },
   'talentManagement.pipeline': {
-    CEO:     "Your hiring funnel — applications, screenings, interviews, offers, and hires — is visible in real time. You see where candidates are dropping off and why.",
+    CEO:     "Your hiring funnel — applications, screenings, interviews, offers, and hires — is visible in real time. You see where candidates are dropping out, which roles are taking longest to fill, and what each hire is costing you.",
     HR:      "The candidate pipeline tracks every applicant from first contact to first day. Interview scheduling, offer management, and onboarding checklists are all managed in one place.",
     FINANCE: "Recruitment spend by role, by department, and by hiring channel is tracked automatically. Cost-per-hire is calculated in real time.",
   },
@@ -367,6 +369,12 @@ export const ALL_SCRIPTS: Record<string, any> = {
   'closing.ceo': "HR360+ gives you control over every cost centre, every compliance risk, and every people decision — in one platform. The organisations that move first on unified people and finance intelligence will have a structural advantage. The question is not whether you need this. It is how much you are losing every month without it.",
   'closing.hr':  "HR360+ eliminates every manual process your team runs today — attendance tracking, leave management, payroll reconciliation, performance reviews, and compliance reporting. The time you recover goes back into the work that actually matters: your people.",
   'closing.finance': "HR360+ closes every financial control gap — from payroll accuracy to procurement compliance to financial close. Every number is verified, every cost is traceable, and every audit is a data export. The ROI is measurable from the first payroll cycle.",
+
+  'closing.pitch': {
+    CEO:     "HR360+ gives you control over every cost centre, every compliance risk, and every people decision — in one platform. The organisations that move first on unified people and finance intelligence will have a structural advantage. The question is not whether you need this. It is how much you are losing every month without it.",
+    HR:      "HR360+ eliminates every manual process your team runs today — attendance tracking, leave management, payroll reconciliation, performance reviews, and compliance reporting. The time you recover goes back into the work that actually matters: your people.",
+    FINANCE: "HR360+ closes every financial control gap — from payroll accuracy to procurement compliance to financial close. Every number is verified, every cost is traceable, and every audit is a data export. The ROI is measurable from the first payroll cycle.",
+  },
 
   'closing.ceo.extended': "Think about the last time a payroll error caused a dispute. The last time an attendance record was questioned. The last time your finance team spent a week on month-end close. HR360+ makes all of those problems structural impossibilities — not things you manage, things that cannot happen.",
   'closing.hr.extended':  "Your team did not go into HR to chase approvals and reconcile spreadsheets. HR360+ gives them back the time to do the work that actually changes people's lives — development conversations, culture building, and strategic workforce planning.",

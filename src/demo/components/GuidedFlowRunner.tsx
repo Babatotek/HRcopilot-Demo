@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/components/GuidedFlowRunner.tsx
 // PURPOSE: Drives the guided demo automatically.
 //   - Navigates to the correct module for each step
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDemoOrchestrator } from '../orchestrator/demoOrchestrator';
 import { useOnboardingStore } from '../onboarding/onboardingStore';
-import { GUIDED_FLOW, resolveNarration } from '../orchestrator/guidedFlow';
+import { GUIDED_FLOW, resolveNarration, roleToScriptKey } from '../orchestrator/guidedFlow';
 import { speak, stop, primeAudioContext } from '../voice/narrationEngine';
 import { ProgressIndicator } from './ProgressIndicator';
 
@@ -107,23 +107,21 @@ export function GuidedFlowRunner() {
 
     // Speak narration after a short delay to let the page render
     const text = resolveNarration(currentStep, role);
+    const capturedStepIndex = stepIndex;
     if (text) {
       renderDelayRef.current = setTimeout(() => {
         renderDelayRef.current = null;
+        // Guard: if the step changed while we were waiting, bail
+        if (useDemoOrchestrator.getState().stepIndex !== capturedStepIndex) return;
         primeAudioContext();
         speak(text, {
           scriptId: currentStep.narrationKey,
+          role:     roleToScriptKey(role),
           onDone: () => {
-            // Speech finished naturally — short pause then advance
             speechTimerRef.current = setTimeout(advance, 800);
           },
-          onError: () => {
-            // onDone is also called by the fallback chain, so this is just
-            // for logging — the advance will happen via onDone
-          },
-        }).catch(() => {
-          // speak() threw synchronously — safety timer handles advance
-        });
+          onError: () => {},
+        }).catch(() => {});
       }, 400);
     } else {
       // No narration for this step — advance after durationMs
@@ -134,13 +132,9 @@ export function GuidedFlowRunner() {
     // Mark step complete
     completeStep(currentStep.id);
 
-    // ── SAFETY FALLBACK TIMER ─────────────────────────────────────────────
-    // Fires only if onDone never fires. Budget:
-    //   durationMs  = intended display time
-    //   + 15s extra = Kokoro generation time on slow device (WASM ~3-8s)
-    //                 + full narration playback time (longest script ~12s)
-    // This must be longer than generation + playback combined.
-    const safetyMs = (currentStep.durationMs || 10_000) + 15_000;
+    // Safety fallback: if onDone never fires (network error, token race),
+    // advance after durationMs + 8s buffer (static files play in <10s).
+    const safetyMs = (currentStep.durationMs || 10_000) + 8_000;
     safetyTimerRef.current = setTimeout(() => {
       if (!advancedRef.current) {
         console.warn(`[GuidedFlow] Safety advance triggered for: ${currentStep.id}`);
@@ -237,7 +231,7 @@ export function GuidedFlowRunner() {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="flex flex-col items-center gap-4 px-8 py-6 rounded-2xl"
-            style={{ background: 'rgba(13,8,28,0.95)', border: '1px solid rgba(167,139,250,0.3)' }}
+            style={{ background: 'rgba(2,13,26,0.95)', border: '1px solid rgba(56,189,248,0.3)' }}
           >
             <span className="text-4xl">🔇</span>
             <p className="text-white font-black text-sm uppercase tracking-widest">Click to Resume Audio</p>
@@ -254,39 +248,39 @@ export function GuidedFlowRunner() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 60 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9990] pointer-events-auto"
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9990] pointer-events-auto w-[calc(100vw-2rem)] max-w-lg"
       >
         <div
-          className="flex items-center gap-3 px-5 py-3 rounded-2xl shadow-2xl"
+          className="flex items-center gap-2 px-3 py-2.5 md:px-5 md:py-3 rounded-2xl shadow-2xl"
           style={{
-            background:     'rgba(13, 8, 28, 0.92)',
+            background:     'rgba(2, 13, 26, 0.92)',
             backdropFilter: 'blur(20px)',
-            border:         '1px solid rgba(167,139,250,0.25)',
+            border:         '1px solid rgba(56,189,248,0.25)',
             boxShadow:      '0 8px 40px rgba(0,0,0,0.4)',
           }}
         >
           {/* Step info */}
-          <div className="flex items-center gap-2 pr-3 border-r border-white/10">
-            <span className="text-lg">🎯</span>
-            <div>
-              <p className="text-[10px] font-black text-white uppercase tracking-wider leading-none">
+          <div className="flex items-center gap-2 pr-2 md:pr-3 border-r border-white/10 min-w-0">
+            <span className="text-base flex-shrink-0">🎯</span>
+            <div className="min-w-0">
+              <p className="text-[10px] font-black text-white uppercase tracking-wider leading-none truncate">
                 {currentStep?.label ?? 'Demo'}
               </p>
               <p className="text-[9px] text-white/40 mt-0.5">
-                Step {stepIndex + 1} / {GUIDED_FLOW.length}
+                {stepIndex + 1} / {GUIDED_FLOW.length}
               </p>
             </div>
           </div>
 
-          {/* Progress dots */}
-          <div className="px-2">
+          {/* Progress dots — hidden on very small screens */}
+          <div className="px-1 md:px-2 hidden xs:block">
             <ProgressIndicator compact />
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-1 pl-3 border-l border-white/10">
+          <div className="flex items-center gap-1 pl-2 md:pl-3 border-l border-white/10 ml-auto">
             <motion.button
-              whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.9 }}
               onClick={handlePrev}
               disabled={stepIndex === 0}
               className="w-8 h-8 rounded-xl flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm"
@@ -294,24 +288,24 @@ export function GuidedFlowRunner() {
             >◀</motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.9 }}
               onClick={handlePause}
               className="w-8 h-8 rounded-xl flex items-center justify-center text-white hover:bg-white/10 transition-all text-sm"
               title={isRunning ? 'Pause' : 'Resume'}
             >{isRunning ? '⏸' : '▶'}</motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.9 }}
               onClick={handleNext}
               disabled={stepIndex >= GUIDED_FLOW.length - 1}
               className="w-8 h-8 rounded-xl flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm"
               title="Next step"
             >▶▶</motion.button>
 
-            <div className="w-px h-5 bg-white/10 mx-1" />
+            <div className="w-px h-5 bg-white/10 mx-0.5" />
 
             <motion.button
-              whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.9 }}
               onClick={handleExit}
               className="w-8 h-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 transition-all text-xs"
               title="Exit guided demo"
@@ -322,3 +316,4 @@ export function GuidedFlowRunner() {
     </AnimatePresence>
   );
 }
+

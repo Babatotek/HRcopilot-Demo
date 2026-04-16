@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/components/ProgressIndicator.tsx
 // PURPOSE: Horizontal step-dot progress bar for the guided demo.
 //   Shows completed / current / upcoming steps.
@@ -29,7 +29,7 @@ export function ProgressIndicator({ compact = false }: Props) {
         {/* Thin progress bar */}
         <div className="w-20 h-1 bg-white/10 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-violet-500 rounded-full"
+            className="h-full bg-[#e0f2fe]0 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.4 }}
@@ -60,13 +60,13 @@ export function ProgressIndicator({ compact = false }: Props) {
             {isCurrent ? (
               // Current step — animated pulse dot
               <motion.div
-                className="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(167,139,250,0.8)]"
+                className="w-2.5 h-2.5 rounded-full bg-[#0ea5e9] shadow-[0_0_8px_rgba(56,189,248,0.8)]"
                 animate={{ scale: [1, 1.3, 1] }}
                 transition={{ duration: 1.2, repeat: Infinity }}
               />
             ) : isComplete ? (
               // Completed — filled dot
-              <div className="w-2 h-2 rounded-full bg-violet-600" />
+              <div className="w-2 h-2 rounded-full bg-[#0369a1]" />
             ) : (
               // Upcoming — empty dot
               <div className="w-2 h-2 rounded-full bg-white/15" />
@@ -87,3 +87,4 @@ export function ProgressIndicator({ compact = false }: Props) {
     </div>
   );
 }
+

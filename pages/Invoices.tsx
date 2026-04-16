@@ -72,23 +72,23 @@ const Invoices: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black tracking-tighter uppercase italic">Invoices & Receipts</h2>
-          <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Enterprise Billing & Revenue Management</p>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase italic">Invoices & Receipts</h2>
+          <p className="text-slate-500 text-xs sm:text-sm font-bold uppercase tracking-widest">Enterprise Billing & Revenue Management</p>
         </div>
         <button 
           onClick={() => setIsBuilderOpen(true)}
-          className="px-6 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-purple-500/20 hover:scale-105 transition-transform"
+          className="w-full sm:w-auto px-6 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-[#e0f2fe]0/20 hover:scale-105 transition-transform"
         >
           Create New Invoice
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <GlassCard className="lg:col-span-2 p-8">
-          <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Billing History</h3>
-          <div className="overflow-x-auto">
+        <GlassCard className="lg:col-span-2 p-4 sm:p-8">
+          <h3 className="text-lg font-black uppercase tracking-widest italic mb-6 sm:mb-8">Billing History</h3>
+          <div className="table-wrap">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-slate-100 dark:border-white/5">
@@ -142,13 +142,13 @@ const Invoices: React.FC = () => {
 
           <GlassCard className="p-6 bg-[var(--brand-primary)]/5 border-[var(--brand-primary)]/20">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl">🤖</span>
+              <span className="text-2xl">??</span>
               <p className="text-[10px] font-black text-[var(--brand-primary)] uppercase tracking-widest">AI Smart Billing</p>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
               Based on client history, <span className="font-black text-slate-900 dark:text-white">Acme Corp</span> usually pays within 4 days of receiving an invoice.
             </p>
-            <button className="w-full py-3 bg-[var(--brand-primary)] text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">
+            <button className="w-full py-3 bg-[var(--brand-primary)] text-white rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20">
               Schedule Auto-Reminders
             </button>
           </GlassCard>
@@ -217,7 +217,7 @@ const Invoices: React.FC = () => {
 
                 <div className="flex gap-4 pt-4">
                   <button type="button" onClick={() => setIsBuilderOpen(false)} className="flex-1 px-6 py-4 border border-slate-200 dark:border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500">Cancel</button>
-                  <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">Send Invoice</button>
+                  <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20">Send Invoice</button>
                 </div>
               </form>
             </div>
@@ -305,3 +305,6 @@ const Invoices: React.FC = () => {
 };
 
 export default Invoices;
+
+
+

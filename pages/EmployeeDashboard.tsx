@@ -16,9 +16,9 @@ const EmployeeDashboard: React.FC = () => {
   return (
     <div className="space-y-8 pb-10 animate-in fade-in duration-700">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
             MY <span className="text-[#0047cc]">DASHBOARD</span>
           </h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1">
@@ -28,7 +28,7 @@ const EmployeeDashboard: React.FC = () => {
       </div>
 
       {/* Top Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <GlassCard className="!p-6 border-l-4 border-l-emerald-500 hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-all group">
           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">DAYS PRESENT</span>
           <h3 className="text-4xl font-black text-emerald-500 group-hover:scale-105 transition-transform origin-left">0</h3>
@@ -62,7 +62,7 @@ const EmployeeDashboard: React.FC = () => {
               <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">My Attendance</h3>
               <span className="text-xs font-bold text-[#0047cc]">April 2026</span>
             </div>
-            <div className="h-[250px] w-full">
+            <div className="chart-sm w-full">
               <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <BarChart data={attendanceData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
@@ -163,3 +163,4 @@ const EmployeeDashboard: React.FC = () => {
 };
 
 export default EmployeeDashboard;
+

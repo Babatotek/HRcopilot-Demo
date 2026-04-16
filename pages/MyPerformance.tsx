@@ -30,10 +30,10 @@ const MyPerformance: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-700">
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-[#0047cc]/10 flex items-center justify-center text-2xl">🏆</div>
+      <div className="flex items-center gap-3 sm:gap-4">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#0047cc]/10 flex items-center justify-center text-xl sm:text-2xl flex-shrink-0">🏆</div>
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic leading-none">
             Performance <span className="text-[#0047cc]">HQ</span>
           </h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1">Personal Strategy & Growth Track</p>
@@ -41,12 +41,12 @@ const MyPerformance: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-8 border-b border-slate-200 dark:border-white/5">
+      <div className="tab-nav border-b border-slate-200 dark:border-white/5">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap ${
+            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap flex-shrink-0 px-1 mr-4 sm:mr-6 ${
               activeTab === tab
                 ? 'text-slate-900 dark:text-white'
                 : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
@@ -232,3 +232,4 @@ const MyPerformance: React.FC = () => {
 };
 
 export default MyPerformance;
+

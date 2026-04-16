@@ -45,7 +45,7 @@ const Identity: React.FC = () => {
     <div className="space-y-8 animate-in fade-in duration-500 pb-20">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Identity & <span className="text-[#0047cc]">Access</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Identity & <span className="text-[#0047cc]">Access</span></h2>
           <p className="text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]" />
             AI-Enhanced RBAC & Security Monitoring Active
@@ -55,7 +55,7 @@ const Identity: React.FC = () => {
           <button className="bg-white/5 border border-white/10 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-white/10 transition-all">
             Security Policies
           </button>
-          <button className="gradient-bg text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-purple-500/30 hover:scale-105 transition-all">
+          <button className="gradient-bg text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-[#e0f2fe]0/30 hover:scale-105 transition-all">
             + Provision User
           </button>
         </div>
@@ -99,7 +99,7 @@ const Identity: React.FC = () => {
           </div>
 
           <GlassCard className="!p-0 overflow-hidden">
-            <div className="overflow-x-auto">
+            <div className="table-wrap">
               <table className="w-full text-left">
                 <thead className="bg-white/[0.02] border-b border-white/10">
                   <tr className="text-slate-400 text-[11px] uppercase tracking-widest font-bold">
@@ -188,7 +188,7 @@ const Identity: React.FC = () => {
             </div>
           </GlassCard>
 
-          <GlassCard title="Audit Trail" className="!bg-purple-900/5 border-[#0047cc]/20">
+          <GlassCard title="Audit Trail" className="!bg-[#082f49]/5 border-[#0047cc]/20">
             <div className="space-y-4">
               {[
                 { action: 'RBAC Escalated', user: 'Admin', time: '14:20' },
@@ -215,3 +215,6 @@ const Identity: React.FC = () => {
 };
 
 export default Identity;
+
+
+

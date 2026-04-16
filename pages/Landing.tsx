@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   ArrowRight, Play, Check, Plus, Minus, MapPin, 
@@ -68,9 +68,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
   ];
 
   const pricing = [
-    { name: 'Growth', desc: 'For mid-market companies scaling their operations.', price: '15.00', features: ['Core HR & Directory', 'Basic Payroll Integration', 'Time & Attendance', 'Standard Reporting', 'Email Support'], highlighted: false },
-    { name: 'Enterprise', desc: 'Comprehensive OS for large, complex organizations.', price: '29.00', features: ['Everything in Growth', 'Advanced Analytics', 'Performance Management', 'Global Compliance', '24/7 Priority Support'], highlighted: true },
-    { name: 'Custom', desc: 'Tailored solutions for global multinationals.', price: 'Custom', features: ['Everything in Enterprise', 'Custom Integrations', 'Dedicated Success Manager', 'On-Premise Options', 'SLA Guarantees'], highlighted: false },
+    { name: 'Growth', desc: 'For mid-market companies scaling their operations.', price: '70', unit: '/month', features: ['Core HR & Directory', 'Basic Payroll Integration', 'Time & Attendance', 'Standard Reporting', 'Email Support'], highlighted: false, cta: 'START FREE TRIAL', ctaHref: null },
+    { name: 'Enterprise', desc: 'Comprehensive OS for large, complex organizations.', price: '130', unit: '/month', features: ['Everything in Growth', 'Advanced Analytics', 'Performance Management', 'Global Compliance', '24/7 Priority Support'], highlighted: true, cta: 'START FREE TRIAL', ctaHref: null },
+    { name: 'Custom', desc: 'Tailored solutions for global multinationals.', price: 'Custom', unit: '', features: ['Everything in Enterprise', 'Custom Integrations', 'Dedicated Success Manager', 'On-Premise Options', 'SLA Guarantees'], highlighted: false, cta: 'CONTACT SALES', ctaHref: 'tel:+2347068110163' },
   ];
 
   const news = [
@@ -88,43 +88,43 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
 
   const SectionLabel = ({ text, center = false }: { text: string, center?: boolean }) => (
     <div className={`flex items-center gap-4 mb-6 ${center ? 'justify-center' : ''}`}>
-      {center && <div className="w-8 h-[2px] bg-blue-600"></div>}
-      <span className="text-blue-600 font-bold text-[10px] tracking-[0.2em] uppercase">{text}</span>
-      <div className="w-8 h-[2px] bg-blue-600"></div>
+      {center && <div className="w-8 h-[2px] bg-[#0ea5e9]"></div>}
+      <span className="text-[#0ea5e9] font-bold text-[10px] tracking-[0.2em] uppercase">{text}</span>
+      <div className="w-8 h-[2px] bg-[#0ea5e9]"></div>
     </div>
   );
 
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-white text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen min-h-[100dvh] bg-white text-slate-900 font-sans selection:bg-[#0ea5e9] selection:text-white">
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4 md:py-6 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex flex-col items-center justify-center pt-1">
-              <img src="/Analytictosin_Logo.png" alt="Analytictosin Logo" className="h-[28px] object-contain" />
+              <img src="/Analytictosin_Logo.png" alt="Analytictosin Logo" className="h-[45px] object-contain" />
             </div>
             <div className="font-black text-2xl tracking-tighter italic text-slate-900">HR360<span className="text-orange-500">.</span></div>
           </div>
 
           <div className="hidden lg:flex items-center gap-10 text-[11px] font-bold tracking-widest uppercase text-slate-400">
-            <a href="#home" className="hover:text-blue-600 transition-colors">HOME</a>
-            <a href="#features" className="hover:text-blue-600 transition-colors">FEATURES</a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">PRICING</a>
-            <a href="#contact" className="hover:text-blue-600 transition-colors">CONTACT</a>
+            <a href="#home" className="hover:text-[#0ea5e9] transition-colors">HOME</a>
+            <a href="#features" className="hover:text-[#0ea5e9] transition-colors">FEATURES</a>
+            <a href="#pricing" className="hover:text-[#0ea5e9] transition-colors">PRICING</a>
+            <a href="#contact" className="hover:text-[#0ea5e9] transition-colors">CONTACT</a>
           </div>
 
           <div className="hidden lg:flex items-center gap-8">
-            <button onClick={onLogin} className="text-slate-700 text-[11px] font-bold tracking-widest uppercase hover:text-blue-600 transition-colors">
+            <button onClick={onLogin} className="text-slate-700 text-[11px] font-bold tracking-widest uppercase hover:text-[#0ea5e9] transition-colors">
               LOGIN
             </button>
-            <button onClick={onGetStarted} className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full text-[11px] font-bold tracking-widest uppercase hover:shadow-lg hover:shadow-indigo-500/30 transition-all group">
+            <button onClick={onGetStarted} className="relative overflow-hidden bg-gradient-to-r from-[#0047cc] to-[#0ea5e9] text-white px-6 py-3 rounded-full text-[11px] font-bold tracking-widest uppercase hover:shadow-lg hover:shadow-[#0ea5e9]/30 transition-all group">
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                 initial={{ x: '-100%' }}
                 animate={{ x: '200%' }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 1.5, ease: 'easeInOut' }}
               />
-              <span className="relative z-10">✨ Explore Demo</span>
+              <span className="relative z-10">Explore Demo</span>
             </button>
           </div>
 
@@ -136,12 +136,12 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
         {/* Mobile Menu Overlay */}
         {isMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-2xl py-6 px-6 flex flex-col gap-6 animate-in slide-in-from-top-2 z-[101] max-h-[80vh] overflow-y-auto overscroll-contain touch-pan-y">
-            <a href="#home" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-blue-600 transition-colors">HOME</a>
-            <a href="#features" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-blue-600 transition-colors">FEATURES</a>
-            <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-blue-600 transition-colors">PRICING</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-blue-600 transition-colors">CONTACT</a>
+            <a href="#home" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0ea5e9] transition-colors">HOME</a>
+            <a href="#features" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0ea5e9] transition-colors">FEATURES</a>
+            <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0ea5e9] transition-colors">PRICING</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0ea5e9] transition-colors">CONTACT</a>
             <div className="h-px bg-slate-100 w-full my-2"></div>
-            <button onClick={() => { setIsMenuOpen(false); onLogin(); }} className="text-slate-700 text-sm font-bold tracking-widest uppercase hover:text-blue-600 transition-colors text-left">
+            <button onClick={() => { setIsMenuOpen(false); onLogin(); }} className="text-slate-700 text-sm font-bold tracking-widest uppercase hover:text-[#0ea5e9] transition-colors text-left">
               LOGIN
             </button>
             <button onClick={() => { setIsMenuOpen(false); onGetStarted(); }} className="bg-[#0047cc] text-white px-6 py-4 rounded-xl text-sm font-bold tracking-widest uppercase hover:bg-blue-700 transition-all text-center w-full">
@@ -169,7 +169,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-8 shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#e0f2fe]0 animate-pulse" />
             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 dark:text-white/60 italic">Human Resources Operating System</span>
           </motion.div>
           <motion.h1
@@ -195,14 +195,14 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            {/* ✨ Glittering Explore Demo button */}
+            {/* âœ¨ Glittering Explore Demo button */}
             <motion.button
               id="explore-btn"
               onClick={onGetStarted}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="relative w-full sm:w-auto px-10 py-5 rounded-2xl text-white text-xs font-black uppercase tracking-[0.2em] overflow-hidden shadow-2xl shadow-indigo-500/30 group"
-              style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)' }}
+              className="relative w-full sm:w-auto px-10 py-5 rounded-2xl text-white text-xs font-black uppercase tracking-[0.2em] overflow-hidden shadow-2xl shadow-[#eff6ff]0/30 group"
+              style={{ background: 'linear-gradient(135deg, #0047cc, #0ea5e9, #14b8a6)' }}
             >
               {/* Shimmer sweep */}
               <motion.span
@@ -227,7 +227,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
                 />
               ))}
               <span className="relative z-10 flex items-center gap-2">
-                ✨ Explore Demo
+                Explore Demo
               </span>
             </motion.button>
 
@@ -239,6 +239,22 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             </button>
           </motion.div>
         </div>
+
+        {/* Marquee â€” pinned to hero bottom, always in viewport */}
+        <div className="absolute bottom-0 left-0 right-0 text-white py-4 overflow-hidden flex whitespace-nowrap z-30" style={{ background: "linear-gradient(90deg, #0d1f3c, #0a3060, #0d1f3c)" }}>
+          <motion.div
+            animate={{ x: [0, -1200] }}
+            transition={{ repeat: Infinity, duration: 22, ease: 'linear' }}
+            className="flex items-center gap-8 text-[11px] font-black tracking-widest uppercase"
+          >
+            {['UNIFIED PLATFORM','ENTERPRISE GRADE','AI-DRIVEN INSIGHTS','SEAMLESS INTEGRATION','GLOBAL COMPLIANCE','BIOMETRIC ATTENDANCE','AUTOMATED PAYROLL','REAL-TIME ANALYTICS','UNIFIED PLATFORM','ENTERPRISE GRADE','AI-DRIVEN INSIGHTS','SEAMLESS INTEGRATION','GLOBAL COMPLIANCE'].map((label, i) => (
+              <React.Fragment key={i}>
+                <span>{label}</span>
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#14b8a6" }} />
+              </React.Fragment>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* Stats Section */}
@@ -247,7 +263,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           {stats.map((stat, i) => (
             <div key={i}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center text-white">
+                <div className="w-10 h-10 bg-[#0ea5e9] rounded flex items-center justify-center text-white">
                   {stat.icon}
                 </div>
                 <span className="text-[10px] font-bold tracking-widest uppercase text-slate-900">{stat.label}</span>
@@ -273,7 +289,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <img src="/HR360_bg.jpg" alt="Dashboard Preview" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform">
+              <div className="w-20 h-20 bg-[#0ea5e9] rounded-full flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform">
                 <Play className="w-8 h-8 ml-1" fill="currentColor" />
               </div>
             </div>
@@ -286,12 +302,12 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <div className="flex items-center gap-6">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
-                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white bg-gradient-to-br from-[#0ea5e9] to-[#14b8a6] flex items-center justify-center text-white font-bold text-sm">
                     {i}
                   </div>
                 ))}
               </div>
-              <button className="text-xs font-bold tracking-widest uppercase text-slate-900 flex items-center gap-2 hover:text-blue-600 transition-colors">
+              <button className="text-xs font-bold tracking-widest uppercase text-slate-900 flex items-center gap-2 hover:text-[#0ea5e9] transition-colors">
                 MEET OUR CUSTOMERS <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -310,7 +326,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <p className="text-slate-500 mb-10 leading-relaxed">
               Our unified architecture ensures data flows seamlessly across all modules, eliminating silos and empowering strategic decision-making from the C-suite to the frontline.
             </p>
-            <button className="bg-[#0a0a0a] text-white px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2">
+            <button className="bg-[#0a0a0a] text-white px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-[#0ea5e9] hover:shadow-lg hover:shadow-[#0ea5e9]/30 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2">
               VIEW ARCHITECTURE <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -318,7 +334,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           <div className="flex flex-col gap-12">
             {workflow.map((step, i) => (
               <div key={i} className="flex gap-6">
-                <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shrink-0">
+                <div className="w-12 h-12 rounded-full bg-[#0ea5e9] text-white flex items-center justify-center font-bold shrink-0">
                   {step.num}
                 </div>
                 <div>
@@ -344,13 +360,13 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             </p>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-sm font-semibold">
-                <div className="w-5 h-5 rounded-full border border-blue-600 flex items-center justify-center text-blue-600">
+                <div className="w-5 h-5 rounded-full border border-[#0ea5e9] flex items-center justify-center text-[#0ea5e9]">
                   <Check className="w-3 h-3" />
                 </div>
                 SOC 2 Type II Certified Security
               </li>
               <li className="flex items-center gap-3 text-sm font-semibold">
-                <div className="w-5 h-5 rounded-full border border-blue-600 flex items-center justify-center text-blue-600">
+                <div className="w-5 h-5 rounded-full border border-[#0ea5e9] flex items-center justify-center text-[#0ea5e9]">
                   <Check className="w-3 h-3" />
                 </div>
                 Open API & Pre-built Integrations
@@ -360,8 +376,8 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {services.map((service, i) => (
-              <div key={i} className="border border-white/10 bg-white/5 p-8 rounded-xl hover:border-blue-600/50 transition-colors">
-                <div className="text-blue-600 mb-6">{service.icon}</div>
+              <div key={i} className="border border-white/10 bg-white/5 p-8 rounded-xl hover:border-[#0ea5e9]/50 transition-colors">
+                <div className="text-[#0ea5e9] mb-6">{service.icon}</div>
                 <h3 className="text-lg font-bold mb-4">{service.title}</h3>
                 <p className="text-white/50 text-sm leading-relaxed">{service.desc}</p>
               </div>
@@ -369,32 +385,6 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           </div>
         </div>
       </section>
-
-      {/* Marquee */}
-      <div className="bg-blue-600 text-white py-6 overflow-hidden flex whitespace-nowrap">
-        <motion.div 
-          animate={{ x: [0, -1000] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-          className="flex items-center gap-8 text-sm font-bold tracking-widest uppercase"
-        >
-          <span>UNIFIED PLATFORM</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>ENTERPRISE GRADE</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>AI-DRIVEN INSIGHTS</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>SEAMLESS INTEGRATION</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>GLOBAL COMPLIANCE</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          {/* Duplicate for seamless loop */}
-          <span>UNIFIED PLATFORM</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>ENTERPRISE GRADE</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-          <span>AI-DRIVEN INSIGHTS</span>
-        </motion.div>
-      </div>
 
       {/* Premier Services List */}
       <section className="py-20 md:py-32 px-6 bg-white">
@@ -406,13 +396,13 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
               <div key={i} className="group border-b border-slate-200 py-8 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer hover:bg-slate-50 transition-colors px-4 -mx-4 rounded-lg">
                 <div className="flex items-center gap-8">
                   <span className="text-slate-300 font-mono text-lg">0{i+1}</span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{service}</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-[#0ea5e9] transition-colors">{service}</h3>
                 </div>
                 <div className="flex items-center gap-8">
                   {i === 0 && (
                     <img src="/Analytictosin_Logo.png" alt="Analytics Preview" className="w-32 h-20 object-cover rounded hidden md:block" />
                   )}
-                  <button className="text-[10px] font-bold tracking-widest uppercase text-slate-500 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
+                  <button className="text-[10px] font-bold tracking-widest uppercase text-slate-500 flex items-center gap-2 group-hover:text-[#0ea5e9] transition-colors">
                     EXPLORE FEATURE <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -435,7 +425,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, i) => (
               <div key={i} className="bg-white p-10 rounded-2xl shadow-sm relative">
-                <Quote className="absolute top-10 right-10 w-12 h-12 text-blue-50 opacity-50" />
+                <Quote className="absolute top-10 right-10 w-12 h-12 text-[#e0f7ff] opacity-50" />
                 <div className="flex items-center gap-4 mb-8 relative z-10">
                   <img src={testimonial.img} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
                   <div>
@@ -468,7 +458,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
               <span className={!isAnnual ? 'opacity-100' : 'opacity-50'}>Billed Monthly</span>
               <button 
                 onClick={() => setIsAnnual(!isAnnual)}
-                className="w-14 h-7 rounded-full bg-blue-600 relative flex items-center px-1 shadow-inner transition-colors hover:bg-blue-500"
+                className="w-14 h-7 rounded-full bg-[#0ea5e9] relative flex items-center px-1 shadow-inner transition-colors hover:bg-[#38bdf8]"
               >
                 <div className={`w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-300 ${isAnnual ? 'translate-x-7' : 'translate-x-0'}`} />
               </button>
@@ -478,7 +468,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {pricing.map((plan, i) => (
-              <div key={i} className={`rounded-2xl p-10 ${plan.highlighted ? 'bg-blue-600 text-white scale-105 shadow-2xl' : 'bg-[#111]/80 backdrop-blur border border-white/10 text-white'}`}>
+              <div key={i} className={`rounded-2xl p-10 ${plan.highlighted ? 'bg-[#0ea5e9] text-white scale-105 shadow-2xl' : 'bg-[#111]/80 backdrop-blur border border-white/10 text-white'}`}>
                 <div className="mb-8">
                   <span className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded ${plan.highlighted ? 'bg-white/20' : 'bg-white/10'}`}>
                     {plan.name}
@@ -486,18 +476,34 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
                 <p className={`text-sm mb-8 ${plan.highlighted ? 'text-white/80' : 'text-white/50'}`}>{plan.desc}</p>
-                <div className="flex items-baseline gap-2 mb-8">
+                <div className="flex items-baseline gap-2 mb-2">
                   {plan.price !== 'Custom' && <span className="text-2xl font-bold">$</span>}
                   <span className="text-6xl font-bold tracking-tighter">{plan.price}</span>
-                  {plan.price !== 'Custom' && <span className={`text-sm ${plan.highlighted ? 'text-white/80' : 'text-white/50'}`}>/ User / Mo</span>}
                 </div>
-                <button className={`w-full py-4 rounded-full text-xs font-bold tracking-widest uppercase mb-10 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95 transition-all shadow-lg ${plan.highlighted ? 'bg-white text-blue-600 hover:bg-slate-50 hover:shadow-white/20' : 'bg-blue-600 text-white hover:bg-blue-500 hover:shadow-blue-600/30'}`}>
-                  {plan.price === 'Custom' ? 'CONTACT SALES' : 'START FREE TRIAL'} <ArrowRight className="w-4 h-4" />
-                </button>
+                {plan.price !== 'Custom' && (
+                  <p className={`text-sm mb-8 ${plan.highlighted ? 'text-white/80' : 'text-white/50'}`}>{plan.unit}</p>
+                )}
+                {plan.price === 'Custom' && (
+                  <p className={`text-sm mb-8 font-semibold ${plan.highlighted ? 'text-white/80' : 'text-white/70'}`}>
+                    +234 706 811 0163
+                  </p>
+                )}
+                {plan.ctaHref ? (
+                  <a
+                    href={plan.ctaHref}
+                    className={`w-full py-4 rounded-full text-xs font-bold tracking-widest uppercase mb-10 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95 transition-all shadow-lg ${plan.highlighted ? 'bg-white text-[#0ea5e9] hover:bg-slate-50 hover:shadow-white/20' : 'bg-[#0ea5e9] text-white hover:bg-[#38bdf8] hover:shadow-[#0ea5e9]/30'}`}
+                  >
+                    {plan.cta} <ArrowRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <button className={`w-full py-4 rounded-full text-xs font-bold tracking-widest uppercase mb-10 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95 transition-all shadow-lg ${plan.highlighted ? 'bg-white text-[#0ea5e9] hover:bg-slate-50 hover:shadow-white/20' : 'bg-[#0ea5e9] text-white hover:bg-[#38bdf8] hover:shadow-[#0ea5e9]/30'}`}>
+                    {plan.cta} <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
                 <ul className="space-y-4">
                   {plan.features.map((feature, fi) => (
                     <li key={fi} className="flex items-center gap-3 text-sm">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center border ${plan.highlighted ? 'border-white/30 text-white' : 'border-white/10 text-blue-500'}`}>
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center border ${plan.highlighted ? 'border-white/30 text-white' : 'border-white/10 text-[#e0f7ff]0'}`}>
                         <Check className="w-2 h-2" />
                       </div>
                       <span className={plan.highlighted ? 'text-white/90' : 'text-white/70'}>{feature}</span>
@@ -525,13 +531,13 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
               <div key={i} className="group cursor-pointer">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6">
                   <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4 bg-blue-600 text-white text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded">
+                  <div className="absolute top-4 left-4 bg-[#0ea5e9] text-white text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded">
                     {item.tag}
                   </div>
                 </div>
                 <p className="text-slate-400 text-xs mb-3">{item.date}</p>
-                <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{item.title}</h3>
-                <button className="text-xs font-bold tracking-widest uppercase text-slate-900 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-[#0ea5e9] transition-colors">{item.title}</h3>
+                <button className="text-xs font-bold tracking-widest uppercase text-slate-900 flex items-center gap-2 group-hover:text-[#0ea5e9] transition-colors">
                   READ ARTICLE <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -557,8 +563,8 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
                   onClick={() => setActiveFaq(activeFaq === i ? null : i)}
                   className="w-full px-8 py-6 flex items-center justify-between text-left"
                 >
-                  <span className={`font-bold ${activeFaq === i ? 'text-blue-600' : 'text-slate-900'}`}>{faq.q}</span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${activeFaq === i ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                  <span className={`font-bold ${activeFaq === i ? 'text-[#0ea5e9]' : 'text-slate-900'}`}>{faq.q}</span>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${activeFaq === i ? 'bg-[#0ea5e9] text-white' : 'bg-slate-100 text-slate-400'}`}>
                     {activeFaq === i ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
@@ -579,7 +585,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           <div className="w-full h-[400px] bg-slate-200 rounded-3xl mb-20 relative overflow-hidden">
             <img src="/HR360_bg.jpg" alt="Map" className="w-full h-full object-cover opacity-50 grayscale" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl mb-4">
+              <div className="w-12 h-12 bg-[#0ea5e9] rounded-full flex items-center justify-center text-white shadow-xl mb-4">
                 <MapPin className="w-6 h-6" />
               </div>
               <div className="bg-white p-6 rounded-xl shadow-xl text-center min-w-[250px]">
@@ -603,19 +609,19 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label className="block text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">YOUR NAME</label>
-                  <input type="text" placeholder="John Doe" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-blue-600 transition-colors text-slate-900" />
+                  <input type="text" placeholder="John Doe" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-[#0ea5e9] transition-colors text-slate-900" />
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">WORK EMAIL</label>
-                  <input type="email" placeholder="john@company.com" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-blue-600 transition-colors text-slate-900" />
+                  <input type="email" placeholder="john@company.com" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-[#0ea5e9] transition-colors text-slate-900" />
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">COMPANY NAME</label>
-                  <input type="text" placeholder="Acme Corp" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-blue-600 transition-colors text-slate-900" />
+                  <input type="text" placeholder="Acme Corp" className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-[#0ea5e9] transition-colors text-slate-900" />
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">COMPANY SIZE</label>
-                  <select className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-blue-600 transition-colors text-slate-900 appearance-none">
+                  <select className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-[#0ea5e9] transition-colors text-slate-900 appearance-none">
                     <option>100 - 499 Employees</option>
                     <option>500 - 999 Employees</option>
                     <option>1000 - 4999 Employees</option>
@@ -625,10 +631,10 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
               </div>
               <div>
                 <label className="block text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-2">WHAT ARE YOUR MAIN HR CHALLENGES?</label>
-                <textarea placeholder="Tell us about your current stack and goals..." rows={4} className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-blue-600 transition-colors text-slate-900 resize-none"></textarea>
+                <textarea placeholder="Tell us about your current stack and goals..." rows={4} className="w-full border-b border-slate-200 py-3 bg-transparent focus:outline-none focus:border-[#0ea5e9] transition-colors text-slate-900 resize-none"></textarea>
               </div>
               <div className="flex justify-end">
-                <button type="button" className="bg-blue-600 text-white px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2">
+                <button type="button" className="bg-[#0ea5e9] text-white px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-[#38bdf8] hover:shadow-lg hover:shadow-[#0ea5e9]/30 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2">
                   REQUEST DEMO <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -663,9 +669,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
             <div>
               <h4 className="font-bold mb-6">Newsletter</h4>
               <p className="text-white/50 text-sm mb-4">Stay updated with the latest HR tech trends and platform updates.</p>
-              <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10 focus-within:border-blue-500/50 transition-colors">
+              <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10 focus-within:border-[#0ea5e9]/50 transition-colors">
                 <input type="email" placeholder="Your work email" className="bg-transparent border-none outline-none px-4 py-2 text-sm w-full text-white" />
-                <button className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/30 active:scale-95 transition-all shrink-0">
+                <button className="w-10 h-10 bg-[#0ea5e9] rounded-full flex items-center justify-center hover:bg-[#38bdf8] hover:shadow-lg hover:shadow-[#0ea5e9]/30 active:scale-95 transition-all shrink-0">
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -695,7 +701,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
           </div>
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs">
-            <p>© 2026 Analytictosin Inc. All rights reserved.</p>
+            <p>Â© 2026 Analytictosin Inc. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
@@ -709,3 +715,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, brand }) => {
 };
 
 export default Landing;
+
+
+
+

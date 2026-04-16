@@ -124,28 +124,28 @@ const RoleManagement: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-700 pb-20">
       {/* Header Section */}
-      <div className="flex justify-between items-start">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">
             Role <span className="text-[#0047cc]">Management</span>
           </h1>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.3em] mt-2 italic opacity-70">
             ACCESS CONTROL & PERMISSION HUB
           </p>
         </div>
-        <button className="flex items-center gap-2 px-6 py-3 bg-[#0047cc] text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:scale-105 transition-all">
+        <button className="flex items-center gap-2 px-5 py-3 bg-[#0047cc] text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:scale-105 transition-all w-full sm:w-auto justify-center">
           <Plus size={16} strokeWidth={3} />
           CREATE ROLE
         </button>
       </div>
 
       {/* Tabs Section */}
-      <div className="flex items-center gap-12 border-b border-slate-200 dark:border-white/5 overflow-x-auto">
+      <div className="tab-nav border-b border-slate-200 dark:border-white/5">
         {['ROLES', 'PERMISSIONS', 'DESIGNATIONS'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`pb-4 text-[11px] font-black uppercase tracking-[0.2em] relative transition-all whitespace-nowrap ${
+            className={`pb-4 text-[11px] font-black uppercase tracking-[0.2em] relative transition-all whitespace-nowrap flex-shrink-0 px-1 mr-6 sm:mr-10 ${
               activeTab === tab 
                 ? 'text-slate-900 dark:text-white' 
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
@@ -167,7 +167,7 @@ const RoleManagement: React.FC = () => {
           placeholder="Search roles..." 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-3 pl-12 pr-4 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
+          className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-3 pl-12 pr-4 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20 transition-all"
         />
       </div>
 
@@ -176,7 +176,7 @@ const RoleManagement: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRoles.map((role) => (
             <GlassCard key={role.id} className="p-0 overflow-hidden group hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-white/5">
-              <div className="p-8 space-y-6">
+              <div className="p-4 sm:p-8 space-y-6">
                 <div className="flex justify-between items-start">
                   <h3 className="text-sm font-black text-slate-900 dark:text-white tracking-tight uppercase italic group-hover:text-[#0047cc] transition-colors">
                     {role.title.replace('_', ' ')}
@@ -195,7 +195,7 @@ const RoleManagement: React.FC = () => {
                 <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-50 dark:border-white/5">
                   <div>
                     <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">SCOPE</p>
-                    <span className="px-2 py-1 bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 text-[9px] font-black uppercase rounded-md">
+                    <span className="px-2 py-1 bg-[#e0f2fe] dark:bg-[#e0f2fe]0/10 text-[#0369a1] dark:text-[#0ea5e9] text-[9px] font-black uppercase rounded-md">
                       {role.scope}
                     </span>
                   </div>
@@ -304,3 +304,6 @@ const RoleManagement: React.FC = () => {
 };
 
 export default RoleManagement;
+
+
+

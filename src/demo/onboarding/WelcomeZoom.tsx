@@ -1,8 +1,8 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/onboarding/WelcomeZoom.tsx
-// PURPOSE: Cinematic welcome screen.
-//   Deep space background, particle field, phased logo reveal.
-//   Narration fires after zoom settles.
+// PURPOSE: Premium light welcome screen.
+//   Clean white/light background, subtle blue accents,
+//   smooth entrance animations, enterprise aesthetic.
 // ============================================
 
 import { useEffect, useRef, useState, useCallback } from 'react';
@@ -14,18 +14,8 @@ interface Props { onDone: () => void; }
 const WELCOME_TEXT =
   "Welcome to HR360 Explorer. I'm your AI guide. Let me show you what's possible when people, finance, and operations work as one.";
 
-const PARTICLES = Array.from({ length: 35 }, (_, i) => ({
-  id:       i,
-  x:        Math.random() * 100,
-  y:        Math.random() * 100,
-  size:     Math.random() * 2.5 + 1,
-  duration: 4 + Math.random() * 5,
-  delay:    Math.random() * 3,
-}));
-
 export function WelcomeZoom({ onDone }: Props) {
   const [show, setShow] = useState(false);
-  // Track whether we've already called onDone to prevent double-advance
   const advancedRef = useRef(false);
 
   const advance = useCallback(() => {
@@ -35,190 +25,156 @@ export function WelcomeZoom({ onDone }: Props) {
   }, [onDone]);
 
   useEffect(() => {
-    // Show content after zoom animation settles
-    const t1 = setTimeout(() => setShow(true), 700);
-
-    // Narration — advance when speech finishes, with a minimum 4s display time
+    const t1 = setTimeout(() => setShow(true), 400);
     const t2 = setTimeout(() => {
       primeAudioContext();
       speak(WELCOME_TEXT, {
         scriptId: 'onboarding.welcome',
-        onDone: () => {
-          // Speech finished naturally — short pause then advance
-          setTimeout(advance, 600);
-        },
-      }).catch(() => {
-        // speak() threw synchronously — safety timer will advance
-      });
-    }, 900);
-
-    // Safety fallback — if speech never fires onDone (network issue, etc.)
-    // wait a generous 12s before advancing anyway
+        onDone: () => setTimeout(advance, 600),
+      }).catch(() => {});
+    }, 800);
     const t3 = setTimeout(advance, 12_000);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      // Do NOT call stop() here — it would cancel the in-flight generation
-      // and trigger the fallback chain, causing a double-advance via onDone
-    };
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [advance]);
 
   return (
-    <div className="fixed inset-0 overflow-hidden flex items-center justify-center"
-      style={{ background: '#06040f' }}>
+    <div className="fixed inset-0 overflow-hidden flex items-center justify-center bg-white">
 
-      {/* Expanding zoom overlay */}
+      {/* Expanding reveal overlay */}
       <motion.div
         className="absolute inset-0"
-        initial={{ scale: 0.05, borderRadius: '50%', opacity: 0 }}
-        animate={{ scale: 1,    borderRadius: '0%',  opacity: 1 }}
-        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          background: 'radial-gradient(ellipse at 50% 50%, #1e0a3c 0%, #0d0520 45%, #06040f 100%)',
-        }}
+        initial={{ scale: 0.04, borderRadius: '50%', opacity: 0 }}
+        animate={{ scale: 1, borderRadius: '0%', opacity: 1 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        style={{ background: 'linear-gradient(160deg, #f8faff 0%, #eef4ff 50%, #f0f9ff 100%)' }}
       />
 
-      {/* Animated orbs */}
+      {/* Subtle blue orb — top left */}
       <motion.div
-        className="absolute w-[700px] h-[700px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 70%)' }}
-        animate={{ scale: [1, 1.12, 1], x: [0, 25, 0], y: [0, -15, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[600px] rounded-full pointer-events-none -top-16 -left-16 md:-top-32 md:-left-32"
+        style={{ background: 'radial-gradient(circle, rgba(0,71,204,0.06) 0%, transparent 70%)' }}
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
+      {/* Subtle blue orb — bottom right */}
       <motion.div
-        className="absolute w-[450px] h-[450px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)',
-          top: '15%', right: '10%',
-        }}
-        animate={{ scale: [1, 1.18, 1], x: [0, -18, 0], y: [0, 25, 0] }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+        className="absolute w-[250px] h-[250px] md:w-[500px] md:h-[500px] rounded-full pointer-events-none -bottom-12 -right-12 md:-bottom-24 md:-right-24"
+        style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%)' }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
 
-      {/* Particle field */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {PARTICLES.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full"
-            style={{
-              left:             `${p.x}%`,
-              top:              `${p.y}%`,
-              width:            `${p.size}px`,
-              height:           `${p.size}px`,
-              backgroundColor:  'rgba(167,139,250,0.5)',
-            }}
-            animate={{ y: [0, -90], opacity: [0, 0.7, 0] }}
-            transition={{
-              duration:   p.duration,
-              delay:      p.delay,
-              repeat:     Infinity,
-              ease:       'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle grid */}
+      {/* Fine grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            'linear-gradient(rgba(167,139,250,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(167,139,250,0.04) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+          backgroundImage: 'linear-gradient(rgba(0,71,204,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,71,204,0.03) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
         }}
       />
 
       {/* Scan line */}
       <motion.div
         className="absolute left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(167,139,250,0.35), transparent)' }}
-        animate={{ top: ['0%', '100%'], opacity: [0, 0.8, 0] }}
-        transition={{ duration: 3.5, delay: 1, repeat: Infinity, repeatDelay: 5, ease: 'linear' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,71,204,0.15), transparent)' }}
+        animate={{ top: ['0%', '100%'], opacity: [0, 1, 0] }}
+        transition={{ duration: 4, delay: 1.2, repeat: Infinity, repeatDelay: 6, ease: 'linear' }}
       />
 
-      {/* ── Main content — always mounted, fades in ── */}
+      {/* Main content */}
       <motion.div
         className="relative z-10 text-center px-6 flex flex-col items-center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: show ? 1 : 0, y: show ? 0 : 30 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: show ? 1 : 0, y: show ? 0 : 24 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Spinning ring + rocket */}
-        <div className="relative w-24 h-24 mx-auto mb-8">
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{ background: 'conic-gradient(from 0deg, #7c3aed, #6366f1, #a855f7, #c084fc, #7c3aed)' }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-          />
-          <div className="absolute inset-[3px] rounded-full flex items-center justify-center"
-            style={{ background: '#0d0520' }}>
-            <motion.span
-              className="text-4xl"
-              animate={{ scale: [1, 1.12, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1.5 }}
+        {/* Logo mark */}
+        <motion.div
+          className="mb-8 relative"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: show ? 1 : 0.8, opacity: show ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Outer ring */}
+          <div className="relative w-20 h-20 mx-auto">
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{ border: '1.5px solid rgba(0,71,204,0.15)' }}
+              animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.2, 0.6] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            <motion.div
+              className="absolute inset-[6px] rounded-full"
+              style={{ border: '1.5px solid rgba(0,71,204,0.25)' }}
+              animate={{ scale: [1, 1.1, 1], opacity: [0.8, 0.3, 0.8] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+            />
+            {/* Center */}
+            <div
+              className="absolute inset-[14px] rounded-full flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #0047cc, #0ea5e9)' }}
             >
-              🚀
-            </motion.span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+              </svg>
+            </div>
           </div>
-          {/* Outer glow ring */}
-          <div className="absolute -inset-2 rounded-full opacity-30"
-            style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.6) 0%, transparent 70%)' }} />
-        </div>
+        </motion.div>
 
         {/* Wordmark */}
         <motion.h1
-          className="text-6xl md:text-7xl font-black tracking-tighter text-white mb-2"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 16 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-2"
+          style={{ color: '#0a1628' }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: show ? 1 : 0, y: show ? 0 : 12 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          HR
-          <span
-            className="text-transparent bg-clip-text"
-            style={{ backgroundImage: 'linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #c084fc 100%)' }}
-          >
-            360
-          </span>
+          HR<span style={{ color: '#0047cc' }}>360</span>
         </motion.h1>
 
         <motion.p
-          className="font-bold uppercase tracking-[0.45em] mb-3"
-          style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px' }}
+          className="font-black uppercase tracking-[0.4em] mb-4"
+          style={{ color: 'rgba(0,71,204,0.5)', fontSize: '10px' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: show ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
         >
-          Explorer
+          Enterprise · Explorer
         </motion.p>
 
+        {/* Divider */}
+        <motion.div
+          className="mb-5"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: show ? 1 : 0, opacity: show ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          style={{ width: '48px', height: '1.5px', background: 'linear-gradient(90deg, #0047cc, #0ea5e9)', borderRadius: '2px' }}
+        />
+
         <motion.p
-          className="text-base max-w-xs leading-relaxed mb-10"
-          style={{ color: 'rgba(255,255,255,0.4)' }}
+          className="text-sm max-w-xs leading-relaxed mb-10 font-medium"
+          style={{ color: 'rgba(10,22,40,0.45)' }}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: show ? 1 : 0, y: show ? 0 : 8 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
         >
           People · Finance · Operations · Intelligence
         </motion.p>
 
-        {/* Pulsing dots */}
+        {/* Loading dots */}
         <motion.div
           className="flex justify-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: show ? 1 : 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.65 }}
         >
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
               className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: 'rgba(167,139,250,0.8)' }}
-              animate={{ y: [0, -8, 0], opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.2 }}
+              style={{ backgroundColor: '#0047cc' }}
+              animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.2, 0.8] }}
+              transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
             />
           ))}
         </motion.div>
@@ -229,11 +185,11 @@ export function WelcomeZoom({ onDone }: Props) {
         onClick={onDone}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8 right-8 transition-colors"
-        style={{ color: 'rgba(255,255,255,0.2)', fontSize: '10px', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase' }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.2)')}
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-8 right-8 text-[10px] font-black uppercase tracking-[0.2em] transition-colors"
+        style={{ color: 'rgba(0,71,204,0.3)' }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(0,71,204,0.7)')}
+        onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(0,71,204,0.3)')}
       >
         Skip intro →
       </motion.button>

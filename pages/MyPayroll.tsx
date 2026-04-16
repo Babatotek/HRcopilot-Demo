@@ -30,14 +30,14 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
         initial={{ opacity: 0, scale: 0.9, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 40 }}
-        className="relative w-full max-w-4xl bg-white dark:bg-[#0f1120] rounded-[48px] border border-white/10 shadow-[0_32px_128px_rgba(0,0,0,0.5)] overflow-hidden print:shadow-none print:border-none print:rounded-none print:bg-white print:text-black print:max-w-none print:m-0"
+        className="relative w-full max-w-4xl bg-white dark:bg-[#0f1120] rounded-[32px] sm:rounded-[48px] border border-white/10 shadow-[0_32px_128px_rgba(0,0,0,0.5)] overflow-hidden print:shadow-none print:border-none print:rounded-none print:bg-white print:text-black print:max-w-none print:m-0"
         onClick={e => e.stopPropagation()}
       >
         {/* Print Header Logic */}
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-[#0047cc] to-transparent opacity-50 print:hidden" />
         
         {/* Controls */}
-        <div className="p-8 pb-0 flex justify-end gap-3 print:hidden">
+        <div className="p-4 sm:p-8 pb-0 flex justify-end gap-2 sm:gap-3 print:hidden">
           <button 
             onClick={handlePrint}
             className="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-all"
@@ -53,14 +53,14 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
             onClick={onClose}
             className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
           >
-            ✕
+            ?
           </button>
         </div>
 
         {/* Payslip Document Area */}
-        <div className="p-12 space-y-10 print:p-10">
+        <div className="p-6 sm:p-12 space-y-8 sm:space-y-10 print:p-10">
           {/* Header */}
-          <div className="flex justify-between items-start border-b border-dashed border-slate-200 dark:border-white/10 pb-10 print:border-slate-300">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-dashed border-slate-200 dark:border-white/10 pb-6 sm:pb-10 print:border-slate-300">
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 bg-[#0047cc] rounded-3xl flex items-center justify-center text-white text-3xl font-black italic shadow-xl shadow-blue-500/20 print:shadow-none">
                 H
@@ -84,7 +84,7 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
           </div>
 
           {/* Employee & Bank Info */}
-          <div className="grid grid-cols-2 gap-12 text-slate-900 dark:text-white print:text-black">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 text-slate-900 dark:text-white print:text-black">
             <div className="space-y-4">
               <h3 className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest">Employee Details</h3>
               <div className="grid grid-cols-2 gap-4">
@@ -123,7 +123,7 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
                 </div>
                 <div>
                   <p className="text-[9px] font-bold text-slate-500 uppercase">Currency</p>
-                  <p className="text-sm font-black uppercase">NGN (₦)</p>
+                  <p className="text-sm font-black uppercase">NGN (?)</p>
                 </div>
               </div>
             </div>
@@ -135,7 +135,7 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
             <div className="space-y-4">
               <div className="flex justify-between items-center px-4 py-2 bg-slate-50 dark:bg-white/5 rounded-xl print:bg-slate-100">
                 <span className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">EARNINGS</span>
-                <span className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">AMOUNT (₦)</span>
+                <span className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">AMOUNT (?)</span>
               </div>
               <div className="space-y-3 px-4">
                 {payslip.breakdown.earnings.map((e: any, i: number) => (
@@ -151,7 +151,7 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
             <div className="space-y-4">
               <div className="flex justify-between items-center px-4 py-2 bg-slate-50 dark:bg-white/5 rounded-xl print:bg-slate-100">
                 <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">DEDUCTIONS</span>
-                <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">AMOUNT (₦)</span>
+                <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">AMOUNT (?)</span>
               </div>
               <div className="space-y-3 px-4">
                 {payslip.breakdown.deductions.map((d: any, i: number) => (
@@ -169,11 +169,11 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
             <div className="w-full max-w-sm space-y-4">
               <div className="flex justify-between items-center text-xs">
                 <span className="font-bold text-slate-500 uppercase">Gross Earnings</span>
-                <span className="font-black text-slate-900 dark:text-white print:text-black">₦{payslip.grossPay.toLocaleString()}.00</span>
+                <span className="font-black text-slate-900 dark:text-white print:text-black">?{payslip.grossPay.toLocaleString()}.00</span>
               </div>
               <div className="flex justify-between items-center text-xs">
                 <span className="font-bold text-slate-500 uppercase">Total Deductions</span>
-                <span className="font-black text-rose-500">₦{payslip.breakdown.deductions.reduce((a: any, b: any) => a + b.amount, 0).toLocaleString()}.00</span>
+                <span className="font-black text-rose-500">?{payslip.breakdown.deductions.reduce((a: any, b: any) => a + b.amount, 0).toLocaleString()}.00</span>
               </div>
               <div className="h-px bg-slate-200 dark:bg-white/10 my-4" />
               <div className="flex justify-between items-center">
@@ -181,7 +181,7 @@ const PayslipModal: React.FC<{ payslip: any; onClose: () => void }> = ({ payslip
                   <span className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest block">Net Pay</span>
                   <span className="text-[8px] font-bold text-slate-400 uppercase italic">(Disbursed to bank)</span>
                 </div>
-                <span className="text-3xl font-black text-[#0047cc] italic">₦{payslip.netPay.toLocaleString()}.00</span>
+                <span className="text-3xl font-black text-[#0047cc] italic">?{payslip.netPay.toLocaleString()}.00</span>
               </div>
             </div>
           </div>
@@ -219,9 +219,9 @@ const MyPayroll: React.FC = () => {
 
   return (
     <div className="space-y-8 pb-10 animate-in fade-in duration-700">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-6">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase italic">
             COMPENSATION <span className="text-[#0047cc]">INTELLIGENCE</span>
           </h2>
           <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mt-1">
@@ -241,11 +241,11 @@ const MyPayroll: React.FC = () => {
             <div className="absolute -right-4 -top-4 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
             <div className="relative z-10">
               <span className="text-[10px] font-black opacity-60 uppercase tracking-widest block mb-2">Total Earnings (YTD)</span>
-              <h3 className="text-4xl font-black tracking-tighter italic">₦{MOCK_PAYSLIPS.reduce((s, p) => s + p.grossPay, 0).toLocaleString()}.00</h3>
+              <h3 className="text-4xl font-black tracking-tighter italic">?{MOCK_PAYSLIPS.reduce((s, p) => s + p.grossPay, 0).toLocaleString()}.00</h3>
               <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-end">
                 <div>
                   <p className="text-[9px] font-black opacity-60 uppercase">Net Pay (Avg)</p>
-                  <p className="text-lg font-black">₦{Math.round(MOCK_PAYSLIPS.reduce((s, p) => s + p.netPay, 0) / MOCK_PAYSLIPS.length).toLocaleString()}.00</p>
+                  <p className="text-lg font-black">?{Math.round(MOCK_PAYSLIPS.reduce((s, p) => s + p.netPay, 0) / MOCK_PAYSLIPS.length).toLocaleString()}.00</p>
                 </div>
                 <div className="text-right">
                   <span className="px-2 py-1 bg-white/20 rounded text-[8px] font-black uppercase tracking-widest">Active Cycle</span>
@@ -288,7 +288,7 @@ const MyPayroll: React.FC = () => {
         {/* Right Column: List */}
         <div className="lg:col-span-2 space-y-6">
           <GlassCard className="overflow-hidden !p-0">
-            <div className="p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
+            <div className="p-4 sm:p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
               <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight italic">PAYSLIP HISTORY</h3>
               <span className="text-[9px] font-black text-[#0047cc] uppercase tracking-widest bg-[#0047cc]/10 px-3 py-1 rounded-lg">Last 12 Months</span>
             </div>
@@ -305,12 +305,12 @@ const MyPayroll: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">{ps.period}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase mt-0.5">{ps.id} • {ps.payDate}</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase mt-0.5">{ps.id} � {ps.payDate}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-10">
                     <div className="text-right hidden sm:block">
-                      <p className="text-xs font-black text-slate-900 dark:text-white">₦{ps.netPay.toLocaleString()}.00</p>
+                      <p className="text-xs font-black text-slate-900 dark:text-white">?{ps.netPay.toLocaleString()}.00</p>
                       <p className="text-[9px] font-bold text-slate-400 uppercase mt-0.5">NET DISBURSEMENT</p>
                     </div>
                     <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:border-[#0047cc] group-hover:text-[#0047cc] transition-all">
@@ -325,7 +325,7 @@ const MyPayroll: React.FC = () => {
           <div className="grid grid-cols-2 gap-6">
             <button className="flex items-center justify-between p-6 bg-white dark:bg-white/5 rounded-[32px] border border-slate-200 dark:border-white/10 hover:border-[#0047cc] transition-all group shadow-xl">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center"><Calendar size={18} /></div>
+                <div className="w-10 h-10 rounded-xl bg-[#e0f2fe]0/10 text-[#e0f2fe]0 flex items-center justify-center"><Calendar size={18} /></div>
                 <div className="text-left">
                   <p className="text-xs font-black text-slate-900 dark:text-white">Tax Certificates</p>
                   <p className="text-[9px] font-bold text-slate-400 uppercase">YTD Summary</p>
@@ -388,3 +388,5 @@ const MyPayroll: React.FC = () => {
 };
 
 export default MyPayroll;
+
+

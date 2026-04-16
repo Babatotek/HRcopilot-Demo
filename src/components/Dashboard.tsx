@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -278,7 +278,7 @@ function StatCard({ label, value, trend, color }: { label: string, value: string
     blue: 'border-l-brand-blue',
     emerald: 'border-l-emerald-500',
     amber: 'border-l-amber-500',
-    indigo: 'border-l-indigo-500',
+    indigo: 'border-l-[#eff6ff]0',
   };
 
   return (
@@ -321,4 +321,5 @@ function ActionButton({ label }: { label: string }) {
     </button>
   );
 }
+
 

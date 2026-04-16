@@ -10,7 +10,6 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       host: '0.0.0.0',
       headers: {
-        // Required for SharedArrayBuffer (used by WASM ONNX runtime)
         'Cross-Origin-Opener-Policy':   'same-origin',
         'Cross-Origin-Embedder-Policy': 'credentialless',
       },

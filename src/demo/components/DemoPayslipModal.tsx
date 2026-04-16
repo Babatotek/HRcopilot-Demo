@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/components/DemoPayslipModal.tsx
 // PURPOSE: Guided demo payslip showcase.
 //   Opens automatically on the payroll-slip step.
@@ -40,13 +40,13 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
             exit={{ opacity: 0, scale: 0.92, y: 32 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             onClick={e => e.stopPropagation()}
-            className="relative w-full max-w-3xl bg-white rounded-[32px] shadow-2xl overflow-hidden"
+            className="relative w-full max-w-3xl bg-white rounded-[24px] md:rounded-[32px] shadow-2xl overflow-hidden max-h-[95vh] overflow-y-auto"
           >
             {/* Top accent bar */}
-            <div className="h-1.5 bg-gradient-to-r from-[#0047cc] via-violet-500 to-[#0047cc]" />
+            <div className="h-1.5 bg-gradient-to-r from-[#0047cc] via-[#e0f2fe]0 to-[#0047cc]" />
 
             {/* Controls */}
-            <div className="px-8 pt-5 pb-0 flex justify-between items-center">
+            <div className="px-4 md:px-8 pt-4 md:pt-5 pb-0 flex flex-wrap justify-between items-center gap-2">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-200">
                   {PAYSLIP.status}
@@ -58,12 +58,12 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => window.print()}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-200 transition-all"
+                  className="hidden sm:flex items-center gap-1.5 px-3 md:px-4 py-2 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-200 transition-all"
                 >
                   <Printer size={12} /> Print
                 </button>
-                <button className="flex items-center gap-1.5 px-4 py-2 bg-[#0047cc] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#0035a0] transition-all shadow-lg shadow-blue-500/20">
-                  <Download size={12} /> Download PDF
+                <button className="flex items-center gap-1.5 px-3 md:px-4 py-2 bg-[#0047cc] text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#0035a0] transition-all shadow-lg shadow-blue-500/20">
+                  <Download size={12} /> <span className="hidden sm:inline">Download PDF</span><span className="sm:hidden">PDF</span>
                 </button>
                 <button
                   onClick={onClose}
@@ -73,38 +73,38 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
             </div>
 
             {/* Payslip body */}
-            <div className="px-8 py-6 space-y-6">
+            <div className="px-4 md:px-8 py-4 md:py-6 space-y-4 md:space-y-6">
 
               {/* Header */}
-              <div className="flex justify-between items-start border-b border-dashed border-slate-200 pb-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-[#0047cc] rounded-2xl flex items-center justify-center text-white text-2xl font-black italic shadow-lg shadow-blue-500/20">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 border-b border-dashed border-slate-200 pb-4 md:pb-6">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="w-10 h-10 md:w-14 md:h-14 bg-[#0047cc] rounded-2xl flex items-center justify-center text-white text-xl md:text-2xl font-black italic shadow-lg shadow-blue-500/20 flex-shrink-0">
                     H
                   </div>
                   <div>
-                    <h1 className="text-xl font-black tracking-tighter text-slate-900 uppercase italic">
+                    <h1 className="text-base md:text-xl font-black tracking-tighter text-slate-900 uppercase italic">
                       HR360 <span className="text-[#0047cc]">ENTERPRISE</span>
                     </h1>
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mt-0.5">
                       Institutional Financial Document
                     </p>
-                    <div className="mt-2 flex items-center gap-3 text-[9px] font-bold text-slate-400 uppercase">
+                    <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[9px] font-bold text-slate-400 uppercase">
                       <span className="flex items-center gap-1"><Building2 size={10} /> HQ Branch, Lagos NG</span>
                       <span className="flex items-center gap-1 text-emerald-500"><ShieldCheck size={10} /> SECURE_RECORD</span>
                     </div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <h2 className="text-lg font-black text-slate-900 uppercase tracking-tight">{PAYSLIP.period}</h2>
+                <div className="text-left sm:text-right">
+                  <h2 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight">{PAYSLIP.period}</h2>
                   <p className="text-[10px] font-bold text-slate-500 uppercase mt-1">Pay Date: {PAYSLIP.payDate ?? (PAYSLIP as any).date}</p>
                 </div>
               </div>
 
               {/* Employee + Bank */}
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
                 <div className="space-y-3">
                   <h3 className="text-[9px] font-black text-[#0047cc] uppercase tracking-widest">Employee Details</h3>
-                  <div className="grid grid-cols-2 gap-3 text-slate-900">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3 text-slate-900">
                     {[
                       ['Employee Name', PAYSLIP.employeeName],
                       ['Employee ID',   PAYSLIP.employeeId],
@@ -121,7 +121,7 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-[9px] font-black text-[#0047cc] uppercase tracking-widest">Bank Details</h3>
-                  <div className="grid grid-cols-2 gap-3 text-slate-900">
+                  <div className="grid grid-cols-2 gap-2 md:gap-3 text-slate-900">
                     {[
                       ['Bank',           PAYSLIP.bank.name],
                       ['Account',        PAYSLIP.bank.accountNumber],
@@ -138,7 +138,7 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
               </div>
 
               {/* Earnings + Deductions */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {/* Earnings */}
                 <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100">
                   <h3 className="text-[9px] font-black text-[#0047cc] uppercase tracking-widest mb-3">Earnings</h3>
@@ -175,7 +175,7 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
               </div>
 
               {/* Net Pay */}
-              <div className="bg-gradient-to-r from-[#0047cc] to-violet-600 rounded-2xl p-5 flex justify-between items-center shadow-lg shadow-blue-500/20">
+              <div className="bg-gradient-to-r from-[#0047cc] to-[#0369a1] rounded-2xl p-5 flex justify-between items-center shadow-lg shadow-blue-500/20">
                 <div>
                   <p className="text-[9px] font-black text-white/60 uppercase tracking-widest">Net Pay</p>
                   <p className="text-[9px] font-bold text-white/50 mt-0.5">After all statutory deductions</p>
@@ -195,3 +195,4 @@ export function DemoPayslipModal({ isOpen, onClose }: Props) {
     </AnimatePresence>
   );
 }
+

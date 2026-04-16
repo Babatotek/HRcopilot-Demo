@@ -65,10 +65,10 @@ const Cabinet: React.FC = () => {
   };
 
   const cabinets = [
-    { id: 'HR', label: 'Human Resources', icon: '👥' },
-    { id: 'FINANCE', label: 'Finance & Tax', icon: '💰' },
-    { id: 'LEGAL', label: 'Legal & Compliance', icon: '⚖️' },
-    { id: 'OPS', label: 'Operations', icon: '⚙️' },
+    { id: 'HR', label: 'Human Resources', icon: '??' },
+    { id: 'FINANCE', label: 'Finance & Tax', icon: '??' },
+    { id: 'LEGAL', label: 'Legal & Compliance', icon: '??' },
+    { id: 'OPS', label: 'Operations', icon: '??' },
   ];
 
   const tabs = [
@@ -80,34 +80,34 @@ const Cabinet: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-end">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black tracking-tighter uppercase italic">Virtual Cabinet</h2>
-          <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">AI-Powered Document Intelligence</p>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase italic">Virtual Cabinet</h2>
+          <p className="text-slate-500 text-xs sm:text-sm font-bold uppercase tracking-widest">AI-Powered Document Intelligence</p>
         </div>
         <button 
           onClick={() => setIsUploadModalOpen(true)}
-          className="px-6 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-purple-500/20 hover:scale-105 transition-transform"
+          className="w-full sm:w-auto px-5 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-[#e0f2fe]0/20 hover:scale-105 transition-transform"
         >
           Upload Document
         </button>
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide" id="cabinet-intelligence-tabs">
+      <div className="tab-nav pb-2" id="cabinet-intelligence-tabs">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-start px-6 py-3 rounded-2xl transition-all whitespace-nowrap ${
+            className={`flex flex-col items-start px-4 sm:px-6 py-3 rounded-2xl transition-all whitespace-nowrap flex-shrink-0 ${
               activeTab === tab.id
-                ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-purple-500/20'
+                ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-[#e0f2fe]0/20'
                 : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.08]'
             }`}
           >
             <span className="text-xs font-black uppercase tracking-widest">{tab.label}</span>
-            <span className={`text-[9px] mt-1 ${activeTab === tab.id ? 'text-white/70' : 'text-slate-400'}`}>{tab.desc}</span>
+            <span className={`text-[9px] mt-1 hidden sm:block ${activeTab === tab.id ? 'text-white/70' : 'text-slate-400'}`}>{tab.desc}</span>
           </button>
         ))}
       </div>
@@ -214,7 +214,7 @@ const Cabinet: React.FC = () => {
                 <button 
                   type="submit" 
                   disabled={uploading}
-                  className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20 disabled:opacity-50"
+                  className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20 disabled:opacity-50"
                 >
                   {uploading ? 'Processing AI Metadata...' : 'Upload & Index'}
                 </button>
@@ -228,3 +228,6 @@ const Cabinet: React.FC = () => {
 };
 
 export default Cabinet;
+
+
+

@@ -1,0 +1,23 @@
+$f = 'pages/Landing.tsx'
+$c = Get-Content $f -Raw -Encoding UTF8
+$c = $c -replace 'from-indigo-600 to-purple-600','from-[#1e4d8c] to-[#0ea5e9]'
+$c = $c -replace 'hover:shadow-indigo-500/30','hover:shadow-[#0ea5e9]/30'
+$c = $c -replace [regex]::Escape("background: 'linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)'"),"background: 'linear-gradient(135deg, #1e4d8c, #0ea5e9, #14b8a6)'"
+$c = $c -replace 'bg-blue-600','bg-[#0ea5e9]'
+$c = $c -replace 'text-blue-600','text-[#0ea5e9]'
+$c = $c -replace 'border-blue-600','border-[#0ea5e9]'
+$c = $c -replace 'hover:bg-blue-600','hover:bg-[#0ea5e9]'
+$c = $c -replace 'hover:bg-blue-500','hover:bg-[#38bdf8]'
+$c = $c -replace 'hover:text-blue-600','hover:text-[#0ea5e9]'
+$c = $c -replace 'hover:border-blue-600','hover:border-[#0ea5e9]'
+$c = $c -replace 'focus:border-blue-600','focus:border-[#0ea5e9]'
+$c = $c -replace 'hover:shadow-blue-600/30','hover:shadow-[#0ea5e9]/30'
+$c = $c -replace 'shadow-blue-500/20','shadow-[#0ea5e9]/20'
+$c = $c -replace 'bg-blue-50','bg-[#e0f7ff]'
+$c = $c -replace 'text-blue-50','text-[#e0f7ff]'
+$c = $c -replace 'bg-indigo-600','bg-[#1e4d8c]'
+$c = $c -replace 'hover:bg-indigo-500','hover:bg-[#0ea5e9]'
+$c = $c -replace 'from-blue-500 to-purple-600','from-[#0ea5e9] to-[#14b8a6]'
+$c = $c -replace 'focus-within:border-blue-500/50','focus-within:border-[#0ea5e9]/50'
+Set-Content $f -Value $c -Encoding UTF8
+Write-Host 'Done'

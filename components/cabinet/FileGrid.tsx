@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import GlassCard from '../GlassCard';
 
 interface FileGridProps {
@@ -23,7 +23,7 @@ const FileGrid: React.FC<FileGridProps> = ({ files, searchQuery, setSearchQuery 
           placeholder="Semantic Search: 'Find all employment contracts from 2023'..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
+          className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20 transition-all"
         />
       </div>
 
@@ -70,3 +70,4 @@ const FileGrid: React.FC<FileGridProps> = ({ files, searchQuery, setSearchQuery 
 };
 
 export default FileGrid;
+

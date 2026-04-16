@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/MainShell.tsx
 // PURPOSE: Post-onboarding app shell.
 //   Sidebar + TopNav + all 12 module routes.
@@ -53,18 +53,21 @@ import ClockInModal        from '../../components/ClockInModal';
 import LeakageAnalysisModal from '../../components/LeakageAnalysisModal';
 import { DemoPayslipModal } from './components/DemoPayslipModal';
 import { DemoLeakageModal } from './components/DemoLeakageModal';
+import { LeakageClosingScreen } from './components/LeakageClosingScreen';
 
 // ── Page loader ───────────────────────────────────────────────────────────────
 function PageLoader() {
   return (
     <div className="flex items-center justify-center h-full min-h-[60vh]">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-7 h-7 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-7 h-7 border-2 border-[#e0f2fe]0 border-t-transparent rounded-full animate-spin" />
         <p className="text-[9px] font-black text-white/30 uppercase tracking-[0.2em]">Loading…</p>
       </div>
     </div>
   );
 }
+
+import { LayoutDashboard, Users, ShieldCheck, Building2, Clock, Palmtree, DollarSign, Target, Star, Trophy, TrendingUp, ShoppingCart, Handshake, FileText, Archive, Brain, MessageSquare, FileEdit, Palette, Lock } from 'lucide-react';
 
 // ── Sidebar nav config ────────────────────────────────────────────────────────
 interface NavItem {
@@ -75,33 +78,37 @@ interface NavItem {
   badge?:   string | number;
 }
 
+const I = (C: React.FC<{className?:string}>) => <C className="w-4 h-4" />;
+
 const NAV: NavItem[] = [
-  { label: 'Dashboard',          route: '/app',              icon: '📊' },
+  { label: 'Dashboard',          route: '/app',              icon: I(LayoutDashboard) },
   { label: 'PEOPLE',             isHeader: true },
-  { label: 'Employees',          route: '/app/employees',    icon: '👥' },
-  { label: 'Role Management',    route: '/app/roles',        icon: '🔐' },
-  { label: 'Branches',           route: '/app/branches',     icon: '🏢' },
+  { label: 'Employees',          route: '/app/employees',    icon: I(Users) },
+  { label: 'Role Management',    route: '/app/roles',        icon: I(Lock) },
+  { label: 'Branches',           route: '/app/branches',     icon: I(Building2) },
   { label: 'OPERATIONS',         isHeader: true },
-  { label: 'Attendance',         route: '/app/attendance',   icon: '⏱️', badge: 'Live' },
-  { label: 'Leave',              route: '/app/leave',        icon: '🌴' },
-  { label: 'Payroll',            route: '/app/payroll',      icon: '💰' },
+  { label: 'Attendance',         route: '/app/attendance',   icon: I(Clock),         badge: 'Live' },
+  { label: 'Leave',              route: '/app/leave',        icon: I(Palmtree) },
+  { label: 'Payroll',            route: '/app/payroll',      icon: I(DollarSign) },
   { label: 'TALENT',             isHeader: true },
-  { label: 'Performance',        route: '/app/performance',  icon: '🎯' },
-  { label: 'Talent Management',  route: '/app/talent',       icon: '🌟' },
-  { label: 'Goals',              route: '/app/goals',        icon: '🏆' },
+  { label: 'Performance',        route: '/app/performance',  icon: I(Target) },
+  { label: 'Talent Management',  route: '/app/talent',       icon: I(Star) },
+  { label: 'Goals',              route: '/app/goals',        icon: I(Trophy) },
   { label: 'ENTERPRISE+',        isHeader: true },
-  { label: 'Finance',            route: '/app/finance',      icon: '📈' },
-  { label: 'Procurement',        route: '/app/procurement',  icon: '🛒' },
-  { label: 'CRM & Sales',        route: '/app/crm',          icon: '🤝' },
-  { label: 'Invoices',           route: '/app/invoices',     icon: '🧾' },
-  { label: 'Virtual Cabinet',    route: '/app/cabinet',      icon: '🗄️' },
-  { label: 'Intelligence',       route: '/app/intelligence', icon: '🧠' },
+  { label: 'Finance',            route: '/app/finance',      icon: I(TrendingUp) },
+  { label: 'Procurement',        route: '/app/procurement',  icon: I(ShoppingCart) },
+  { label: 'CRM & Sales',        route: '/app/crm',          icon: I(Handshake) },
+  { label: 'Invoices',           route: '/app/invoices',     icon: I(FileText) },
+  { label: 'Virtual Cabinet',    route: '/app/cabinet',      icon: I(Archive) },
+  { label: 'Intelligence',       route: '/app/intelligence', icon: I(Brain) },
   { label: 'COMMUNICATION',      isHeader: true },
-  { label: 'Team Chat',          route: '/app/chat',         icon: '💬', badge: 12 },
-  { label: 'Memo',               route: '/app/memo',         icon: '📝' },
+  { label: 'Team Chat',          route: '/app/chat',         icon: I(MessageSquare), badge: 12 },
+  { label: 'Memo',               route: '/app/memo',         icon: I(FileEdit) },
   { label: 'SYSTEM',             isHeader: true },
-  { label: 'Brand Settings',     route: '/app/settings',     icon: '🎨' },
+  { label: 'Brand Settings',     route: '/app/settings',     icon: I(Palette) },
 ];
+
+
 
 // ── Sidebar item ──────────────────────────────────────────────────────────────
 interface SidebarItemProps { item: NavItem; collapsed: boolean }
@@ -129,7 +136,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, collapsed }) => {
       className={`
         flex items-center gap-3 px-4 py-2.5 mx-2 rounded-xl transition-all duration-200 group relative
         ${isActive
-          ? 'bg-violet-50 border border-violet-200 text-violet-700'
+          ? 'bg-[#e0f2fe] border border-[#7dd3fc] text-[#075985]'
           : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50 border border-transparent'
         }
       `}
@@ -139,7 +146,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, collapsed }) => {
         <>
           <span className="text-[12px] font-bold tracking-wide truncate flex-1">{item.label}</span>
           {item.badge && (
-            <span className="px-1.5 py-0.5 rounded-md text-[8px] font-black uppercase bg-violet-100 text-violet-600">
+            <span className="px-1.5 py-0.5 rounded-md text-[8px] font-black uppercase bg-[#bae6fd] text-[#0369a1]">
               {item.badge}
             </span>
           )}
@@ -148,7 +155,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, collapsed }) => {
       {isActive && (
         <motion.div
           layoutId="sidebar-active"
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-violet-500 rounded-full"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-[#e0f2fe]0 rounded-full"
         />
       )}
     </Link>
@@ -178,7 +185,7 @@ function JoyrideController() {
       floaterProps={{ disableAnimation: false }}
       styles={{
         options: {
-          primaryColor:    '#7c3aed',
+          primaryColor:    '#0369a1',
           backgroundColor: '#ffffff',
           textColor:       '#1e293b',
           arrowColor:      '#ffffff',
@@ -190,7 +197,7 @@ function JoyrideController() {
           padding:      '20px 24px',
           fontSize:     '14px',
           boxShadow:    '0 20px 60px rgba(0,0,0,0.2)',
-          border:       '1px solid rgba(124,58,237,0.15)',
+          border:       '1px solid rgba(3,105,161,0.15)',
         },
         buttonNext: {
           borderRadius:    '10px',
@@ -199,7 +206,7 @@ function JoyrideController() {
           fontWeight:      900,
           letterSpacing:   '0.1em',
           textTransform:   'uppercase',
-          background:      'linear-gradient(135deg, #7c3aed, #6366f1)',
+          background:      'linear-gradient(135deg, #0369a1, #2563eb)',
         },
         buttonSkip: { color: '#94a3b8', fontSize: '11px' },
         buttonBack: { color: '#64748b', fontSize: '11px' },
@@ -220,6 +227,7 @@ export default function MainShell() {
   const [isLeakageOpen, setIsLeakageOpen] = useState(false);
   const [isDemoPayslipOpen, setIsDemoPayslipOpen] = useState(false);
   const [isDemoLeakageOpen, setIsDemoLeakageOpen] = useState(false);
+  const [isLeakageClosingOpen, setIsLeakageClosingOpen] = useState(false);
   const location = useLocation();
 
   // Apply brand color from CEO org profile
@@ -241,12 +249,14 @@ export default function MainShell() {
   useEffect(() => {
     const handler = (e: Event) => {
       const action = (e as CustomEvent<string>).detail;
-      if (action === 'open:ai-advisor')   setIsAIOpen(true);
-      if (action === 'open:leakage')      setIsDemoLeakageOpen(true);
-      if (action === 'open:payslip')      setIsDemoPayslipOpen(true);
-      if (action === 'close:ai-advisor')  setIsAIOpen(false);
-      if (action === 'close:leakage')     setIsDemoLeakageOpen(false);
-      if (action === 'close:payslip')     setIsDemoPayslipOpen(false);
+      if (action === 'open:ai-advisor')      setIsAIOpen(true);
+      if (action === 'open:leakage')         setIsDemoLeakageOpen(true);
+      if (action === 'open:payslip')         setIsDemoPayslipOpen(true);
+      if (action === 'open:leakage-closing') setIsLeakageClosingOpen(true);
+      if (action === 'close:ai-advisor')     setIsAIOpen(false);
+      if (action === 'close:leakage')        setIsDemoLeakageOpen(false);
+      if (action === 'close:payslip')        setIsDemoPayslipOpen(false);
+      if (action === 'close:leakage-closing') setIsLeakageClosingOpen(false);
     };
     window.addEventListener('demo:uiAction', handler);
     return () => window.removeEventListener('demo:uiAction', handler);
@@ -291,7 +301,7 @@ export default function MainShell() {
       <aside className={`
         fixed inset-y-0 left-0 z-[70] md:relative flex flex-col h-screen h-[100dvh]
         border-r border-slate-200 bg-white transition-all duration-300 shadow-sm
-        ${mobileOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0'}
+        ${mobileOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full md:translate-x-0'}
         ${collapsed ? 'md:w-[68px]' : 'md:w-64'}
       `}>
 
@@ -333,7 +343,7 @@ export default function MainShell() {
         <div className="border-t border-slate-100 p-3 space-y-2">
           {!collapsed && (
             <div className="flex items-center gap-2 px-2 py-2 rounded-xl bg-slate-50 border border-slate-100">
-              <div className="w-7 h-7 rounded-lg bg-violet-100 border border-violet-200 flex items-center justify-center text-[10px] font-black text-violet-600 flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-[#bae6fd] border border-[#7dd3fc] flex items-center justify-center text-[10px] font-black text-[#0369a1] flex-shrink-0">
                 {roleLabel[0]}
               </div>
               <div className="min-w-0">
@@ -364,8 +374,8 @@ export default function MainShell() {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* Top nav */}
-        <header className="h-16 border-b border-slate-200 flex items-center px-4 md:px-6 bg-white justify-between z-50 flex-shrink-0 shadow-sm">
-          <div className="flex items-center gap-3">
+        <header className="h-14 md:h-16 border-b border-slate-200 flex items-center px-3 md:px-6 bg-white justify-between z-50 flex-shrink-0 shadow-sm">
+          <div className="flex items-center gap-2 md:gap-3">
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(true)}
@@ -374,18 +384,18 @@ export default function MainShell() {
               ☰
             </button>
 
-            {/* Quick action buttons */}
-            <div className="hidden lg:flex items-center gap-2">
+            {/* Quick action buttons — hidden on mobile, shown md+ */}
+            <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => setIsAIOpen(true)}
                 id="ai-advisor-btn"
-                className="flex items-center gap-2 px-3 py-1.5 bg-violet-50 hover:bg-violet-100 border border-violet-200 rounded-xl text-[10px] font-black uppercase tracking-wider text-violet-700 transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 bg-[#e0f2fe] hover:bg-[#bae6fd] border border-[#7dd3fc] rounded-xl text-[10px] font-black uppercase tracking-wider text-[#075985] transition-all"
               >
                 🤖 AI Advisor
               </button>
               <button
                 onClick={() => setIsLeakageOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl text-[10px] font-black uppercase tracking-wider text-indigo-700 transition-all"
+                className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-[#eff6ff] hover:bg-[#dbeafe] border border-[#bfdbfe] rounded-xl text-[10px] font-black uppercase tracking-wider text-[#1d4ed8] transition-all"
               >
                 📊 Leakage Analysis
               </button>
@@ -395,18 +405,18 @@ export default function MainShell() {
             <ProgressIndicator compact />
           </div>
 
-          <div className="flex items-center gap-2 md:gap-3">
-            {/* Live clock / clock-in */}
+          <div className="flex items-center gap-1.5 md:gap-3">
+            {/* Live clock / clock-in — hidden on xs */}
             <button
               onClick={() => setIsClockInOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-50 hover:bg-violet-50 border border-slate-200 hover:border-violet-300 rounded-xl transition-all group"
+              className="hidden sm:flex items-center gap-2 px-2.5 md:px-3 py-1.5 bg-slate-50 hover:bg-[#e0f2fe] border border-slate-200 hover:border-[#38bdf8] rounded-xl transition-all group"
             >
               <span className="text-sm">⏱️</span>
-              <div className="text-left">
+              <div className="text-left hidden md:block">
                 <p className="text-[11px] font-black text-slate-800 tabular-nums">
                   {clockTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
                 </p>
-                <p className="text-[8px] font-black text-violet-500 uppercase tracking-widest">Attendance</p>
+                <p className="text-[8px] font-black text-[#e0f2fe]0 uppercase tracking-widest">Attendance</p>
               </div>
             </button>
 
@@ -414,9 +424,9 @@ export default function MainShell() {
             <SandboxToggle compact />
 
             {/* Role badge */}
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl">
+            <div className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl">
               <div
-                className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[10px] font-black"
+                className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[10px] font-black flex-shrink-0"
                 style={{ background: orgProfile?.primaryColor ?? '#0047cc' }}
               >
                 {roleLabel[0]}
@@ -433,7 +443,7 @@ export default function MainShell() {
             style={{ background: orgProfile?.primaryColor ?? '#0047cc' }}
           />
 
-          <div className="relative z-10 p-4 md:p-8 max-w-[1400px] mx-auto">
+          <div className="relative z-10 p-3 md:p-6 lg:p-8 max-w-[1400px] mx-auto">
             {/* Joyride — driven by useModuleWalkthrough for the active module */}
             <JoyrideController />
 
@@ -491,6 +501,10 @@ export default function MainShell() {
         isOpen={isDemoLeakageOpen}
         onClose={() => setIsDemoLeakageOpen(false)}
       />
+      <LeakageClosingScreen
+        isOpen={isLeakageClosingOpen}
+        onClose={() => { setIsLeakageClosingOpen(false); }}
+      />
 
       {/* ── Guided demo engine — navigates + narrates automatically ── */}
       <GuidedFlowRunner />
@@ -500,3 +514,4 @@ export default function MainShell() {
     </div>
   );
 }
+

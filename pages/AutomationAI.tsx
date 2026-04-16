@@ -3,26 +3,26 @@ import React, { useState } from 'react';
 import GlassCard from '../components/GlassCard';
 
 const WORKFLOWS = [
-  { id: 1, title: 'Automatic Onboarding Task Assignment', desc: 'Automatically assign onboarding tasks to new hires.', details: 'New Hires | 2 days ago | Last run 1 hour', active: true, color: 'text-purple-400' },
+  { id: 1, title: 'Automatic Onboarding Task Assignment', desc: 'Automatically assign onboarding tasks to new hires.', details: 'New Hires | 2 days ago | Last run 1 hour', active: true, color: 'text-[#0ea5e9]' },
   { id: 2, title: 'Leave Approval Automation', desc: 'Automatically send employee it requests to managers for approval.', details: 'All Employees | 1 week ago | Last run yesterday', active: true, color: 'text-emerald-400' },
   { id: 3, title: 'Timesheet Reminder', desc: 'Delivers automatic reminders for employees to submit timesheets every Friday at 3 PM.', details: 'All Employees | 3 weeks ago | Last run 2 days ago', active: true, color: 'text-blue-400' },
   { id: 4, title: 'Payroll Cutoff Notifications', desc: 'Send notifications to payroll Admin and managers when payroll cutoff is nearing.', details: 'Payroll Admin | 2 months ago | Last run just now', active: true, color: 'text-amber-400' },
 ];
 
 const PROCESS_STEPS = [
-  { label: 'New Hire Onboarding', icon: '📋' },
-  { label: 'Offer Letter', icon: '📝' },
-  { label: 'Leave Request', icon: '🏖️' },
-  { label: 'Incomplete Timesheets', icon: '⌛' },
-  { label: 'Payments', icon: '💰' },
-  { label: 'Reminder Messages', icon: '✉️' },
-  { label: 'Cutoff Alerts', icon: '📢' },
+  { label: 'New Hire Onboarding', icon: '??' },
+  { label: 'Offer Letter', icon: '??' },
+  { label: 'Leave Request', icon: '???' },
+  { label: 'Incomplete Timesheets', icon: '?' },
+  { label: 'Payments', icon: '??' },
+  { label: 'Reminder Messages', icon: '??' },
+  { label: 'Cutoff Alerts', icon: '??' },
 ];
 
 const AI_TOOLS = [
-  { title: 'AI Chat Assistant', desc: 'Answer employees HR queries and provide HR assistance within chat.', action: 'Launch', icon: '🤖' },
-  { title: 'Smart Resume Screener', desc: 'Automatically screen and rank incoming job applications using AI.', action: 'Manage Rules', icon: '📄' },
-  { title: 'Retention Risk Analysis', desc: 'Identify employees with high turnover risk based on HR data analysis.', action: 'View Dashboard', icon: '📈' },
+  { title: 'AI Chat Assistant', desc: 'Answer employees HR queries and provide HR assistance within chat.', action: 'Launch', icon: '??' },
+  { title: 'Smart Resume Screener', desc: 'Automatically screen and rank incoming job applications using AI.', action: 'Manage Rules', icon: '??' },
+  { title: 'Retention Risk Analysis', desc: 'Identify employees with high turnover risk based on HR data analysis.', action: 'View Dashboard', icon: '??' },
 ];
 
 const AutomationAI: React.FC = () => {
@@ -33,7 +33,7 @@ const AutomationAI: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">AI & <span className="text-[#0047cc]">Automation</span></h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">AI & <span className="text-[#0047cc]">Automation</span></h2>
         </div>
         <div className="flex items-center gap-6">
           <div className="flex gap-2">
@@ -67,7 +67,7 @@ const AutomationAI: React.FC = () => {
                   <option>Select Time Period</option>
                 </select>
                 <div className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  📅 0024 – April 23, 2024
+                  ?? 0024 � April 23, 2024
                 </div>
               </div>
             }
@@ -78,15 +78,15 @@ const AutomationAI: React.FC = () => {
                   <div className="flex justify-between items-start">
                     <div className="flex gap-4">
                       <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl grayscale group-hover:grayscale-0 transition-all ${wf.color.replace('text-', 'bg-').replace('400', '500/10')}`}>
-                        {wf.id === 1 ? '🎓' : wf.id === 2 ? '🏖️' : wf.id === 3 ? '⌛' : '💰'}
+                        {wf.id === 1 ? '??' : wf.id === 2 ? '???' : wf.id === 3 ? '?' : '??'}
                       </div>
                       <div>
                         <h4 className="text-sm font-black text-white tracking-tight">{wf.title}</h4>
                         <p className="text-xs text-slate-400 mt-1">{wf.desc}</p>
                         <div className="flex items-center gap-4 mt-3 text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                           <span className="flex items-center gap-1">📍 {wf.details.split('|')[0]}</span>
-                           <span className="flex items-center gap-1">🕒 {wf.details.split('|')[1]}</span>
-                           <span className="flex items-center gap-1">🔄 {wf.details.split('|')[2]}</span>
+                           <span className="flex items-center gap-1">?? {wf.details.split('|')[0]}</span>
+                           <span className="flex items-center gap-1">?? {wf.details.split('|')[1]}</span>
+                           <span className="flex items-center gap-1">?? {wf.details.split('|')[2]}</span>
                         </div>
                       </div>
                     </div>
@@ -117,7 +117,7 @@ const AutomationAI: React.FC = () => {
                       </div>
                       {i < PROCESS_STEPS.length - 1 && (
                         <div className="flex-1 flex justify-center text-slate-700">
-                           {i === 5 ? <span className="text-xs">⟷</span> : <span className="text-xs">⟶</span>}
+                           {i === 5 ? <span className="text-xs">?</span> : <span className="text-xs">?</span>}
                         </div>
                       )}
                     </React.Fragment>
@@ -135,7 +135,7 @@ const AutomationAI: React.FC = () => {
           {/* HR Assistant Main Panel */}
           <GlassCard>
              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-2xl border border-emerald-500/30">🤖</div>
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-2xl border border-emerald-500/30">??</div>
                 <div className="flex-1 space-y-4">
                    <div>
                       <h3 className="text-base font-black text-white italic">Va HR Assistant</h3>
@@ -143,14 +143,14 @@ const AutomationAI: React.FC = () => {
                    </div>
                    <div className="space-y-2">
                       <button className="w-full text-left p-3.5 bg-white/5 border border-white/10 rounded-[18px] text-[11px] text-slate-300 font-bold hover:bg-white/10 transition-all flex items-center gap-3">
-                         <span className="text-sm">🪄</span> We il need to conduct a retention risk analysis for the Sales Department
+                         <span className="text-sm">??</span> We il need to conduct a retention risk analysis for the Sales Department
                       </button>
                       <button className="w-full text-left p-3.5 bg-white/5 border border-white/10 rounded-[18px] text-[11px] text-slate-300 font-bold hover:bg-white/10 transition-all flex items-center gap-3">
-                         <span className="text-sm">⏳</span> Schedule a leave reminder for the Sales Teem
+                         <span className="text-sm">?</span> Schedule a leave reminder for the Sales Teem
                       </button>
                    </div>
                 </div>
-                <button className="text-slate-600 h-fit">•••</button>
+                <button className="text-slate-600 h-fit">���</button>
              </div>
           </GlassCard>
         </div>
@@ -182,7 +182,7 @@ const AutomationAI: React.FC = () => {
           <GlassCard className="!p-0 overflow-hidden">
              <div className="p-6 bg-gradient-to-br from-emerald-500/10 to-transparent">
                 <div className="flex gap-3 items-start mb-6">
-                   <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-lg">🤖</div>
+                   <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-lg">??</div>
                    <div>
                       <h4 className="text-xs font-black text-white uppercase tracking-tight">Va HR Assistant</h4>
                       <p className="text-[10px] text-slate-500 font-bold mt-1">Hi Emily; How can I assist you today?</p>
@@ -190,21 +190,21 @@ const AutomationAI: React.FC = () => {
                 </div>
                 <div className="space-y-3">
                    <button className="w-full text-left p-3 bg-white/5 border border-white/5 rounded-xl text-[9px] text-slate-400 font-bold leading-relaxed flex items-start gap-2 hover:text-white transition-colors">
-                      <span className="mt-0.5">🪄</span>
+                      <span className="mt-0.5">??</span>
                       We il need to conduct a retention risk analysis for the Sales Department.
                    </button>
                    <button className="w-full text-left p-3 bg-white/5 border border-white/5 rounded-xl text-[9px] text-slate-400 font-bold leading-relaxed flex items-start gap-2 hover:text-white transition-colors">
-                      <span className="mt-0.5">📄</span>
+                      <span className="mt-0.5">??</span>
                       Schedule a leave reminder for the Sales Teem.
                    </button>
                    <button className="w-full text-left p-3 bg-white/5 border border-white/5 rounded-xl text-[9px] text-slate-400 font-bold leading-relaxed flex items-start gap-2 hover:text-white transition-colors">
-                      <span className="mt-0.5">🎯</span>
+                      <span className="mt-0.5">??</span>
                       Generate an onboarding task 1st for our new QA Fests.
                    </button>
                 </div>
              </div>
              <button className="w-full p-4 flex justify-between items-center text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-all border-t border-white/5">
-                View All Suggestions <span className="text-lg">›</span>
+                View All Suggestions <span className="text-lg">�</span>
              </button>
           </GlassCard>
         </div>
@@ -214,3 +214,5 @@ const AutomationAI: React.FC = () => {
 };
 
 export default AutomationAI;
+
+

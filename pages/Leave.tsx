@@ -11,11 +11,11 @@ import {
 import { DEMO_LEAVE_REQUESTS, DEMO_LEAVE_BALANCES, DEMO_DASHBOARD_KPIS } from '../demoData';
 
 const LEAVE_STATS = [
-  { label: 'Employees on Leave Today',    val: String(DEMO_DASHBOARD_KPIS.onLeaveToday),          icon: '📁', action: 'View List', color: 'border-l-emerald-500', accent: '#10b981' },
-  { label: 'Pending Leave Requests',      val: String(DEMO_DASHBOARD_KPIS.pendingLeaveRequests),   icon: '📝', action: 'View List', color: 'border-l-amber-500',   accent: '#f59e0b' },
-  { label: 'Approved This Month',         val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'APPROVED').length), delta: '+3 from last month', icon: '🔥', color: 'border-l-[#0047cc]', accent: '#0047cc' },
-  { label: 'Rejected Requests',           val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'REJECTED').length), delta: '-2 from last month', icon: '🚫', color: 'border-l-rose-500', accent: '#ef4444' },
-  { label: 'Upcoming Leaves Next 7 Days', val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'PENDING').length), icon: '📅', action: 'View List', color: 'border-l-[#0035a0]', accent: '#0035a0' },
+  { label: 'Employees on Leave Today',    val: String(DEMO_DASHBOARD_KPIS.onLeaveToday),          icon: '??', action: 'View List', color: 'border-l-emerald-500', accent: '#10b981' },
+  { label: 'Pending Leave Requests',      val: String(DEMO_DASHBOARD_KPIS.pendingLeaveRequests),   icon: '??', action: 'View List', color: 'border-l-amber-500',   accent: '#f59e0b' },
+  { label: 'Approved This Month',         val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'APPROVED').length), delta: '+3 from last month', icon: '??', color: 'border-l-[#0047cc]', accent: '#0047cc' },
+  { label: 'Rejected Requests',           val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'REJECTED').length), delta: '-2 from last month', icon: '??', color: 'border-l-rose-500', accent: '#ef4444' },
+  { label: 'Upcoming Leaves Next 7 Days', val: String(DEMO_LEAVE_REQUESTS.filter(r => r.status === 'PENDING').length), icon: '??', action: 'View List', color: 'border-l-[#0035a0]', accent: '#0035a0' },
 ];
 
 const PENDING_REQUESTS = DEMO_LEAVE_REQUESTS
@@ -78,26 +78,26 @@ const Leave: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-700 pb-20">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Leave <span className="text-[#0047cc]">Management</span></h2>
+          <h2 className="page-header text-slate-900 dark:text-white">Leave <span className="text-[#0047cc]">Management</span></h2>
         </div>
          <Button 
             variant="primary" 
             size="md" 
             onClick={() => setIsApplyModalOpen(true)}
           >
-            Apply Leave →
+            Apply Leave ?
           </Button>
        </div>
 
       {/* Tab Nav */}
-      <div className="flex gap-8 border-b border-slate-200 dark:border-white/5 pb-0 overflow-x-auto">
+      <div className="tab-nav border-b border-slate-200 dark:border-white/5">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap ${activeTab === tab ? 'text-slate-900 dark:text-white' : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
+            className={`pb-4 text-[10px] font-black uppercase tracking-widest relative transition-all whitespace-nowrap flex-shrink-0 px-1 mr-4 sm:mr-6 ${activeTab === tab ? 'text-slate-900 dark:text-white' : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
           >
             {tab}
             {activeTab === tab && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#0047cc] shadow-[0_0_8px_#0047cc]" />}
@@ -111,7 +111,7 @@ const Leave: React.FC = () => {
         {activeTab === 'Leave Dashboard' && (
           <div className="space-y-6">
             {/* Summary Stats Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               {LEAVE_STATS.map((stat, idx) => (
                 <GlassCard key={idx} accentColor={stat.accent} className="!p-4 cursor-default">
                   <div className="flex justify-between items-center mb-3">
@@ -162,7 +162,7 @@ const Leave: React.FC = () => {
                 </GlassCard>
 
                 <GlassCard title="Leave Balance Overview" action={<button className="text-[10px] font-black text-[#0047cc] uppercase tracking-widest border border-[#0047cc]/20 px-3 py-1.5 rounded-lg">Export CSV</button>}>
-                  <div className="overflow-x-auto">
+                  <div className="table-wrap">
                     <table className="w-full text-left">
                        <thead>
                           <tr className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-white/5">
@@ -198,7 +198,7 @@ const Leave: React.FC = () => {
                 <GlassCard title="Pending Requests" action={<span className="text-slate-500 font-black text-sm">8</span>}>
                    <div className="space-y-4">
                       {PENDING_REQUESTS.map((req) => (
-                        <div key={req.id} className="p-3 bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 rounded-2xl flex items-center justify-between">
+                        <div key={req.id} className="p-3 bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                            <div className="flex items-center gap-3">
                               <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 border border-slate-200 dark:border-white/10"><img src={req.avatar} className="w-full h-full object-cover" alt="" /></div>
                               <div>
@@ -206,7 +206,7 @@ const Leave: React.FC = () => {
                                  <p className="text-[9px] text-slate-500 font-bold uppercase">{req.dates}</p>
                               </div>
                            </div>
-                           <div className="flex gap-1">
+                           <div className="flex gap-1 self-end sm:self-auto">
                               <Button variant="success" size="sm">Approve</Button>
                               <Button variant="danger" size="sm">Reject</Button>
                            </div>
@@ -238,17 +238,17 @@ const Leave: React.FC = () => {
 
         {activeTab === 'Leave Requests' && (
           <GlassCard className="!p-0 overflow-hidden">
-             <div className="p-4 border-b border-slate-100 dark:border-white/5 flex flex-wrap gap-4 items-center justify-between">
-                <div className="flex gap-3">
+             <div className="p-3 sm:p-4 border-b border-slate-100 dark:border-white/5 flex flex-wrap gap-2 sm:gap-4 items-center justify-between">
+                <div className="flex flex-wrap gap-2">
                    {['All Status', 'Pending', 'Approved', 'Rejected'].map(s => (
                      <button key={s} className="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-[10px] font-black uppercase text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">{s}</button>
                    ))}
                 </div>
-                <div className="relative">
-                   <input type="text" placeholder="Search requests..." className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-1.5 px-4 text-[11px] text-slate-300 w-64 focus:outline-none focus:border-[#0047cc]/50" />
+                <div className="relative w-full sm:w-auto">
+                   <input type="text" placeholder="Search requests..." className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-1.5 px-4 text-[11px] text-slate-300 w-full sm:w-64 focus:outline-none focus:border-[#0047cc]/50" />
                 </div>
              </div>
-             <div className="overflow-x-auto">
+             <div className="table-wrap">
                 <table className="w-full text-left">
                    <thead>
                       <tr className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.01]">
@@ -277,7 +277,7 @@ const Leave: React.FC = () => {
                            </td>
                            <td className="px-6 py-4">
                               <div className="text-xs font-black text-slate-900 dark:text-white">{req.days} Days</div>
-                              <div className="text-[9px] text-slate-500 font-bold">{req.startDate} – {req.endDate}</div>
+                              <div className="text-[9px] text-slate-500 font-bold">{req.startDate} � {req.endDate}</div>
                            </td>
                            <td className="px-6 py-4">
                               <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${
@@ -306,7 +306,7 @@ const Leave: React.FC = () => {
                { title: 'Annual Leave', quota: '25 Days', accrual: 'Monthly (2.08 days)', carry: 'Max 10 days', color: 'border-t-blue-500' },
                { title: 'Sick Leave', quota: '12 Days', accrual: 'Annual upfront', carry: 'Non-cumulative', color: 'border-t-emerald-500' },
                { title: 'Casual Leave', quota: '8 Days', accrual: 'Pro-rata', carry: 'Non-cumulative', color: 'border-t-amber-500' },
-               { title: 'Maternity Leave', quota: '90 Days', accrual: 'Per incident', carry: 'N/A', color: 'border-t-purple-500' },
+               { title: 'Maternity Leave', quota: '90 Days', accrual: 'Per incident', carry: 'N/A', color: 'border-t-[#e0f2fe]0' },
                { title: 'Paternity Leave', quota: '10 Days', accrual: 'Per incident', carry: 'N/A', color: 'border-t-rose-500' },
                { title: 'Study Leave', quota: '5 Days', accrual: 'Approval based', carry: 'N/A', color: 'border-t-slate-500' },
              ].map((policy, i) => (
@@ -347,7 +347,7 @@ const Leave: React.FC = () => {
              </div>
              
              <GlassCard title="Staffing Coverage Matrix (Real-time)" className="!p-0 overflow-hidden">
-                <div className="overflow-x-auto">
+                <div className="table-wrap">
                    <div className="min-w-[1000px] p-6">
                       <div className="flex gap-1 mb-2">
                          <div className="w-48 flex-shrink-0" />
@@ -411,7 +411,7 @@ const Leave: React.FC = () => {
              </div>
              <div className="space-y-6">
                 <GlassCard title="Next Holiday Pulse" className="!bg-[#0047cc]/10 border-[#0047cc]/20 text-center !p-10">
-                   <div className="text-5xl mb-4">🎉</div>
+                   <div className="text-5xl mb-4">??</div>
                    <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight mb-1">Labor Day</h4>
                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-6">In 12 Days (May 01)</p>
                    <div className="h-1 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden mb-8">
@@ -446,7 +446,7 @@ const Leave: React.FC = () => {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="relative w-full max-w-2xl bg-white dark:bg-[#0f172a] rounded-[40px] border border-slate-200 dark:border-white/10 shadow-2xl shadow-black/50 overflow-hidden"
             >
-              <div className="p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
+              <div className="p-4 sm:p-8 border-b border-slate-100 dark:border-white/5 flex justify-between items-center">
                  <div>
                     <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Request <span className="text-[#0047cc]">Leave</span></h3>
                     <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mt-1">Submit Operational Absence Proposal</p>
@@ -455,11 +455,11 @@ const Leave: React.FC = () => {
                     onClick={() => setIsApplyModalOpen(false)}
                     className="p-2 bg-slate-100 dark:bg-white/5 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-xl transition-all"
                  >
-                    <span className="text-xl">✕</span>
+                    <span className="text-xl">?</span>
                  </button>
               </div>
 
-              <div className="p-8 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <div className="p-4 sm:p-8 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
                  {/* Leave Type Selector */}
                  <div className="space-y-4">
                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest block px-1">Infrastructure Logic (Leave Type)</label>
@@ -512,7 +512,7 @@ const Leave: React.FC = () => {
                  </div>
               </div>
 
-              <div className="p-8 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.01] flex justify-end gap-4">
+              <div className="p-4 sm:p-8 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.01] flex justify-end gap-4">
                  <button 
                     onClick={() => setIsApplyModalOpen(false)}
                     className="px-8 py-4 text-slate-500 hover:text-slate-900 dark:hover:text-white font-black text-[11px] uppercase tracking-widest transition-all"
@@ -543,3 +543,6 @@ const Leave: React.FC = () => {
 };
 
 export default Leave;
+
+
+

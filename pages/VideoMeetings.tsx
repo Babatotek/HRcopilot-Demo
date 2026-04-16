@@ -130,7 +130,7 @@ const VideoMeetings: React.FC = () => {
         </div>
 
         {/* Sidebar */}
-        <aside className="w-[360px] bg-[#14181f] border-l border-white/5 flex flex-col p-6 space-y-6">
+        <aside className="hidden lg:flex w-[360px] bg-[#14181f] border-l border-white/5 flex-col p-6 space-y-6">
            {/* People List */}
            <div>
               <div className="flex justify-between items-center mb-4">

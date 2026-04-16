@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/walkthroughs/index.ts
 // PURPOSE: Joyride step definitions for all 12 modules.
 //   Targets use IDs that exist in the actual page components,
@@ -14,7 +14,7 @@ export interface DemoJoyrideStep extends Step {
 // ── Shared Joyride styles ─────────────────────────────────────────────────────
 export const JOYRIDE_STYLES = {
   options: {
-    primaryColor:    '#7c3aed',
+    primaryColor:    '#0369a1',
     backgroundColor: '#ffffff',
     textColor:       '#1e293b',
     arrowColor:      '#ffffff',
@@ -26,14 +26,14 @@ export const JOYRIDE_STYLES = {
     padding:       '20px 24px',
     fontSize:      '14px',
     boxShadow:     '0 20px 60px rgba(0,0,0,0.2)',
-    border:        '1px solid rgba(124,58,237,0.15)',
+    border:        '1px solid rgba(3,105,161,0.15)',
   },
   tooltipTitle: {
     fontSize:      '13px',
     fontWeight:    900,
     letterSpacing: '0.05em',
     textTransform: 'uppercase' as const,
-    color:         '#7c3aed',
+    color:         '#0369a1',
     marginBottom:  '8px',
   },
   buttonNext: {
@@ -43,7 +43,7 @@ export const JOYRIDE_STYLES = {
     fontWeight:    900,
     letterSpacing: '0.1em',
     textTransform: 'uppercase' as const,
-    background:    'linear-gradient(135deg, #7c3aed, #6366f1)',
+    background:    'linear-gradient(135deg, #0369a1, #2563eb)',
   },
   buttonSkip: {
     color:    '#94a3b8',
@@ -54,8 +54,8 @@ export const JOYRIDE_STYLES = {
     fontSize: '11px',
   },
   beacon: {
-    inner: '#7c3aed',
-    outer: 'rgba(124,58,237,0.3)',
+    inner: '#0369a1',
+    outer: 'rgba(3,105,161,0.3)',
   },
 };
 
@@ -267,3 +267,4 @@ export const MODULE_WALKTHROUGHS: Record<string, DemoJoyrideStep[]> = {
   procurement:   procurementWalkthrough,
   communication: communicationWalkthrough,
 };
+

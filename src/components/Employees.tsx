@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Plus, Search, Filter, MoreHorizontal, User } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -10,7 +10,7 @@ const employees = [
     department: 'ADMINISTRATION',
     status: 'ACTIVE',
     initials: 'OD',
-    color: 'bg-purple-100 text-purple-600'
+    color: 'bg-[#bae6fd] text-[#0369a1]'
   },
   {
     id: '1010',
@@ -37,7 +37,7 @@ const employees = [
     department: 'ADMINISTRATION',
     status: 'ACTIVE',
     initials: 'NN',
-    color: 'bg-indigo-100 text-indigo-600'
+    color: 'bg-[#dbeafe] text-[#2563eb]'
   }
 ];
 
@@ -152,3 +152,4 @@ function EmployeeStatCard({ label, value }: { label: string, value: string }) {
     </div>
   );
 }
+

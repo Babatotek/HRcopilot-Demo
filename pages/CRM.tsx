@@ -79,25 +79,25 @@ const CRM: React.FC = () => {
   const renderDashboard = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <GlassCard className="p-6 bg-purple-500/5 border-purple-500/20">
-          <p className="text-[10px] font-black text-purple-500 uppercase tracking-widest mb-1">Pipeline Value</p>
-          <h4 className="text-2xl font-black italic">₦{(DEMO_DASHBOARD_KPIS.pipelineValue / 1000000).toFixed(0)}M</h4>
-          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">↑ 12% vs last month</p>
+        <GlassCard className="p-6 bg-[#e0f2fe]0/5 border-[#e0f2fe]0/20">
+          <p className="text-[10px] font-black text-[#e0f2fe]0 uppercase tracking-widest mb-1">Pipeline Value</p>
+          <h4 className="text-2xl font-black italic">?{(DEMO_DASHBOARD_KPIS.pipelineValue / 1000000).toFixed(0)}M</h4>
+          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">? 12% vs last month</p>
         </GlassCard>
         <GlassCard className="p-6 bg-emerald-500/5 border-emerald-500/20">
           <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Closed Won (QTD)</p>
-          <h4 className="text-2xl font-black italic">₦{(DEMO_DASHBOARD_KPIS.revenueYTD / 1000000).toFixed(0)}M</h4>
-          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">Target: ₦500M</p>
+          <h4 className="text-2xl font-black italic">?{(DEMO_DASHBOARD_KPIS.revenueYTD / 1000000).toFixed(0)}M</h4>
+          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">Target: ?500M</p>
         </GlassCard>
         <GlassCard className="p-6 bg-blue-500/5 border-blue-500/20">
           <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Avg. Deal Size</p>
-          <h4 className="text-2xl font-black italic">₦{Math.round(DEMO_CRM_DEALS.reduce((s, d) => s + d.value, 0) / DEMO_CRM_DEALS.length / 1000000).toFixed(0)}M</h4>
+          <h4 className="text-2xl font-black italic">?{Math.round(DEMO_CRM_DEALS.reduce((s, d) => s + d.value, 0) / DEMO_CRM_DEALS.length / 1000000).toFixed(0)}M</h4>
           <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">Stable trend</p>
         </GlassCard>
         <GlassCard className="p-6 bg-amber-500/5 border-amber-500/20">
           <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">Win Rate</p>
           <h4 className="text-2xl font-black italic">{Math.round((DEMO_CRM_DEALS.filter(d => d.status === 'WON').length / DEMO_CRM_DEALS.length) * 100)}%</h4>
-          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">↑ 4% improvement</p>
+          <p className="text-[9px] text-slate-500 font-bold uppercase mt-2">? 4% improvement</p>
         </GlassCard>
       </div>
 
@@ -114,7 +114,7 @@ const CRM: React.FC = () => {
             {[
               { stage: 'Prospecting', count: 45, value: '$1.2M', color: 'bg-slate-400' },
               { stage: 'Qualification', count: 28, value: '$850k', color: 'bg-blue-400' },
-              { stage: 'Proposal', count: 15, value: '$600k', color: 'bg-purple-400' },
+              { stage: 'Proposal', count: 15, value: '$600k', color: 'bg-[#0ea5e9]' },
               { stage: 'Negotiation', count: 8, value: '$450k', color: 'bg-amber-400' },
               { stage: 'Closing', count: 4, value: '$220k', color: 'bg-emerald-400' },
             ].map((item, i) => (
@@ -134,14 +134,14 @@ const CRM: React.FC = () => {
           </div>
         </GlassCard>
 
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-6">Activity Feed</h3>
           <div className="space-y-6">
             {[
-              { user: 'Sarah J.', action: 'Closed Won', target: 'Acme Corp', time: '10m ago', icon: '🏆' },
-              { user: 'Mike R.', action: 'Sent Proposal', target: 'Globex', time: '1h ago', icon: '📄' },
-              { user: 'Emma W.', action: 'Logged Call', target: 'Stark Ind', time: '3h ago', icon: '📞' },
-              { user: 'System', action: 'Lead Assigned', target: 'Wayne Ent', time: '5h ago', icon: '👤' },
+              { user: 'Sarah J.', action: 'Closed Won', target: 'Acme Corp', time: '10m ago', icon: '??' },
+              { user: 'Mike R.', action: 'Sent Proposal', target: 'Globex', time: '1h ago', icon: '??' },
+              { user: 'Emma W.', action: 'Logged Call', target: 'Stark Ind', time: '3h ago', icon: '??' },
+              { user: 'System', action: 'Lead Assigned', target: 'Wayne Ent', time: '5h ago', icon: '??' },
             ].map((act, i) => (
               <div key={i} className="flex gap-4">
                 <div className="w-8 h-8 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-sm">{act.icon}</div>
@@ -165,7 +165,7 @@ const CRM: React.FC = () => {
   const renderRelationships = () => (
     <div className="flex flex-col lg:flex-row gap-6">
       <div className={`flex-1 space-y-6 transition-all duration-500 ${selectedLead ? 'lg:w-2/3' : 'w-full'}`}>
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <div className="flex justify-between items-center mb-8">
             <h3 className="text-lg font-black uppercase tracking-widest italic">Lead Management</h3>
             <div className="flex gap-4">
@@ -177,7 +177,7 @@ const CRM: React.FC = () => {
               <button className="px-4 py-2 bg-[var(--brand-primary)] text-white rounded-xl font-black uppercase tracking-widest text-[10px]">Import Leads</button>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          <div className="table-wrap">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-slate-100 dark:border-white/5">
@@ -196,7 +196,7 @@ const CRM: React.FC = () => {
                 ].map((lead, i) => (
                   <tr 
                     key={i} 
-                    className={`hover:bg-slate-50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors ${selectedLead?.id === lead.id ? 'bg-purple-500/5' : ''}`}
+                    className={`hover:bg-slate-50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors ${selectedLead?.id === lead.id ? 'bg-[#e0f2fe]0/5' : ''}`}
                     onClick={() => setSelectedLead(lead)}
                   >
                     <td className="py-4 font-black">{lead.name}</td>
@@ -225,8 +225,8 @@ const CRM: React.FC = () => {
         <div className="w-full lg:w-80 animate-in slide-in-from-right-4 lg:slide-in-from-right-4 slide-in-from-bottom-4 lg:slide-in-from-bottom-0 duration-500">
           <GlassCard className="p-6 h-full border-l-4 border-l-[var(--brand-primary)]">
             <div className="flex justify-between items-start mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--brand-primary)]/10 flex items-center justify-center text-xl">👤</div>
-              <button onClick={() => setSelectedLead(null)} className="text-slate-400 hover:text-slate-600">✕</button>
+              <div className="w-12 h-12 rounded-2xl bg-[var(--brand-primary)]/10 flex items-center justify-center text-xl">??</div>
+              <button onClick={() => setSelectedLead(null)} className="text-slate-400 hover:text-slate-600">?</button>
             </div>
             
             <div className="mb-8">
@@ -268,7 +268,7 @@ const CRM: React.FC = () => {
                 ))}
               </div>
 
-              <button className="w-full py-3 bg-[var(--brand-primary)] text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">
+              <button className="w-full py-3 bg-[var(--brand-primary)] text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20">
                 Log Activity
               </button>
             </div>
@@ -320,12 +320,12 @@ const CRM: React.FC = () => {
                     <button 
                       onClick={(e) => { e.stopPropagation(); handleScoreDeal(deal); }}
                       disabled={scoringDealId === deal.id}
-                      className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center hover:bg-purple-500/20 transition-all"
+                      className="w-8 h-8 rounded-xl bg-[#e0f2fe]0/10 text-[#e0f2fe]0 flex items-center justify-center hover:bg-[#e0f2fe]0/20 transition-all"
                     >
                       {scoringDealId === deal.id ? (
-                        <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-[#e0f2fe]0 border-t-transparent rounded-full animate-spin" />
                       ) : (
-                        <span className="text-lg">✨</span>
+                        <span className="text-lg">?</span>
                       )}
                     </button>
                   </div>
@@ -341,7 +341,7 @@ const CRM: React.FC = () => {
   const renderEngagement = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Upcoming Tasks</h3>
           <div className="space-y-4">
             {[
@@ -354,7 +354,7 @@ const CRM: React.FC = () => {
                   <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-[var(--brand-primary)] focus:ring-[var(--brand-primary)]" />
                   <div>
                     <h4 className="text-xs font-black uppercase tracking-tight">{t.task}</h4>
-                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">Due: {t.due} • Assigned to {t.user}</p>
+                    <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">Due: {t.due} � Assigned to {t.user}</p>
                   </div>
                 </div>
                 <span className={`px-2 py-1 rounded-lg text-[8px] font-black uppercase ${
@@ -367,7 +367,7 @@ const CRM: React.FC = () => {
           </div>
         </GlassCard>
 
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Marketing Campaigns</h3>
           <div className="space-y-4">
             {[
@@ -378,7 +378,7 @@ const CRM: React.FC = () => {
               <div key={i} className="p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 flex justify-between items-center">
                 <div>
                   <h4 className="text-xs font-black uppercase tracking-tight">{c.name}</h4>
-                  <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">{c.leads} Leads Generated • ROI: {c.roi}</p>
+                  <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">{c.leads} Leads Generated � ROI: {c.roi}</p>
                 </div>
                 <span className={`px-2 py-1 rounded-lg text-[8px] font-black uppercase ${
                   c.status === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'
@@ -404,7 +404,7 @@ const CRM: React.FC = () => {
         <GlassCard className="p-6">
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Avg. Response Time</p>
           <h4 className="text-2xl font-black italic">1.2h</h4>
-          <p className="text-[9px] text-emerald-500 font-bold uppercase mt-2">↓ 15% improvement</p>
+          <p className="text-[9px] text-emerald-500 font-bold uppercase mt-2">? 15% improvement</p>
         </GlassCard>
         <GlassCard className="p-6">
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Health Score</p>
@@ -413,9 +413,9 @@ const CRM: React.FC = () => {
         </GlassCard>
       </div>
 
-      <GlassCard className="p-8">
+      <GlassCard className="p-4 sm:p-8">
         <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Active Support Tickets</h3>
-        <div className="overflow-x-auto">
+        <div className="table-wrap">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-slate-100 dark:border-white/5">
@@ -456,7 +456,7 @@ const CRM: React.FC = () => {
   const renderPricing = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Product Catalog</h3>
           <div className="grid grid-cols-2 gap-4">
             {[
@@ -474,7 +474,7 @@ const CRM: React.FC = () => {
           </div>
         </GlassCard>
 
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Regional Price Books</h3>
           <div className="space-y-4">
             {[
@@ -487,7 +487,7 @@ const CRM: React.FC = () => {
                   <h4 className="text-xs font-black uppercase tracking-tight">{pb.region}</h4>
                   <p className="text-[9px] text-slate-500 font-bold uppercase mt-1">Currency: {pb.currency}</p>
                 </div>
-                <span className="text-[10px] font-black uppercase text-purple-500">{pb.adjustment}</span>
+                <span className="text-[10px] font-black uppercase text-[#e0f2fe]0">{pb.adjustment}</span>
               </div>
             ))}
           </div>
@@ -499,13 +499,13 @@ const CRM: React.FC = () => {
   const renderAnalytics = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Conversion Funnel Analysis</h3>
           <div className="h-[300px] flex items-center justify-center border-2 border-dashed border-slate-100 dark:border-white/5 rounded-3xl">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Conversion Chart Visualization</p>
           </div>
         </GlassCard>
-        <GlassCard className="p-8">
+        <GlassCard className="p-4 sm:p-8">
           <h3 className="text-lg font-black uppercase tracking-widest italic mb-8">Marketing ROI by Channel</h3>
           <div className="space-y-6">
             {[
@@ -544,15 +544,15 @@ const CRM: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">CRM & <span className="text-[#0047cc]">Sales Intelligence</span></h2>
-          <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Enterprise Revenue Operations Hub</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">CRM & <span className="text-[#0047cc]">Sales Intelligence</span></h2>
+          <p className="text-slate-500 text-xs sm:text-sm font-bold uppercase tracking-widest">Enterprise Revenue Operations Hub</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-3 w-full sm:w-auto">
           <button 
             onClick={() => setIsDealModalOpen(true)}
-            className="px-6 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-purple-500/20 hover:scale-105 transition-transform"
+            className="flex-1 sm:flex-none px-5 py-3 bg-[var(--brand-primary)] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-[#e0f2fe]0/20 hover:scale-105 transition-transform"
           >
             New Deal
           </button>
@@ -560,14 +560,14 @@ const CRM: React.FC = () => {
       </div>
 
       {/* Primary Navigation */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
+      <div className="tab-nav pb-2">
         {TABS.map(tab => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${
+            className={`tab-btn ${
               activeTab === tab.id 
-              ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-purple-500/20' 
+              ? 'bg-[var(--brand-primary)] text-white shadow-lg shadow-[#e0f2fe]0/20' 
               : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.08]'
             }`}
           >
@@ -577,12 +577,12 @@ const CRM: React.FC = () => {
       </div>
 
       {/* Secondary Navigation */}
-      <div className="flex gap-4 border-b border-slate-100 dark:border-white/5 pb-4">
+      <div className="tab-nav border-b border-slate-100 dark:border-white/5 pb-3">
         {TABS.find(t => t.id === activeTab)?.subTabs.map(subTab => (
           <button
             key={subTab}
             onClick={() => setActiveSubTab(subTab)}
-            className={`text-[9px] font-black uppercase tracking-widest transition-all ${
+            className={`text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap flex-shrink-0 mr-4 ${
               activeSubTab === subTab 
               ? 'text-[var(--brand-primary)]' 
               : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
@@ -616,7 +616,7 @@ const CRM: React.FC = () => {
                   required
                   value={newDeal.title}
                   onChange={(e) => setNewDeal(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
                   placeholder="e.g. Enterprise License Expansion"
                 />
               </div>
@@ -628,7 +628,7 @@ const CRM: React.FC = () => {
                   required
                   value={newDeal.companyName}
                   onChange={(e) => setNewDeal(prev => ({ ...prev, companyName: e.target.value }))}
-                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
                   placeholder="e.g. Acme Corp"
                 />
               </div>
@@ -640,7 +640,7 @@ const CRM: React.FC = () => {
                   required
                   value={newDeal.value || ''}
                   onChange={(e) => setNewDeal(prev => ({ ...prev, value: Number(e.target.value) }))}
-                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                  className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
                   placeholder="e.g. 50000"
                 />
               </div>
@@ -664,7 +664,7 @@ const CRM: React.FC = () => {
 
               <div className="flex gap-4 pt-4">
                 <button type="button" onClick={() => setIsDealModalOpen(false)} className="flex-1 px-6 py-4 border border-slate-200 dark:border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500">Cancel</button>
-                <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">Create Deal</button>
+                <button type="submit" className="flex-1 px-6 py-4 bg-[var(--brand-primary)] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-[#e0f2fe]0/20">Create Deal</button>
               </div>
             </form>
           </GlassCard>
@@ -675,3 +675,6 @@ const CRM: React.FC = () => {
 };
 
 export default CRM;
+
+
+

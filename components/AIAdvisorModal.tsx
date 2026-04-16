@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -363,16 +363,16 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                     <motion.div 
                       initial={false}
                       animate={{ height: expandedCard === 'actions' ? 'auto' : 'auto' }}
-                      className="bg-white rounded-[20px] p-5 shadow-sm border-l-4 border-purple-400 cursor-pointer hover:shadow-md transition-all"
+                      className="bg-white rounded-[20px] p-5 shadow-sm border-l-4 border-[#0ea5e9] cursor-pointer hover:shadow-md transition-all"
                       onClick={() => setExpandedCard(expandedCard === 'actions' ? null : 'actions')}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-[9px] font-black uppercase tracking-wider rounded">
+                            <span className="px-2 py-0.5 bg-[#bae6fd] text-[#075985] text-[9px] font-black uppercase tracking-wider rounded">
                               PRESCRIPTIVE
                             </span>
-                            <span className="text-purple-600">
+                            <span className="text-[#0369a1]">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                               </svg>
@@ -431,7 +431,7 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                               <span className="text-lg font-black text-blue-600">{kpisLive.pendingPayrollApprovals}</span>
                             </div>
                           </div>
-                          <button className="w-full py-2 bg-purple-500 text-white rounded-lg text-xs font-black uppercase hover:bg-purple-600 transition-colors">
+                          <button className="w-full py-2 bg-[#e0f2fe]0 text-white rounded-lg text-xs font-black uppercase hover:bg-[#0369a1] transition-colors">
                             Review All Pending Items
                           </button>
                         </motion.div>
@@ -529,16 +529,16 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                     <motion.div 
                       initial={false}
                       animate={{ height: expandedCard === 'predictive' ? 'auto' : 'auto' }}
-                      className="bg-white rounded-[20px] p-5 shadow-sm border-l-4 border-indigo-400 cursor-pointer hover:shadow-md transition-all"
+                      className="bg-white rounded-[20px] p-5 shadow-sm border-l-4 border-[#60a5fa] cursor-pointer hover:shadow-md transition-all"
                       onClick={() => setExpandedCard(expandedCard === 'predictive' ? null : 'predictive')}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[9px] font-black uppercase tracking-wider rounded">
+                            <span className="px-2 py-0.5 bg-[#dbeafe] text-[#1d4ed8] text-[9px] font-black uppercase tracking-wider rounded">
                               PREDICTIVE
                             </span>
-                            <span className="text-indigo-600">
+                            <span className="text-[#2563eb]">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                               </svg>
@@ -572,17 +572,17 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                               <p className="text-2xl font-black text-slate-900">{totalEmp}</p>
                               <p className="text-[9px] font-bold text-slate-600 uppercase mt-1">Current</p>
                             </div>
-                            <div className="text-center p-3 bg-indigo-50 rounded-xl">
-                              <p className="text-2xl font-black text-indigo-600">+{kpisLive.openPositions}</p>
-                              <p className="text-[9px] font-bold text-indigo-700 uppercase mt-1">Hiring</p>
+                            <div className="text-center p-3 bg-[#eff6ff] rounded-xl">
+                              <p className="text-2xl font-black text-[#2563eb]">+{kpisLive.openPositions}</p>
+                              <p className="text-[9px] font-bold text-[#1d4ed8] uppercase mt-1">Hiring</p>
                             </div>
                             <div className="text-center p-3 bg-emerald-50 rounded-xl">
                               <p className="text-2xl font-black text-emerald-600">{totalEmp + kpisLive.openPositions}</p>
                               <p className="text-[9px] font-bold text-emerald-700 uppercase mt-1">Projected</p>
                             </div>
                           </div>
-                          <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-3">
-                            <p className="text-[10px] font-black text-indigo-700 uppercase mb-2">📊 Growth Impact Analysis</p>
+                          <div className="bg-[#eff6ff] border border-[#bfdbfe] rounded-xl p-3">
+                            <p className="text-[10px] font-black text-[#1d4ed8] uppercase mb-2">📊 Growth Impact Analysis</p>
                             <div className="space-y-2 text-[11px] text-slate-700">
                               <div className="flex justify-between">
                                 <span>Estimated Monthly Payroll Increase:</span>
@@ -635,7 +635,7 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                         <button className="px-4 py-2 bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20">
                           Run Payroll
                         </button>
-                        <button className="px-4 py-2 bg-purple-500 text-white rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20">
+                        <button className="px-4 py-2 bg-[#e0f2fe]0 text-white rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-[#0369a1] transition-all shadow-lg shadow-[#e0f2fe]0/20">
                           View Reports
                         </button>
                       </div>
@@ -921,9 +921,9 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                         <p className="text-2xl font-black text-blue-600">{pendingPayrollCount}</p>
                         <p className="text-[10px] font-bold text-blue-700 uppercase mt-1">Payroll Approvals</p>
                       </div>
-                      <div className="text-center p-4 bg-purple-50 rounded-xl">
-                        <p className="text-2xl font-black text-purple-600">{employees.filter((e: any) => e.status === 'Probation').length}</p>
-                        <p className="text-[10px] font-bold text-purple-700 uppercase mt-1">Probation Reviews</p>
+                      <div className="text-center p-4 bg-[#e0f2fe] rounded-xl">
+                        <p className="text-2xl font-black text-[#0369a1]">{employees.filter((e: any) => e.status === 'Probation').length}</p>
+                        <p className="text-[10px] font-bold text-[#075985] uppercase mt-1">Probation Reviews</p>
                       </div>
                     </div>
                   </div>
@@ -1147,7 +1147,7 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
                         { label: 'Active', count: employees.filter((e: any) => e.status === 'Active').length, color: 'bg-emerald-500', icon: '✓' },
                         { label: 'Remote', count: employees.filter((e: any) => e.status === 'Remote').length, color: 'bg-blue-500', icon: '🏠' },
                         { label: 'On Leave', count: employees.filter((e: any) => e.status === 'On Leave').length, color: 'bg-amber-500', icon: '✈️' },
-                        { label: 'Probation', count: employees.filter((e: any) => e.status === 'Probation').length, color: 'bg-purple-500', icon: '⏱️' },
+                        { label: 'Probation', count: employees.filter((e: any) => e.status === 'Probation').length, color: 'bg-[#e0f2fe]0', icon: '⏱️' },
                       ].map((status) => (
                         <div key={status.label} className="text-center p-4 bg-slate-50 rounded-xl">
                           <span className="text-2xl mb-2 block">{status.icon}</span>
@@ -1169,3 +1169,4 @@ const AIAdvisorModal: React.FC<AIAdvisorModalProps> = ({ isOpen, onClose, userNa
 };
 
 export default AIAdvisorModal;
+

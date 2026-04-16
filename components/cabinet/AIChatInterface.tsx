@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import GlassCard from '../GlassCard';
 
 const AIChatInterface: React.FC = () => {
@@ -27,7 +27,7 @@ const AIChatInterface: React.FC = () => {
     <GlassCard className="flex flex-col h-[600px] overflow-hidden">
       <div className="p-4 border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5">
         <h3 className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#e0f2fe]0 animate-pulse" />
           Document Insights AI
         </h3>
         <p className="text-[10px] text-slate-500 mt-1">Vector DB Retrieval & Summarization</p>
@@ -54,7 +54,7 @@ const AIChatInterface: React.FC = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Ask a question about your documents..."
-            className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+            className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#e0f2fe]0/20"
           />
           <button 
             type="submit"
@@ -69,3 +69,4 @@ const AIChatInterface: React.FC = () => {
 };
 
 export default AIChatInterface;
+

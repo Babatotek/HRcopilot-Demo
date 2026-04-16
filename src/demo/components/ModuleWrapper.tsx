@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/components/ModuleWrapper.tsx
 // PURPOSE: ErrorBoundary wrapper for every module.
 //   Catches render errors in isolation — one broken module
@@ -37,7 +37,7 @@ function ModuleFallback({ error, resetErrorBoundary, moduleName }: FallbackProps
       </p>
       <button
         onClick={resetErrorBoundary}
-        className="px-5 py-2.5 bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/30 rounded-xl text-white/70 hover:text-white text-xs font-black uppercase tracking-wider transition-all"
+        className="px-5 py-2.5 bg-[#0369a1]/20 hover:bg-[#0369a1]/30 border border-[#e0f2fe]0/30 rounded-xl text-white/70 hover:text-white text-xs font-black uppercase tracking-wider transition-all"
       >
         Retry Module
       </button>
@@ -68,3 +68,4 @@ export function ModuleWrapper({ name, children }: ModuleWrapperProps) {
     </ErrorBoundary>
   );
 }
+

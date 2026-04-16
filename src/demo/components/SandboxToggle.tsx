@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // FILE: src/demo/components/SandboxToggle.tsx
 // PURPOSE: Mode switcher pill — Guided / Sandbox / Flows.
 //   Reads/writes demoOrchestrator + onboardingStore.
@@ -80,7 +80,7 @@ export function SandboxToggle({ compact = false }: Props) {
                       onClick={() => handleSelect(m.id)}
                       className={`w-full flex items-start gap-3 px-3 py-3 rounded-xl text-left transition-all ${
                         activeMode === m.id
-                          ? 'bg-violet-600/20 border border-violet-500/30'
+                          ? 'bg-[#0369a1]/20 border border-[#e0f2fe]0/30'
                           : 'hover:bg-white/5 border border-transparent'
                       }`}
                     >
@@ -89,7 +89,7 @@ export function SandboxToggle({ compact = false }: Props) {
                         <p className="text-[11px] font-black text-white uppercase tracking-tight">
                           {m.label}
                           {activeMode === m.id && (
-                            <span className="ml-2 text-violet-400">✓</span>
+                            <span className="ml-2 text-[#0ea5e9]">✓</span>
                           )}
                         </p>
                         <p className="text-[10px] text-white/40 mt-0.5 leading-relaxed">{m.desc}</p>
@@ -129,7 +129,7 @@ export function SandboxToggle({ compact = false }: Props) {
             onClick={() => handleSelect(m.id)}
             className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${
               activeMode === m.id
-                ? 'bg-violet-600/20 border-violet-500/40 text-white'
+                ? 'bg-[#0369a1]/20 border-[#e0f2fe]0/40 text-white'
                 : 'bg-white/5 border-white/10 text-white/50 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -187,11 +187,11 @@ function FlowPicker({ open, onClose }: { open: boolean; onClose: () => void }) {
                 <button
                   key={flow.id}
                   onClick={handleFlow}
-                  className="w-full flex items-center gap-4 px-4 py-3 bg-white/5 hover:bg-violet-600/15 border border-white/10 hover:border-violet-500/30 rounded-xl text-left transition-all group"
+                  className="w-full flex items-center gap-4 px-4 py-3 bg-white/5 hover:bg-[#0369a1]/15 border border-white/10 hover:border-[#e0f2fe]0/30 rounded-xl text-left transition-all group"
                 >
                   <span className="text-2xl flex-shrink-0">{flow.icon}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[12px] font-black text-white group-hover:text-violet-300 transition-colors">
+                    <p className="text-[12px] font-black text-white group-hover:text-[#38bdf8] transition-colors">
                       {flow.title}
                     </p>
                     <p className="text-[10px] text-white/40 truncate">{flow.description}</p>
@@ -208,3 +208,4 @@ function FlowPicker({ open, onClose }: { open: boolean; onClose: () => void }) {
     </AnimatePresence>
   );
 }
+

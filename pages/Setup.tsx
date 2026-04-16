@@ -37,7 +37,7 @@ const Setup: React.FC = () => {
         </p>
       </motion.div>
 
-      <GlassCard className="p-10 max-w-2xl mx-auto relative overflow-hidden">
+      <GlassCard className="p-5 sm:p-10 max-w-2xl mx-auto relative overflow-hidden">
         {isProvisioning && (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -115,3 +115,4 @@ const Setup: React.FC = () => {
 };
 
 export default Setup;
+
