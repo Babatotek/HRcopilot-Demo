@@ -71,6 +71,7 @@ export default defineConfig(({ mode }) => {
             if (id.includes('node_modules/dexie')) return 'dexie';
             if (id.includes('node_modules/react-joyride') || id.includes('node_modules/react-floater')) return 'joyride';
             // App code — split pages from components
+            if (id.includes('demoData.ts') || id.includes('mockDb.ts') || id.includes('constants.tsx') || id.includes('types.ts')) return 'shared-data';
             if (id.includes('/pages/')) return 'pages';
             if (id.includes('/src/components/leakage/')) return 'leakage';
             if (id.includes('/components/')) return 'components';
