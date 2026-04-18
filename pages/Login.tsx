@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrandSettings, UserRole, UserProfile } from '../types';
-import { ThemeToggle } from '../App';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 interface LoginProps {
   onLogin: (user: UserProfile) => void;
