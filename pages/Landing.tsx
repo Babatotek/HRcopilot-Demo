@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import { motion } from 'motion/react';
 import { 
@@ -17,6 +17,216 @@ interface LandingProps {
   theme: 'dark' | 'light';
   onToggleTheme: () => void;
 }
+
+// ── Module Summary Section ────────────────────────────────────────────────────
+const MODULES_DATA = [
+  // Core HR
+  { category: 'Core HR', module: 'Executive Dashboard', description: 'Real-time command center for leadership', features: 'KPI cards, headcount trends, payroll charts, hiring funnel, top performers', benefit: 'CEOs see the full health of the business in one screen — no chasing reports', isAI: false },
+  { category: 'Core HR', module: 'Employee Dashboard', description: 'Personal portal for every staff member', features: 'Payslips, attendance history, leave balance, performance score, approvals queue', benefit: 'Employees are self-sufficient — reduces HR query volume by up to 60%', isAI: false },
+  { category: 'Core HR', module: 'Employee Directory', description: 'Central record of every person in the organization', features: 'Digital profiles, employment type, department, salary band, documents', benefit: 'Single source of truth — eliminates duplicate records and inconsistencies', isAI: false },
+  { category: 'Core HR', module: 'Role Management', description: 'Controls who sees and does what across the platform', features: 'Role creation, permission assignment, access matrix, department restrictions', benefit: 'Prevents unauthorized access to sensitive payroll and financial data', isAI: false },
+  { category: 'Core HR', module: 'Branch Management', description: 'Manages multi-location operations from one dashboard', features: 'Branch creation, staff assignment, branch-level reporting, location analytics', benefit: 'Multiple offices managed centrally — no confusion across locations', isAI: false },
+  // Payroll
+  { category: 'Payroll', module: 'Payroll Engine', description: 'Automates the full payroll cycle end-to-end', features: 'Gross/net calculation, overtime, bonuses, multi-currency (₦, $, £, €)', benefit: 'Eliminates 3-day manual payroll runs — processes in under 20 minutes', isAI: false },
+  { category: 'Payroll', module: 'Statutory Compliance', description: 'Handles all Nigerian and international tax obligations automatically', features: 'PAYE, PENCOM, NSITF, ITF, NHF auto-calculation and deduction', benefit: 'Zero compliance errors — always audit-ready, no penalties', isAI: false },
+  { category: 'Payroll', module: 'Payslip Generation', description: 'Creates and distributes professional payslips', features: 'Digital payslip per employee, downloadable PDF, full deduction breakdown', benefit: 'Employees trust their pay — disputes drop dramatically', isAI: false },
+  { category: 'Payroll', module: 'Payroll Trend Analytics', description: 'Tracks payroll costs over time', features: 'Monthly gross vs. net charts, YTD totals, department cost breakdown', benefit: 'Finance teams spot cost anomalies before they become problems', isAI: false },
+  // Attendance
+  { category: 'Attendance', module: 'Attendance Management', description: 'Tracks who is present, late, or absent in real time', features: 'Live dashboard, clock-in/out logs, late arrival flags, absenteeism trends', benefit: 'Managers know exactly who is at work at any moment', isAI: false },
+  { category: 'Attendance', module: 'Geofence Map', description: 'Enforces location-based attendance', features: 'GPS boundary per branch, out-of-zone alerts, map visualization', benefit: 'Eliminates buddy punching and remote clock-in fraud entirely', isAI: false },
+  { category: 'Attendance', module: 'Leave Management', description: 'Manages all leave types and approval workflows', features: 'Annual, sick, casual, maternity leave; approval flow; balance tracking; calendar', benefit: 'Leave managed fairly and transparently — no more WhatsApp leave requests', isAI: false },
+  // Performance
+  { category: 'Performance', module: 'Performance Management', description: 'Runs continuous performance review cycles', features: 'Evaluation forms, scoring, manager reviews, performance trends, cycle management', benefit: 'Replaces annual reviews with ongoing feedback — staff improve faster', isAI: false },
+  { category: 'Performance', module: 'Goals & OKRs', description: 'Aligns individual goals with company strategy', features: 'Objective creation, key result tracking, weighted progress, AI-suggested KRs', benefit: "Every employee's work connects to company targets — strategy becomes execution", isAI: true },
+  { category: 'Performance', module: 'Talent Management', description: 'Manages the full recruitment and onboarding pipeline', features: 'Job openings, applicant tracking, candidate scoring, interview stages, onboarding', benefit: 'Reduces time-to-hire and ensures new hires are productive from day one', isAI: false },
+  { category: 'Performance', module: 'Engagement Dashboard', description: 'Measures and drives employee morale and culture', features: 'Recognition feed, kudos points, rewards redemption, polls, milestone tracking', benefit: 'High engagement reduces turnover — strong recognition programs retain 31% more staff', isAI: false },
+  // Finance
+  { category: 'Finance', module: 'Accounting & Finance', description: 'Full double-entry accounting suite', features: 'General ledger, chart of accounts, journal entries, trial balance, GL reports', benefit: 'Replaces standalone accounting software — HR and finance data always in sync', isAI: false },
+  { category: 'Finance', module: 'Cash Flow & P&L', description: 'Tracks money in and money out', features: 'Cash flow dashboard, P&L overview, revenue vs. expense charts, period comparisons', benefit: 'Leadership sees financial health in real time — no waiting for month-end reports', isAI: false },
+  { category: 'Finance', module: 'Financial Reporting', description: 'Generates statutory and management reports', features: 'Balance sheet, income statement, consolidation reports, tax reports', benefit: 'Audit-ready financials at any time — no scrambling at year-end', isAI: false },
+  { category: 'Finance', module: 'Budgeting & Planning', description: 'Controls spending against approved budgets', features: 'Budget vs. actual tracking, department budgets, forecasts', benefit: 'Overspending is caught before it happens — not after', isAI: false },
+  { category: 'Finance', module: 'Invoices & Receipts', description: 'Creates and tracks all company invoices', features: 'Invoice generation, line items, payment status, customer records', benefit: 'Professional invoicing improves cash collection speed and client perception', isAI: false },
+  // Procurement
+  { category: 'Procurement', module: 'Procurement Management', description: 'Controls all purchasing activity', features: 'Purchase requisitions, purchase orders, vendor management, approval workflows', benefit: 'Unauthorized spending eliminated — every purchase has a paper trail', isAI: false },
+  { category: 'Procurement', module: 'AI Contract Extraction', description: 'Reads and summarizes vendor contracts using AI', features: 'Paste contract text → Gemini extracts key terms, obligations, and dates', benefit: 'Legal and procurement teams save hours reviewing contracts manually', isAI: true },
+  { category: 'Procurement', module: 'Spend Analytics', description: 'Tracks procurement costs by category and department', features: 'Spend breakdown charts, PO status tracking, budget consumption', benefit: 'Identifies where the company is overspending before it becomes a problem', isAI: false },
+  // CRM
+  { category: 'CRM & Sales', module: 'Sales Intelligence', description: 'Gives sales teams a real-time view of their pipeline', features: 'Sales pipeline board, deal stages, leaderboard, activity feed, forecasting', benefit: 'Sales managers see exactly where every deal stands — no more guessing', isAI: false },
+  { category: 'CRM & Sales', module: 'AI Deal Scoring', description: 'Uses Gemini AI to score the probability of closing each deal', features: 'One-click AI analysis → probability score + recommended next action', benefit: 'Sales teams focus on the right deals — conversion rates improve', isAI: true },
+  { category: 'CRM & Sales', module: 'Relationship Management', description: 'Manages leads, contacts, and accounts', features: 'Lead tracking, contact profiles, account-based marketing targets', benefit: 'No lead falls through the cracks — every relationship is documented', isAI: false },
+  { category: 'CRM & Sales', module: 'Support & Success', description: 'Manages post-sale customer relationships', features: 'Support tickets, SLA monitoring, customer health scores, knowledge base', benefit: 'Customer retention improves — issues resolved before clients churn', isAI: false },
+  // Communication
+  { category: 'Communication', module: 'Team Chat', description: 'Internal messaging platform for the whole organization', features: 'Real-time chat, channels, message history, file sharing, admin dashboard', benefit: 'Replaces WhatsApp for work — all communication is searchable and professional', isAI: false },
+  { category: 'Communication', module: 'Memo System', description: 'Official internal communication and announcements', features: 'Create memos, assign recipients, read receipts, broadcast to departments', benefit: "Important announcements documented and confirmed received — no 'I didn't see it'", isAI: false },
+  { category: 'Communication', module: 'Video Meetings', description: 'Built-in video conferencing for the team', features: 'Multi-participant video, in-meeting chat, file sharing, screen layout management', benefit: 'Teams meet without leaving the platform — no switching to Zoom or Teams', isAI: false },
+  // AI & Intelligence
+  { category: 'AI & Intelligence', module: 'AI Advisor', description: 'On-demand AI strategic advisor powered by Google Gemini', features: 'Role-aware responses, natural language queries, real-time data context', benefit: 'Every user gets expert-level guidance instantly — no consultant required', isAI: true },
+  { category: 'AI & Intelligence', module: 'Leakage Intelligence', description: 'Detects where the organization is losing money', features: 'Cross-references HR, payroll, attendance, finance & procurement; industry benchmarking', benefit: 'Uncovers hidden financial losses — typically ₦5M–₦200M annually', isAI: true },
+  { category: 'AI & Intelligence', module: 'Automation & Workflows', description: 'Automates repetitive HR processes', features: 'Onboarding tasks, leave routing, timesheet reminders, payroll cutoff alerts', benefit: 'HR team spends time on people, not paperwork — admin overhead drops by 40%', isAI: true },
+  { category: 'AI & Intelligence', module: 'Smart Resume Screener', description: 'AI-ranks incoming job applications', features: 'Automatic scoring and ranking of candidates against job requirements', benefit: 'Recruiters review only the best candidates — hiring quality improves', isAI: true },
+  { category: 'AI & Intelligence', module: 'Retention Risk Analysis', description: 'Identifies employees likely to leave', features: 'Analyzes HR data patterns to flag flight risks before they resign', benefit: 'Proactive retention saves the cost of replacing staff (50–200% of annual salary)', isAI: true },
+  // Security
+  { category: 'Security', module: 'Identity & Access', description: 'Controls who can access what across the entire platform', features: 'User provisioning, RBAC, risk scoring per user, device binding', benefit: 'Sensitive data protected — only authorized people see payroll and finance records', isAI: false },
+  { category: 'Security', module: 'Security Monitoring', description: 'Detects suspicious activity in real time', features: 'Geo-spoof detection, device mismatch alerts, risk level badges, audit trail', benefit: 'Security threats caught immediately — not discovered after damage is done', isAI: false },
+  // System
+  { category: 'System', module: 'Virtual Cabinet', description: 'Digital document management system', features: 'File explorer, AI metadata extraction, cabinet categories, role-based access', benefit: 'Eliminates physical filing — every document is searchable and access-controlled', isAI: true },
+  { category: 'System', module: 'Integrations Hub', description: 'Connects HRcopilot to external tools', features: 'Zoom, Slack, Teams, QuickBooks, Workday, DocuSign, Paycor, Greenhouse; open API', benefit: 'Existing tools keep working — HRcopilot becomes the hub that connects everything', isAI: false },
+  { category: 'System', module: 'Brand Settings', description: 'Customizes the platform to match company identity', features: 'Logo upload, primary color, company name, theme configuration', benefit: "The platform feels like your company's own system — not generic software", isAI: false },
+  { category: 'System', module: 'Currency Context', description: 'Manages multi-currency display across the platform', features: 'Real-time currency switching, exchange rate application, symbol formatting', benefit: 'International operations display figures in the correct local currency', isAI: false },
+];
+
+const CATEGORY_COLORS: Record<string, string> = {
+  'Core HR':          'bg-blue-100 text-blue-700',
+  'Payroll':          'bg-emerald-100 text-emerald-700',
+  'Attendance':       'bg-violet-100 text-violet-700',
+  'Performance':      'bg-amber-100 text-amber-700',
+  'Finance':          'bg-cyan-100 text-cyan-700',
+  'Procurement':      'bg-orange-100 text-orange-700',
+  'CRM & Sales':      'bg-rose-100 text-rose-700',
+  'Communication':    'bg-indigo-100 text-indigo-700',
+  'AI & Intelligence':'bg-purple-100 text-purple-700',
+  'Security':         'bg-red-100 text-red-700',
+  'System':           'bg-slate-100 text-slate-700',
+};
+
+const ModuleSummarySection: React.FC<{ onGetStarted: () => void }> = ({ onGetStarted }) => {
+  const [search, setSearch] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const categories = useMemo(() => ['All', ...Array.from(new Set(MODULES_DATA.map(m => m.category)))], []);
+
+  const filtered = useMemo(() => MODULES_DATA.filter(m => {
+    const q = search.toLowerCase();
+    const matchSearch = !q || m.module.toLowerCase().includes(q) || m.description.toLowerCase().includes(q) || m.benefit.toLowerCase().includes(q);
+    const matchCat = activeCategory === 'All' || m.category === activeCategory;
+    return matchSearch && matchCat;
+  }), [search, activeCategory]);
+
+  const aiCount = MODULES_DATA.filter(m => m.isAI).length;
+
+  return (
+    <section id="modules" className="py-20 md:py-32 px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[2px] bg-[#0047cc]" />
+            <span className="text-[#0047cc] font-bold text-[10px] tracking-[0.2em] uppercase">Platform Overview</span>
+            <div className="w-8 h-[2px] bg-[#0047cc]" />
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-4">
+            Every Module. Every Capability.
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-base leading-relaxed mb-8">
+            {MODULES_DATA.length} modules and widgets — all working together in one unified platform. Search, filter, and explore everything HRcopilot can do for your organization.
+          </p>
+          {/* Stat pills */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { label: `${MODULES_DATA.length} Total Modules`, color: 'bg-[#0047cc] text-white' },
+              { label: `${aiCount} AI-Powered`, color: 'bg-purple-600 text-white' },
+              { label: `${categories.length - 1} Categories`, color: 'bg-slate-800 text-white' },
+              { label: '120+ Countries', color: 'bg-emerald-600 text-white' },
+            ].map((p, i) => (
+              <span key={i} className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide ${p.color}`}>{p.label}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Search + Filter bar */}
+        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4 mb-8 flex flex-col md:flex-row gap-4 items-center">
+          <div className="relative w-full md:w-80 flex-shrink-0">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search modules or benefits..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0047cc]/20 focus:border-[#0047cc] transition-all"
+            />
+          </div>
+          <div className="flex flex-wrap gap-2 flex-1">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg text-[11px] font-bold tracking-wide transition-all ${
+                  activeCategory === cat
+                    ? 'bg-[#0047cc] text-white shadow-md shadow-[#0047cc]/20'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:border-[#0047cc]/40 hover:text-[#0047cc]'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <span className="text-[11px] font-bold text-slate-400 whitespace-nowrap flex-shrink-0">
+            {filtered.length} of {MODULES_DATA.length}
+          </span>
+        </div>
+
+        {/* Table */}
+        <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-900 text-white">
+                  <th className="text-left py-4 px-5 font-bold text-[10px] tracking-widest uppercase w-[22%]">Module</th>
+                  <th className="text-left py-4 px-5 font-bold text-[10px] tracking-widest uppercase w-[22%]">What It Does</th>
+                  <th className="text-left py-4 px-5 font-bold text-[10px] tracking-widest uppercase w-[30%]">Key Features</th>
+                  <th className="text-left py-4 px-5 font-bold text-[10px] tracking-widest uppercase w-[26%]">Organizational Benefit</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filtered.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="py-16 text-center text-slate-400 text-sm">
+                      No modules match your search. Try a different term or reset the filter.
+                    </td>
+                  </tr>
+                ) : filtered.map((item, i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors group">
+                    <td className="py-4 px-5 align-top">
+                      <div className="font-bold text-slate-900 group-hover:text-[#0047cc] transition-colors">
+                        {item.module}
+                        {item.isAI && (
+                          <span className="ml-2 inline-block bg-purple-100 text-purple-700 text-[9px] font-black px-2 py-0.5 rounded-full tracking-wide">AI</span>
+                        )}
+                      </div>
+                      <span className={`mt-1.5 inline-block text-[9px] font-bold px-2 py-0.5 rounded-full ${CATEGORY_COLORS[item.category] ?? 'bg-slate-100 text-slate-600'}`}>
+                        {item.category}
+                      </span>
+                    </td>
+                    <td className="py-4 px-5 text-slate-600 align-top leading-relaxed">{item.description}</td>
+                    <td className="py-4 px-5 text-slate-500 align-top leading-relaxed">{item.features}</td>
+                    <td className="py-4 px-5 align-top bg-emerald-50/40 border-l-2 border-emerald-200">
+                      <span className="text-emerald-600 font-bold mr-1">✓</span>
+                      <span className="text-slate-700 leading-relaxed">{item.benefit}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-10 text-center">
+          <p className="text-slate-500 text-sm mb-6">Ready to see all {MODULES_DATA.length} modules in action?</p>
+          <button
+            onClick={onGetStarted}
+            className="inline-flex items-center gap-2 bg-[#0047cc] text-white px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-[#0035a0] hover:shadow-lg hover:shadow-[#0047cc]/30 hover:-translate-y-0.5 active:scale-95 transition-all"
+          >
+            Explore the Live Demo <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, onViewApp, brand }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -114,6 +324,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, onViewApp, bra
           <div className="hidden lg:flex items-center gap-10 text-[11px] font-bold tracking-widest uppercase text-slate-400">
             <a href="#home" className="hover:text-[#0047cc] transition-colors">HOME</a>
             <a href="#features" className="hover:text-[#0047cc] transition-colors">FEATURES</a>
+            <a href="#modules" className="hover:text-[#0047cc] transition-colors">PLATFORM OVERVIEW</a>
             <a href="#pricing" className="hover:text-[#0047cc] transition-colors">PRICING</a>
             <a href="#contact" className="hover:text-[#0047cc] transition-colors">CONTACT</a>
           </div>
@@ -143,6 +354,7 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, onViewApp, bra
           <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-2xl py-6 px-6 flex flex-col gap-6 animate-in slide-in-from-top-2 z-[101] max-h-[80vh] overflow-y-auto overscroll-contain touch-pan-y">
             <a href="#home" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0047cc] transition-colors">HOME</a>
             <a href="#features" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0047cc] transition-colors">FEATURES</a>
+            <a href="#modules" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0047cc] transition-colors">PLATFORM OVERVIEW</a>
             <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0047cc] transition-colors">PRICING</a>
             <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold tracking-widest uppercase text-slate-900 hover:text-[#0047cc] transition-colors">CONTACT</a>
             <div className="h-px bg-slate-100 w-full my-2"></div>
@@ -183,8 +395,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, onViewApp, bra
             transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-400 fill-mode-both"
           >
-            <span className="block text-slate-900 dark:text-white mb-2">HUMAN CAPITAL</span>
-            <span className="gradient-text-live italic">REIMAGINED.</span>
+            <span className="block text-slate-900 dark:text-white mb-0">DRIVE YOUR VISION</span>
+            <span className="block text-slate-500 dark:text-slate-400 italic lowercase text-2xl sm:text-3xl md:text-5xl mb-2">with</span>
+            <span className="gradient-text-live italic">PRECISION.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -461,6 +674,9 @@ const Landing: React.FC<LandingProps> = ({ onGetStarted, onLogin, onViewApp, bra
           </div>
         </div>
       </section>
+
+      {/* ── Module Summary Section ─────────────────────────────────────── */}
+      <ModuleSummarySection onGetStarted={onGetStarted} />
 
       {/* FAQ */}
       <section className="py-20 md:py-32 px-6 bg-slate-50">

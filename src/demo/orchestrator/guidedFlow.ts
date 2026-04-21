@@ -51,6 +51,15 @@ export const GUIDED_FLOW: DemoStep[] = [
     uiAction:     'open:payslip',
   },
   {
+    id:           'approval-pipeline',
+    label:        'Approvals',
+    module:       'payroll',              // stays on payroll — approval chain is visible here
+    narrationKey: 'approval.pipeline',
+    durationMs:   14_000,
+    joyrideTarget: '#payroll-run-btn',
+    uiAction:     'open:approval-chain',
+  },
+  {
     id:           'procurement',
     label:        'Procurement',
     module:       'procurement',

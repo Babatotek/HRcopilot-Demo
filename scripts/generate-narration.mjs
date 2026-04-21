@@ -77,6 +77,10 @@ const SCRIPTS = [
   { id:'payroll.ledgerPost', role:'CEO',     text:"Payroll approved. Journal entries are generated automatically and posted to the general ledger. The close cycle for this period is already complete." },
   { id:'payroll.ledgerPost', role:'HR',      text:"Every payslip is now a posted accounting record. HR costs are visible in the P&L in real time — no waiting for month-end." },
   { id:'payroll.ledgerPost', role:'FINANCE', text:"Payroll journal entries posted. Reconciliation is instant. The audit trail runs from individual clock-in records all the way to the ledger entry." },
+  // approval pipeline
+  { id:'approval.pipeline', role:'CEO',     text:"Nothing moves in HRcopilot without going through the right approval chain. Leave requests, payroll runs, purchase orders, and expense claims — every operation is gated by a configurable approval pipeline. Decisions are tracked, timestamped, and auditable. Your controls are enforced automatically, not manually." },
+  { id:'approval.pipeline', role:'HR',      text:"Every leave request, payroll submission, and employee change goes through a structured approval workflow. Managers approve at the right level, HR reviews what needs review, and nothing slips through without a documented decision. The approval trail is always there when you need it." },
+  { id:'approval.pipeline', role:'FINANCE', text:"Every financial commitment — payroll runs, purchase orders, invoices, and expense claims — requires the correct approval before it is processed. Approval chains are configured by value threshold and department. No payment leaves the system without a verified, timestamped authorisation on record." },
   // procurement
   { id:'procurement.hook', role:'CEO',     text:"Every purchase request in your organisation goes through the same controlled approval workflow. Maverick spending is blocked before it happens." },
   { id:'procurement.hook', role:'HR',      text:"HR procurement — training programmes, equipment, benefits administration — follows the same approval workflow as every other department. No off-system purchases." },

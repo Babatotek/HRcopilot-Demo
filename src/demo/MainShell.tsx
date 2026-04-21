@@ -52,7 +52,8 @@ const LeakageWidget    = lazy(() => import('../components/leakage/Organizational
 import AIAdvisorModal      from '../../components/AIAdvisorModal';
 import ClockInModal        from '../../components/ClockInModal';
 import LeakageAnalysisModal from '../../components/LeakageAnalysisModal';
-import { DemoPayslipModal } from './components/DemoPayslipModal';
+import { DemoPayslipModal }        from './components/DemoPayslipModal';
+import { DemoApprovalChainModal }  from './components/DemoApprovalChainModal';
 import { DemoLeakageModal } from './components/DemoLeakageModal';
 import { LeakageClosingScreen } from './components/LeakageClosingScreen';
 
@@ -234,6 +235,7 @@ export default function MainShell() {
   const [isClockInOpen, setIsClockInOpen] = useState(false);
   const [isLeakageOpen, setIsLeakageOpen] = useState(false);
   const [isDemoPayslipOpen, setIsDemoPayslipOpen] = useState(false);
+  const [isDemoApprovalOpen, setIsDemoApprovalOpen] = useState(false);
   const [isDemoLeakageOpen, setIsDemoLeakageOpen] = useState(false);
   const [isLeakageClosingOpen, setIsLeakageClosingOpen] = useState(false);
   const location = useLocation();
@@ -260,10 +262,12 @@ export default function MainShell() {
       if (action === 'open:ai-advisor')      setIsAIOpen(true);
       if (action === 'open:leakage')         setIsDemoLeakageOpen(true);
       if (action === 'open:payslip')         setIsDemoPayslipOpen(true);
+      if (action === 'open:approval-chain')  setIsDemoApprovalOpen(true);
       if (action === 'open:leakage-closing') setIsLeakageClosingOpen(true);
       if (action === 'close:ai-advisor')     setIsAIOpen(false);
       if (action === 'close:leakage')        setIsDemoLeakageOpen(false);
       if (action === 'close:payslip')        setIsDemoPayslipOpen(false);
+      if (action === 'close:approval-chain') setIsDemoApprovalOpen(false);
       if (action === 'close:leakage-closing') setIsLeakageClosingOpen(false);
     };
     window.addEventListener('demo:uiAction', handler);
@@ -504,6 +508,10 @@ export default function MainShell() {
       <DemoPayslipModal
         isOpen={isDemoPayslipOpen}
         onClose={() => setIsDemoPayslipOpen(false)}
+      />
+      <DemoApprovalChainModal
+        isOpen={isDemoApprovalOpen}
+        onClose={() => setIsDemoApprovalOpen(false)}
       />
       <DemoLeakageModal
         isOpen={isDemoLeakageOpen}

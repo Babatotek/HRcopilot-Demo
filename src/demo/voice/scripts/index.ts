@@ -255,6 +255,12 @@ export const ALL_SCRIPTS: Record<string, any> = {
     FINANCE: "The advisor is forecasting your revenue close for the period based on current pipeline velocity. It will tell you the gap between your forecast and your target.",
   },
 
+  'approval.pipeline': {
+    CEO:     "Nothing moves in HRcopilot without going through the right approval chain. Leave requests, payroll runs, purchase orders, and expense claims — every operation is gated by a configurable approval pipeline. Decisions are tracked, timestamped, and auditable. Your controls are enforced automatically, not manually.",
+    HR:      "Every leave request, payroll submission, and employee change goes through a structured approval workflow. Managers approve at the right level, HR reviews what needs review, and nothing slips through without a documented decision. The approval trail is always there when you need it.",
+    FINANCE: "Every financial commitment — payroll runs, purchase orders, invoices, and expense claims — requires the correct approval before it is processed. Approval chains are configured by value threshold and department. No payment leaves the system without a verified, timestamped authorisation on record.",
+  },
+
   'procurement.hook': {
     CEO:     "Every purchase request in your organisation goes through the same controlled approval workflow. Maverick spending is blocked before it happens.",
     HR:      "HR procurement — training programmes, equipment, benefits administration — follows the same approval workflow as every other department. No off-system purchases.",

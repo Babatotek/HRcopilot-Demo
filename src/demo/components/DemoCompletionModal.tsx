@@ -109,13 +109,13 @@ export function DemoCompletionModal() {
               >
                 <div className="w-px h-4 bg-white/10" />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: 'rgba(14,165,233,0.6)' }}>
-                  HR360 · Demo Complete
+                  HRcopilot · Demo Complete
                 </span>
                 <div className="w-px h-4 bg-white/10" />
               </motion.div>
 
               <h2 className="text-2xl font-black text-white tracking-tight mb-2" style={{ letterSpacing: '-0.02em' }}>
-                You've seen HR360 at its best
+                You've seen HRcopilot at its best
               </h2>
               <p className="text-white/40 text-sm max-w-md mx-auto leading-relaxed">
                 Now let's talk about what it can do for{' '}
